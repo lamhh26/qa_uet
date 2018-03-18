@@ -6,6 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 gem "coffee-rails", "~> 4.2"
+gem "devise"
+gem "figaro"
+gem "font-awesome-rails"
+gem "jquery-rails"
 gem "mysql2"
 gem "puma", "~> 3.7"
 gem "rails", "~> 5.1.2"
@@ -17,13 +21,11 @@ group :development, :test do
   gem "better_errors"
   gem "brakeman", require: false
   gem "bundler-audit"
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "database_cleaner"
-  gem "figaro"
   gem "guard-rspec", require: false
   gem "jshint"
-  gem "pry"
   gem "pry-byebug"
+  gem "pry-rails"
   gem "railroady"
   gem "rails_best_practices"
   gem "reek"
