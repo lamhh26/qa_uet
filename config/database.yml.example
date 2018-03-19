@@ -4,12 +4,18 @@ default: &default
   pool: 5
   username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
   socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: <%= ENV["DATABASE_NAME_TEST"] %>
 
 staging:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>

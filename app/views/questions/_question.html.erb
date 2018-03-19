@@ -1,0 +1,51 @@
+<div class="qa-q-list-item">
+  <div class="qa-q-item-stats">
+    <div class="qa-voting qa-voting-net" id="voting_62962">
+      <div class="qa-vote-count qa-vote-count-net">
+        <span class="qa-netvote-count">
+          <span class="qa-netvote-count-data"><%= question.vote_count.to_i %></span>
+          <span class="qa-netvote-count-pad"> votes</span>
+        </span>
+      </div>
+      <div class="qa-vote-clear">
+      </div>
+    </div>
+    <span class="qa-a-count qa-a-count-zero">
+    <span class="qa-a-count-data"><%= question.answers_count %></span><span class="qa-a-count-pad"> answers</span>
+    </span>
+    <span class="qa-view-count">
+    <span class="qa-view-count-data">9</span><span class="qa-view-count-pad"> views</span>
+    </span>
+  </div>
+  <div class="qa-q-item-main">
+    <div class="qa-q-item-title">
+      <%= link_to question_path(question) do %>
+        <span><%= question.title %></span>
+      <% end %>
+    </div>
+    <span class="qa-q-item-avatar-meta">
+      <span class="qa-q-item-avatar">
+        <span class="qa-avatar-image"><i class="fa fa-user"></i></span>
+    </span>
+    <span class="qa-q-item-meta">
+    <span class="qa-q-item-what">asked</span>
+    <span class="qa-q-item-when">
+    <span class="qa-q-item-when-data"><%= time_ago_in_words question.created_at %></span><span class="qa-q-item-when-pad"> ago</span>
+    </span>
+    <span class="qa-q-item-who">
+    <span class="qa-q-item-who-pad">by </span>
+    <span class="qa-q-item-who-data">
+      <%= link_to question.owner_user.name, user_path(question.owner_user) %>
+    </span>
+    </span>
+    </span>
+    </span>
+    <div class="qa-q-item-tags">
+      <ul class="qa-q-item-tag-list">
+        <%= render partial: "questions/tag", collection: question.tags %>
+      </ul>
+    </div>
+  </div>
+  <div class="qa-q-item-clear">
+  </div>
+</div>
