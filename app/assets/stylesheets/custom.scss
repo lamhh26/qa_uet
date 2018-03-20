@@ -1,0 +1,13 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.qa-body-js-on .qa-notice {display:none;}
+.qa-nav-user { margin: 0 !important; }
+.qa-logo-link img {padding-top:8px;}
+.nav-tab-bound{
+  width: 74.5%;
+}
+.nav-tabs > li {
+  float: right !important;
+  margin-bottom: -1px;
+}

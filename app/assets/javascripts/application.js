@@ -11,4 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-sprockets
+//= require qa-page
+//= require snow-core
 //= require_tree .
