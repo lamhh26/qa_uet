@@ -1,0 +1,6 @@
+<div class="tag-content">
+  <div class="tag col-md-3">
+    <%= link_to tag.name, tagged_questions_path(tag.name), class: "qa-tag-link" %>
+    <span>x <%= tag.tag_count %></span>
+  </div>
+</div>

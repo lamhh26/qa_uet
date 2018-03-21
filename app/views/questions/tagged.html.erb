@@ -1,7 +1,7 @@
 <div class="container">
   <div class="nav-tab-bound">
     <ul class="nav nav-tabs">
-      <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path %></li>
+      <li class="menu-second-top-nav"><%= link_to "Unanswered", tagged_unanswered_path(params[:name]) %></li>
       <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
       <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
       <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">Votes</a></li>
@@ -13,7 +13,7 @@
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "question", collection: @questions.votes %>
+            <%= render partial: "question", collection: @tagged_questions.votes %>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "question", collection: @questions.newest %>
+            <%= render partial: "question", collection: @tagged_questions.newest %>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "question", collection: @questions.most_answers %>
+            <%= render partial: "question", collection: @tagged_questions.most_answers %>
           </div>
         </div>
       </div>
@@ -41,4 +41,3 @@
     </div>
   </div>
 </div>
-

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="nav-tab-bound">
+    <ul class="nav nav-tabs">
+    <li><%= link_to "All questions", questions_path %></li>
+    <li><a data-toggle="tab" href="#newest">Newest</a></li>
+    <li class="active"><a data-toggle="tab" href="#votes">Votes</a></li>
+  </ul>
+  </div>
+
+  <div class="tab-content">
+    <div id="votes" class="tab-pane fade in active">
+      <div class="qa-main">
+        <div class="qa-part-q-list">
+          <div class="qa-q-list">
+            <%= render partial: "questions/question", collection: @unanswered_questions.votes %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: "sidepanel" %>
+    </div>
+    <div id="newest" class="tab-pane fade">
+      <div class="qa-main">
+        <div class="qa-part-q-list">
+          <div class="qa-q-list">
+            <%= render partial: "questions/question", collection: @unanswered_questions.newest %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: "questions/sidepanel" %>
+    </div>
+  </div>
+</div>
+

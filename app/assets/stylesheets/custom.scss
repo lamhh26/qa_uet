@@ -1,13 +1,103 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.qa-body-js-on .qa-notice {display:none;}
-.qa-nav-user { margin: 0 !important; }
-.qa-logo-link img {padding-top:8px;}
 .nav-tab-bound{
   width: 74.5%;
 }
 .nav-tabs > li {
   float: right !important;
   margin-bottom: -1px;
+}
+
+.nav-tab-tag {
+  width: 100%;
+}
+
+.tag-main{
+  width: 100% !important;
+}
+
+.icon {
+  font-size: 15px;
+  display: none !important;
+}
+
+@media only screen and (max-width: 678px) {
+  .menu-second-top-nav{
+    // display: none !important;
+    width: 100%;
+  }
+
+  .menu-second-top-nav > a{
+    // display: none !important;
+    width: 140%;
+  }
+
+  .nav-tabs > li {
+    float: left !important;
+    margin-bottom: -1px;
+  }
+
+  .icon {
+    display: block !important;
+  }
+}
+
+.qa-nav-main-link {
+  padding-bottom: 14px !important;
+}
+
+.qa-nav-main-activity > a:before {
+  font-family: FontAwesome !important;
+  content: "\f19c" !important;
+  padding-bottom: 4px;
+}
+
+.qa-nav-main-questions > a:before {
+  font-family: FontAwesome !important;
+  content: "\f059" !important;
+  padding-bottom: 4px;
+}
+
+.qa-nav-main-tag > a:before {
+  font-family: FontAwesome !important;
+  content: "\f02c" !important;
+  padding-bottom: 4px;
+}
+
+.qa-nav-main-user > a:before {
+  font-family: FontAwesome !important;
+  content: "\f0c0" !important;
+  padding-bottom: 4px;
+}
+
+.qa-nav-main-ask > a:before {
+  font-family: FontAwesome !important;
+  content: "\f128" !important;
+  padding-bottom: 4px;
+}
+
+.qa-nav-main-custom-1 > a:before {
+  font-family: FontAwesome !important;
+  content: "\f05a" !important;
+  padding-bottom: 4px;
+}
+
+.qam-auth-key:before {
+  font-family: FontAwesome !important;
+  content: "\f090" !important;
+}
+
+.icon-th-list:before {
+  font-family: FontAwesome !important;
+  content: "\f00b" !important;
+}
+@media (min-width: 980px){
+  .qa-nav-main-item-opp:last-child {
+      margin: 6px 2px 4px 179px !important;
+  }
+}
+
+.tag {
+  padding: 25px;
 }

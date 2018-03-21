@@ -4,7 +4,7 @@
       <div class="qa-vote-count qa-vote-count-net">
         <span class="qa-netvote-count">
           <span class="qa-netvote-count-data"><%= question.vote_count.to_i %></span>
-          <span class="qa-netvote-count-pad"> votes</span>
+          <span class="qa-netvote-count-pad">votes</span>
         </span>
       </div>
       <div class="qa-vote-clear">
@@ -14,7 +14,7 @@
     <span class="qa-a-count-data"><%= question.answers_count %></span><span class="qa-a-count-pad"> answers</span>
     </span>
     <span class="qa-view-count">
-    <span class="qa-view-count-data">9</span><span class="qa-view-count-pad"> views</span>
+    <span class="qa-view-count-data"><%= question.impressionist_count %></span><span class="qa-view-count-pad"> views</span>
     </span>
   </div>
   <div class="qa-q-item-main">
