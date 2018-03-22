@@ -1,0 +1,28 @@
+<span class="qa-q-view-avatar-meta">
+  <span class="qa-q-view-avatar">
+    <a href="../user/Zeeshan" class="qa-avatar-link"></a>
+  </span>
+  <span class="qa-q-view-meta">
+    <%= link_to "asked", question_path %>
+    <span class="qa-q-view-when">
+      <span class="qa-q-view-when-data">
+        <span class="published updated">
+          <span class="published updated">
+            <%= content_tag :span, title: question.created_at, class: "value-title" do %>
+              <%= time_ago_in_words question.created_at %>
+            <% end %>
+          </span>
+        </span>
+      </span>
+      <span class="qa-q-view-when-pad"> ago</span>
+    </span>
+    <span class="qa-q-view-who">
+      <span class="qa-q-view-who-pad">by </span>
+      <span class="qa-q-view-who-data">
+        <span class="vcard author">
+          <%= link_to question.owner_user.name, user_path(question.owner_user) %>
+        </span>
+      </span>
+    </span>
+  </span>
+</span>

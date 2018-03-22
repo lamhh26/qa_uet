@@ -1,0 +1,28 @@
+<div class="qa-c-list-item">
+  <span class="qa-c-item-avatar-meta">
+    <span class="qa-c-item-avatar">
+    </span>
+    <span class="qa-c-item-meta">
+      <%= link_to "commented", question_path %>
+      <span class="qa-c-item-when">
+        <span class="qa-c-item-when-data">
+          <span class="published updated">
+            <%= content_tag :span, title: comment.created_at, class: "value-title" do %>
+              <%= time_ago_in_words comment.created_at %>
+            <% end %>
+          </span>
+        </span>
+      </span>
+      <span class="qa-c-item-who">
+        <span class="qa-c-item-who-pad">by </span>
+        <span class="qa-c-item-who-data">
+          <span class="vcard author"><%= link_to comment.user.name, user_path(comment.user) %>
+          </span>
+        </span>
+      </span>
+    </span>
+  </span>
+  <div class="qa-c-item-content"><%= comment.text %></div>
+  <div class="qa-c-item-clear">
+  </div>
+</div>

@@ -30,23 +30,30 @@
       </div>
       <div class="qa-nav-main" style="display: inline-block;">
         <ul class="qa-nav-main-list">
-          <li class="qa-nav-main-item qa-nav-main-activity">
-            <a href="./activity" class="qa-nav-main-link">All Activity</a>
-          </li>
           <li class="qa-nav-main-item qa-nav-main-questions">
-            <a href="./questions" class="qa-nav-main-link">Questions</a>
+            <%= link_to "Questions", questions_path, class: "qa-nav-main-link" %>
           </li>
           <li class="qa-nav-main-item qa-nav-main-tag">
-            <a href="./tags" class="qa-nav-main-link">Tags</a>
+            <%= link_to "Tags", tags_path, class: "qa-nav-main-link" %>
           </li>
           <li class="qa-nav-main-item qa-nav-main-user">
-            <a href="./users" class="qa-nav-main-link">Users</a>
+            <%= link_to "Users", users_path, class: "qa-nav-main-link" %>
           </li>
           <li class="qa-nav-main-item qa-nav-main-ask">
             <a href="./ask" class="qa-nav-main-link">Ask a Question</a>
           </li>
-          <li class="qa-nav-main-item-opp qa-nav-main-custom-1">
+          <li class="qa-nav-main-item qa-nav-main-custom-1">
             <a href="./../" class="qa-nav-main-link">About</a>
+          </li>
+          <li class="qa-nav-main-item-opp">
+            <div class="qam-search turquoise ">
+              <div class="qa-search">
+                <form method="get" action="./search">
+                  <input type="text" name="q" value="" class="qa-search-field">
+                  <input type="submit" value="Search" class="qa-search-button">
+                </form>
+              </div>
+            </div>
           </li>
         </ul>
         <div class="qa-nav-main-clear">

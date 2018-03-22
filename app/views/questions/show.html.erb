@@ -1,0 +1,60 @@
+<div class="qa-body-wrapper">
+  <div class="qa-main-wrapper">
+    <div class="qa-main">
+      <h1>
+        <%= link_to @question_path do %>
+          <span class="entry-title"><%= @question.title %></span>
+        <% end %>
+      </h1>
+      <div class="qa-part-q-view">
+        <div class="qa-q-view">
+          <div class="qa-q-view-stats">
+            <%= render partial: "vote", locals: {post: @question} %>
+          </div>
+          <div class="qa-q-view-main">
+            <%= render partial: "question_header", locals: {question: @question} %>
+            <div class="qa-q-view-content">
+              <div class="entry-content"><%= @question.body %></div>
+            </div>
+            <div class="qa-q-view-tags">
+              <%= render partial: "tag", collection: @question.tags %>
+            </div>
+            <div class="qa-q-view-buttons">
+            </div>
+            <div class="qa-q-view-c-list">
+              <%= render partial: "question_comment", collection: @question.comments, as: :comment, locals: {question: @question} %>
+            </div>
+            <div class="qa-c-form" id="c62923" style="display:none;">
+            </div>
+          </div>
+          <div class="qa-q-view-clear">
+          </div>
+        </div>
+      </div>
+      <div class="qa-part-a-form">
+      </div>
+      <div class="qa-part-a-list">
+        <h2 id="a_list_title"><%= pluralize @question.answers.size, "answer" %></h2>
+        <div class="qa-a-list" id="a_list">
+          <%= render partial: "answer", collection: @question.answers.load_votes, as: :answer, locals: {question: @question} %>
+        </div>
+      </div>
+    </div>
+    <div id="qam-sidepanel-toggle"><i class="icon-left-open-big"></i></div>
+    <div class="qa-sidepanel" id="qam-sidepanel-mobile">
+      <div class="qa-sidebar wet-asphalt">
+      </div>
+      <div class="qa-widgets-side qa-widgets-side-high">
+        <div class="qa-widget-side qa-widget-side-high">
+          <div class="qa-related-qs">
+            <h2 style="margin-top:0; padding-top:0;">
+              Related questions
+            </h2>
+            <ul class="qa-related-q-list">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
