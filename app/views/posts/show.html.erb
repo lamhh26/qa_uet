@@ -14,12 +14,19 @@
           <div class="qa-q-view-main">
             <%= render partial: "question_header", locals: {question: @question} %>
             <div class="qa-q-view-content">
-              <div class="entry-content"><%= @question.body %></div>
+              <div class="entry-content"><%= simple_format @question.body %></div>
             </div>
             <div class="qa-q-view-tags">
               <%= render partial: "tag", collection: @question.tags %>
             </div>
             <div class="qa-q-view-buttons">
+              <% if owner_user? @question.owner_user %>
+                <div class="btn-group pull-right">
+                  <%= link_to edit_question_path(@question), class: "btn btn-primary active" do %>
+                    <i class="fa fa-pencil" aria-hidden="true">Edit</i>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
             <div class="qa-q-view-c-list">
               <%= render partial: "question_comment", collection: @question.comments, as: :comment, locals: {question: @question} %>
@@ -27,18 +34,15 @@
             <div class="qa-c-form" id="c62923" style="display:none;">
             </div>
           </div>
-          <div class="qa-q-view-clear">
-          </div>
         </div>
       </div>
-      <div class="qa-part-a-form">
-      </div>
-      <div class="qa-part-a-list">
-        <h2 id="a_list_title"><%= pluralize @question.answers.size, "answer" %></h2>
-        <div class="qa-a-list" id="a_list">
-          <%= render partial: "answer", collection: @question.answers.load_votes, as: :answer, locals: {question: @question} %>
-        </div>
-      </div>
+      <!-- <div class="qa-part-a-form">
+      </div> -->
+      <% if @question.answers.any? %>
+        <%= render partial: "answers", locals: {question: @question} %>
+      <% else %>
+        <div class="qa-clearfix"></div>
+      <% end %>
     </div>
     <div id="qam-sidepanel-toggle"><i class="icon-left-open-big"></i></div>
     <div class="qa-sidepanel" id="qam-sidepanel-mobile">

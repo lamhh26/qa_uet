@@ -1,32 +1,40 @@
-<div class="container">
-  <div class="nav-tab-bound">
-    <ul class="nav nav-tabs">
-    <li><a data-toggle="tab" href="#month">Month</a></li>
-    <li class="active"><a data-toggle="tab" href="#week">Week</a></li>
+<div class="nav-tab-bound">
+  <ul class="qa-nav-tabs-right nav nav-tabs">
+    <li class="menu-second-top-nav active"><a data-toggle="tab" href="#month">Month</a></li>
+    <li class="menu-second-top-nav"><a data-toggle="tab" href="#week">Week</a></li>
+    <li class="menu-second-top-nav"><a data-toggle="tab" href="#hot">Hot</a></li>
   </ul>
-  </div>
-
-  <div class="tab-content">
-    <div id="week" class="tab-pane fade in active">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "questions/question", collection: @questions.this_week %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: "questions/sidepanel" %>
-    </div>
-    <div id="month" class="tab-pane fade">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "questions/question", collection: @questions.this_month %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: "questions/sidepanel" %>
-    </div>
-  </div>
 </div>
 
+<div class="tab-content">
+  <div id="hot" class="tab-pane fade">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @questions.hot %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "posts/sidepanel" %>
+  </div>
+  <div id="week" class="tab-pane fade">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @questions.this_week %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "posts/sidepanel" %>
+  </div>
+  <div id="month" class="tab-pane fade in active">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @questions.this_month %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "posts/sidepanel" %>
+  </div>
+</div>

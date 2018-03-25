@@ -7,9 +7,12 @@
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= javascript_include_tag "application" %>
   </head>
-  <body>
+  <body class="body-content">
     <%= render "layouts/topnav" %>
-    <%= yield %>
+    <div class="container qa-content-wrapper">
+      <%= render "layouts/flash" %>
+      <%= yield %>
+    </div>
     <%#= render "layouts/footer" %>
   </body>
 </html>

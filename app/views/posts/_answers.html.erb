@@ -1,0 +1,24 @@
+<div class="col-md-2 col-sm-8 col-xs-5 qa-a-header-count">
+  <h2><%= pluralize question.answers.size, "answer" %></h2>
+</div>
+<ul class="nav nav-tabs qa-nav-tabs-right">
+  <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">votes</a></li>
+  <li class="menu-second-top-nav"><a data-toggle="tab" href="#oldest">oldest</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="votes" class="tab-pane fade in active">
+    <div class="qa-part-a-list">
+      <div class="qa-a-list">
+        <%= render partial: "answer", collection: question.answers.load_votes.votes, as: :answer, locals: {question: question} %>
+      </div>
+    </div>
+  </div>
+  <div id="oldest" class="tab-pane fade">
+    <div class="qa-part-a-list">
+      <div class="qa-a-list">
+        <%= render partial: "answer", collection: question.answers.load_votes.oldest, as: :answer, locals: {question: question} %>
+      </div>
+    </div>
+  </div>
+</div>

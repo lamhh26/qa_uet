@@ -1,6 +1,6 @@
 <div class="container">
   <div class="nav-tab-bound">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs qa-nav-tabs-right">
     <li><%= link_to "All questions", tagged_questions_path(params[:name]) %></li>
     <li><a data-toggle="tab" href="#newest">Newest</a></li>
     <li class="active"><a data-toggle="tab" href="#votes">Votes</a></li>
@@ -12,7 +12,7 @@
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "questions/question", collection: @unanswered_questions.votes %>
+            <%= render partial: "posts/question", collection: @unanswered_questions.votes %>
           </div>
         </div>
       </div>
@@ -22,12 +22,11 @@
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "questions/question", collection: @unanswered_questions.newest %>
+            <%= render partial: "posts/question", collection: @unanswered_questions.newest %>
           </div>
         </div>
       </div>
-      <%= render partial: "questions/sidepanel" %>
+      <%= render partial: "posts/sidepanel" %>
     </div>
   </div>
 </div>
-

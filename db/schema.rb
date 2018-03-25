@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322122454) do
+ActiveRecord::Schema.define(version: 20180325192054) do
+
+  create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "data_file_name", null: false
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.string "type", limit: 30
+    t.integer "width"
+    t.integer "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type"
+  end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "post_id"
@@ -66,6 +78,7 @@ ActiveRecord::Schema.define(version: 20180322122454) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "answers_count", default: 0, null: false
+    t.integer "views_count", default: 0
     t.index ["owner_user_id"], name: "index_posts_on_owner_user_id"
     t.index ["parent_id"], name: "index_posts_on_parent_id"
   end
