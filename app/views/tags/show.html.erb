@@ -1,30 +1,25 @@
-<div class="container">
-  <div class="nav-tab-bound nav-tab-tag">
-    <ul class="nav nav-tabs">
-      <li><a data-toggle="tab" href="#name">Name</a></li>
-      <li class="active"><a data-toggle="tab" href="#popular">Popular</a></li>
-    </ul>
-  </div>
+<ul class="nav nav-tabs qa-nav-tabs-right">
+  <li class="menu-second-top-nav"><a data-toggle="tab" href="#name">Name</a></li>
+  <li class="menu-second-top-nav active"><a data-toggle="tab" href="#popular">Popular</a></li>
+</ul>
 
-  <div class="tab-content">
-    <div id="popular" class="tab-pane fade in active">
-      <div class="qa-main tag-main">
-        <div class="qa-part-ranking">
-          <div class="container">
-            <%= render partial: "tag", collection: @tags.popular %>
-          </div>
+<div class="tab-content">
+  <div id="popular" class="tab-pane fade in active">
+    <div class="qa-main">
+      <div class="qa-part-ranking">
+        <div class="container">
+          <%= render partial: "tag", collection: @tags.popular %>
         </div>
       </div>
     </div>
-    <div id="name" class="tab-pane fade">
-      <div class="qa-main tag-main">
-        <div class="qa-part-ranking">
-          <div class="container">
-            <%= render partial: "tag", collection: @tags.sort_by_name %>
-          </div>
+  </div>
+  <div id="name" class="tab-pane fade">
+    <div class="qa-main tag-main">
+      <div class="qa-part-ranking">
+        <div class="container">
+          <%= render partial: "tag", collection: @tags.sort_by_name %>
         </div>
       </div>
     </div>
   </div>
 </div>
-

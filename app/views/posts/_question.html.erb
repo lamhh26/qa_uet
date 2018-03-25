@@ -10,7 +10,7 @@
       <div class="qa-vote-clear">
       </div>
     </div>
-    <span class="qa-a-count qa-a-count-zero">
+    <span class="qa-a-count qa-a-count-selected">
     <span class="qa-a-count-data"><%= question.answers_count %></span><span class="qa-a-count-pad"> answers</span>
     </span>
     <span class="qa-view-count">
@@ -42,7 +42,7 @@
     </span>
     <div class="qa-q-item-tags">
       <ul class="qa-q-item-tag-list">
-        <%= render partial: "questions/tag", collection: question.tags %>
+        <%= render partial: "posts/tag", collection: question.tags %>
       </ul>
     </div>
   </div>

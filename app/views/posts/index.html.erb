@@ -1,0 +1,41 @@
+<div class="nav-tab-bound">
+  <ul class="nav nav-tabs qa-nav-tabs-right">
+    <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path %></li>
+    <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
+    <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
+    <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">Votes</a></li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div id="votes" class="tab-pane fade in active">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "question", collection: @questions.votes %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "sidepanel" %>
+  </div>
+  <div id="newest" class="tab-pane fade">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "question", collection: @questions.newest %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "sidepanel" %>
+  </div>
+  <div id="most_answers" class="tab-pane fade">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "question", collection: @questions.most_answers %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "sidepanel" %>
+  </div>
+</div>
