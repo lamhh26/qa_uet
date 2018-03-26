@@ -62,7 +62,7 @@ h3 {
   padding-top: 80px;
 }
 
-.qa-q-list-item, .qa-clearfix {
+.qa-q-list-item, .qa-clearfix, .qa-a-list-item {
   border-bottom: 1px solid $iron-color
 }
 
@@ -96,4 +96,8 @@ h3 {
 
 .qa-a-header-count > h2 {
   margin-top: 10px;
+}
+
+.btn-cancel {
+  margin-top: 5px;
 }
