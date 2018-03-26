@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root "static_pages#home"
   resources :users, only: %i(index show)
-  resources :questions, controller: :posts
+  resources :questions, controller: :posts do
+    resources :comments, controller: :question_comments
+  end
   resource :unanswered, only: :show
   resource :tags, only: :show do
     get :search, on: :collection

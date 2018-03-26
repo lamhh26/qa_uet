@@ -1,0 +1,9 @@
+<div id="qa-q-comment" class="qa-c-form collapse">
+  <h2>Your comment on this question:</h2>
+  <%= form_with scope: :comment, url: question_comments_path(question), remote: true do |f| %>
+    <div class="qa-c-errors"></div>
+    <%= f.text_area :text, class: "form-control qa-c-textarea" %>
+    <%= f.submit "Add comment", class: "btn btn-primary" %>
+    <%= button_tag "Cancel", data: {toggle: :collapse, target: "#qa-q-comment"}, type: :button, class: "btn btn-default btn-cancel" %>
+  <% end %>
+</div>

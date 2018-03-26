@@ -1,0 +1,8 @@
+<div id="qa-q-comment-edit" class="qa-c-form">
+  <%= form_with model: comment, url: question_comment_path(question, comment), remote: true do |f| %>
+    <div class="qa-c-errors"></div>
+    <%= f.text_area :text, class: "form-control qa-c-textarea" %>
+    <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <%= button_tag "Cancel", type: :button, class: "btn btn-default btn-cancel" %>
+  <% end %>
+</div>

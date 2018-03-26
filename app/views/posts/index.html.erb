@@ -1,10 +1,18 @@
-<div class="nav-tab-bound">
-  <ul class="nav nav-tabs qa-nav-tabs-right">
-    <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path %></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
-    <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">Votes</a></li>
-  </ul>
+<div class="">
+  <div class="col-md-9 col-sm-9">
+    <ul class="nav nav-tabs qa-nav-tabs-right">
+      <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path %></li>
+      <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
+      <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
+      <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">Votes</a></li>
+    </ul>
+
+  </div>
+  <div class="col-md-3">
+    <ul class="pull-right">
+      <%= link_to "Ask question", new_question_path, class: "btn btn-primary active" %>
+    </ul>
+  </div>
 </div>
 
 <div class="tab-content">

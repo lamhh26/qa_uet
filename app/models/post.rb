@@ -12,7 +12,7 @@ class Post < ApplicationRecord
 
   enum post_type: {question: 0, answer: 1}
 
-  validates :title, length: {minimum: Settings.post.title.minimum, maximum: Settings.post.title.maximum}
+  validates :title, length: {minimum: Settings.post.title.minimum_length, maximum: Settings.post.title.maximum_length}
   validates :body, presence: true
   validate :validate_tags
 

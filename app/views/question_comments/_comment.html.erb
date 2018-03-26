@@ -1,9 +1,9 @@
-<div class="qa-c-list-item">
+<div class="qa-c-list-item" data-qa-q-c-id="<%= comment.id %>">
   <span class="qa-c-item-avatar-meta">
     <span class="qa-c-item-avatar">
     </span>
     <span class="qa-c-item-meta">
-      <%= link_to "commented", question_path %>
+      <%= link_to "commented", question_path(question) %>
       <span class="qa-c-item-when">
         <span class="qa-c-item-when-data">
           <span class="published updated">
@@ -23,6 +23,20 @@
     </span>
   </span>
   <div class="qa-c-item-content"><%= comment.text %></div>
+  <% if owner_user? current_user %>
+    <div class="qa-c-item-footer">
+      <div class="qa-c-item-buttons">
+        <div class="pull-right">
+          <%= link_to edit_question_comment_path(question, comment), remote: true do %>
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+          <% end %>
+          <%= link_to question_comment_path(question, comment), method: :delete, remote: true, data: {confirm: "Are you sure"} do %>
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <div class="qa-c-item-clear">
   </div>
 </div>
