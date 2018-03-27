@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   impressionist actions: [:show], unique: [:session_hash]
-  before_action :authenticate_user!, only: %i(new create)
+  before_action :authenticate_user!, except: %i(index show tagged)
   before_action :load_question_with_vote, only: :show
   before_action :load_question_with_owner_user, only: %i(edit update destroy)
 
@@ -33,6 +33,15 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    if @question.destroy
+      flash[:notice] = "Deleted successful question"
+    else
+      flash[:danger] = "Deleted failed question"
+    end
+    redirect_to questions_url
   end
 
   def tagged

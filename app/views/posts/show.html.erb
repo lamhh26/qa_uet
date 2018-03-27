@@ -19,16 +19,27 @@
             <%= render partial: "tag", collection: @question.tags %>
           </div>
           <div class="qa-q-view-buttons">
-            <% unless owner_user? @question.owner_user %>
+            <div class="qa-q-buttons">
+              <% unless owner_user? @question.owner_user %>
+                <button data-toggle="collapse" data-target="#qa-q-answer" class="btn btn-info">
+                  <i class="fa fa-sticky-note" aria-hidden="true"> answer</i>
+                </button>
+              <% end %>
               <button data-toggle="collapse" data-target="#qa-q-comment" class="btn btn-success">
-                <i class="fa fa-commenting" aria-hidden="true">comment</i>
+                <i class="fa fa-commenting" aria-hidden="true"> comment</i>
               </button>
-            <% end %>
-            <% if owner_user? @question.owner_user %>
-                <%= link_to edit_question_path(@question), class: "pull-right btn btn-primary active" do %>
-                  <i class="fa fa-pencil" aria-hidden="true">Edit</i>
+            </div>
+            <div class="pull-right">
+              <% if owner_user? @question.owner_user %>
+                <%= link_to edit_question_path(@question), class: "btn btn-primary active" do %>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
                 <% end %>
-            <% end %>
+                <%= link_to question_path(@question), class: "btn btn-primary active",
+                  data: {confirm: "Are you sure", method: :delete} do %>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+            </div>
           </div>
           <% if @question.comments.any? %>
             <div class="qa-q-view-c-list">
@@ -39,6 +50,7 @@
         </div>
       </div>
     </div>
+    <%= render partial: "answers/form", locals: {question: @question} %>
 
     <% if @question.answers.any? %>
       <%= render partial: "answers", locals: {question: @question} %>

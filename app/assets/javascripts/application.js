@@ -17,8 +17,6 @@
 //= require jquery-ui/position
 //= require jquery-ui/widgets/autocomplete
 //= require bootstrap-sprockets
-//= require qa-page
-//= require snow-core
 //= require flash
 //= require ckeditor/init
 //= require tag-it.min

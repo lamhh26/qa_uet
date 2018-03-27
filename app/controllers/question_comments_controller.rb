@@ -1,5 +1,5 @@
 class QuestionCommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i(new create)
+  before_action :authenticate_user!
   before_action :load_question
   before_action :load_comment, only: %i(edit update destroy)
 

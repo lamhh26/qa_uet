@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: %i(index show)
   resources :questions, controller: :posts do
     resources :comments, controller: :question_comments
+    resources :answers
   end
   resource :unanswered, only: :show
   resource :tags, only: :show do

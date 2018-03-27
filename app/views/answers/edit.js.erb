@@ -1,0 +1,7 @@
+$('.qa-q-buttons').remove();
+$('#qa-q-answer').replaceWith('<%= j render partial: "edit_form", locals: {answer: @answer, question: @question} %>')
+CKEDITOR.replace('qa-a-textarea');
+$('#qa-q-answer').collapse('show');
+$('.btn-cancel').click(function() {
+  window.location.href = '<%= question_url(@question) %>';
+});
