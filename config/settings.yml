@@ -2,6 +2,8 @@ post:
   title:
     minimum_length: 15
     maximum_length: 150
+  body:
+    minimum_length: 30
 tag:
   amount:
     minimum: 1

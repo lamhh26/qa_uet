@@ -1,0 +1,13 @@
+<div id="qa-q-answer" class="collapse">
+  <div class="qa-part-form">
+  <h2>Edit your answer</h2>
+  <%= form_with scope: :answer, model: answer, url: question_answer_path(question) do |f| %>
+    <div class="qa-c-errors"></div>
+    <div class="form-group">
+      <%= f.text_area :body, class: "ckeditor", id: "qa-a-textarea" %>
+    </div>
+    <%= f.submit "Update answer", class: "btn btn-info" %>
+    <%= button_tag "Cancel", data: {toggle: :collapse, target: "#qa-q-answer"}, type: :button, class: "btn btn-default btn-cancel" %>
+  <% end %>
+  </div>
+</div>

@@ -12,18 +12,22 @@ class Post < ApplicationRecord
 
   enum post_type: {question: 0, answer: 1}
 
-  validates :title, length: {minimum: Settings.post.title.minimum_length, maximum: Settings.post.title.maximum_length}
-  validates :body, presence: true
-  validate :validate_tags
+  with_options if: :question? do
+    validates :title, presence: true, length: {minimum: Settings.post.title.minimum_length,
+                                               maximum: Settings.post.title.maximum_length}
+    validate :validate_tags
+  end
+  validates :body, presence: true, length: {minimum: Settings.post.body.minimum_length}
+  validates :owner_user, presence: true
 
-  def all_tags=(names)
+  def all_tags= names
     self.tags = names.split(",").map do |name|
       Tag.where(name: name.strip).first_or_create!
     end
   end
 
   def all_tags
-    self.tags.pluck(:name).join ", "
+    tags.pluck(:name).join ", "
   end
 
   scope :load_votes, (-> do
