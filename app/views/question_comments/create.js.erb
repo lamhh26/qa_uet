@@ -1,6 +1,7 @@
 <% if @result %>
   $('.qa-q-view-c-list').append('<%= j render(partial: "comment", locals: {comment: @comment, question: @question}) %>');
   $('#qa-q-comment').collapse('hide');
+  $('#qa-q-comment textarea').val('');
 <% else %>
-  $('.qa-c-errors').html('<%= j render(partial: "shared/error_messages", locals: {object: @comment}) %>');
+  $('.qa-q-c-errors').html('<%= j render(partial: "shared/error_messages", locals: {object: @comment}) %>');
 <% end %>

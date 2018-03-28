@@ -1,5 +1,10 @@
 $(document).ready(function() {
-  $('#qa-q-comment').on('shown.bs.collapse', function () {
-    $('.qa-c-textarea').focus();
+  $('.toggleable').on('shown.bs.collapse', function() {
+    scrollCenter(this);
+    $(this).find('textarea').focus();
+  })
+
+  $('.toggleable').on('show.bs.collapse', function() {
+    $('.toggleable').not($(this)).collapse('hide');
   })
 });

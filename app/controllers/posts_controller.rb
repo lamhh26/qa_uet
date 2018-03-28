@@ -8,7 +8,9 @@ class PostsController < ApplicationController
     @questions = Post.includes(:owner_user, :tags, :answers).question.load_votes
   end
 
-  def show; end
+  def show
+    @related_questions = Post.question.related_questions @question
+  end
 
   def new
     @question = current_user.posts.build post_type: :question

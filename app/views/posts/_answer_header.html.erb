@@ -3,7 +3,7 @@
     <a href="../user/Zeeshan" class="qa-avatar-link"></a>
   </span>
   <span class="qa-a-item-meta">
-    <%= link_to "answered", question_path %>
+    <%= link_to "answered", question_path(question, anchor: "answer-#{answer.id}") %>
     <span class="qa-a-item-when">
       <span class="qa-a-item-when-data">
         <span class="published updated">

@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :check_user_session
   before_action :load_question
   before_action :load_answer, except: %i(create)
 

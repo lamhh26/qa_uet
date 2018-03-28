@@ -3,7 +3,7 @@
     <span class="qa-c-item-avatar">
     </span>
     <span class="qa-c-item-meta">
-      <%= link_to "commented", question_path(question, anchor: "comment-#{comment.id}") %>
+      <%= link_to "commented", question_path(answer.question, anchor: "comment-#{comment.id}") %>
       <span class="qa-c-item-when">
         <span class="qa-c-item-when-data">
           <span class="published updated">
@@ -27,10 +27,10 @@
     <div class="qa-c-item-footer">
       <div class="qa-c-item-buttons">
         <div class="pull-right">
-          <%= link_to edit_question_comment_path(question, comment), remote: true, class: "qa-btn" do %>
+          <%= link_to edit_answer_comment_path(answer, comment), remote: true, class: "qa-btn" do %>
             <i class="fa fa-pencil-square" aria-hidden="true"></i>
           <% end %>
-          <%= link_to question_comment_path(question, comment), method: :delete, remote: true, data: {confirm: "Are you sure"},
+          <%= link_to answer_comment_path(answer, comment), method: :delete, remote: true, data: {confirm: "Are you sure"},
             class: "qa-btn" do %>
             <i class="fa fa-trash" aria-hidden="true"></i>
           <% end %>

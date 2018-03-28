@@ -9,6 +9,6 @@ module ApplicationHelper
   end
 
   def owner_user? user
-    current_user == user
+    current_user == user if current_user && user
   end
 end

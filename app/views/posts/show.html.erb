@@ -21,31 +21,31 @@
           <div class="qa-q-view-buttons">
             <div class="qa-q-buttons">
               <% unless owner_user? @question.owner_user %>
-                <button data-toggle="collapse" data-target="#qa-q-answer" class="btn btn-info">
+                <button data-toggle="collapse" data-target="#qa-q-answer" class="btn btn-info qa-btn">
                   <i class="fa fa-sticky-note" aria-hidden="true"> answer</i>
                 </button>
               <% end %>
-              <button data-toggle="collapse" data-target="#qa-q-comment" class="btn btn-success">
+              <button data-toggle="collapse" data-target="#qa-q-comment" class="btn btn-success qa-btn">
                 <i class="fa fa-commenting" aria-hidden="true"> comment</i>
               </button>
             </div>
             <div class="pull-right">
               <% if owner_user? @question.owner_user %>
-                <%= link_to edit_question_path(@question), class: "btn btn-primary active" do %>
+                <%= link_to edit_question_path(@question), class: "btn btn-primary active qa-btn" do %>
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 <% end %>
-                <%= link_to question_path(@question), class: "btn btn-primary active",
+                <%= link_to question_path(@question), class: "btn btn-primary active qa-btn",
                   data: {confirm: "Are you sure", method: :delete} do %>
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 <% end %>
               <% end %>
             </div>
           </div>
-          <% if @question.comments.any? %>
-            <div class="qa-q-view-c-list">
+          <div class="qa-q-view-c-list">
+            <% if @question.comments.any? %>
               <%= render partial: "question_comments/comment", collection: @question.comments, as: :comment, locals: {question: @question} %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
           <%= render partial: "question_comments/form", locals: {question: @question} %>
         </div>
       </div>
@@ -58,20 +58,5 @@
       <div class="qa-clearfix"></div>
     <% end %>
   </div>
-  <div id="qam-sidepanel-toggle"><i class="icon-left-open-big"></i></div>
-  <div class="qa-sidepanel" id="qam-sidepanel-mobile">
-    <div class="qa-sidebar wet-asphalt">
-    </div>
-    <div class="qa-widgets-side qa-widgets-side-high">
-      <div class="qa-widget-side qa-widget-side-high">
-        <div class="qa-related-qs">
-          <h2 style="margin-top:0; padding-top:0;">
-            Related questions
-          </h2>
-          <ul class="qa-related-q-list">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render partial: "sidepanel_question", locals: {related_questions: @related_questions} %>
 </div>

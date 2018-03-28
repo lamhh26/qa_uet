@@ -1,5 +1,5 @@
 <% if @result %>
   window.location.href = '<%= question_url(@question) %>';
 <% else %>
-  $('#qa-q-answer .qa-c-errors').html('<%= j render(partial: "shared/error_messages", locals: {object: @answer}) %>');
+  $('#qa-q-answer .qa-a-errors').html('<%= j render(partial: "shared/error_messages", locals: {object: @answer}) %>');
 <% end %>

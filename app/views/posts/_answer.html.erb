@@ -6,12 +6,15 @@
       <div class="entry-content"><%= simple_format answer.body %></div>
     </div>
     <div class="qa-a-item-buttons">
+      <button data-toggle="collapse" data-target="#qa-a-comment-<%= answer.id %>" class="btn btn-success qa-btn">
+        <i class="fa fa-commenting" aria-hidden="true"> comment</i>
+      </button>
       <div class="pull-right">
         <% if owner_user? answer.owner_user %>
-          <%= link_to edit_question_answer_path(question, answer), class: "btn btn-primary active", remote: true do %>
+          <%= link_to edit_question_answer_path(question, answer), class: "btn btn-primary active qa-btn edit-answer-btn", remote: true do %>
             <i class="fa fa-pencil" aria-hidden="true"></i>
           <% end %>
-          <%= link_to question_answer_path(question, answer), class: "btn btn-primary active",
+          <%= link_to question_answer_path(question, answer), class: "btn btn-primary active qa-btn",
             data: {confirm: "Are you sure", method: :delete} do %>
             <i class="fa fa-trash" aria-hidden="true"></i>
           <% end %>
@@ -19,8 +22,10 @@
       </div>
     </div>
     <div class="qa-a-item-c-list">
+      <%= render partial: "answer_comments/comment", collection: answer.comments, locals: {answer: answer} %>
     </div>
     <div class="qa-c-form">
+      <%= render partial: "answer_comments/form", locals: {answer: answer} %>
     </div>
   </div>
   <div class="qa-a-item-clear">

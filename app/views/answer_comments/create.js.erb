@@ -1,0 +1,7 @@
+<% if @result %>
+  $('[data-qa-q-a-id="<%= @answer.id %>"] .qa-a-item-c-list').append('<%= j render(partial: "comment", locals: {comment: @comment, answer: @answer}) %>');
+  $('#qa-a-comment-<%= @answer.id %>').collapse('hide');
+  $('#qa-a-comment-<%= @answer.id %> textarea').val('')
+<% else %>
+  $('#qa-a-comment-<%= @answer.id %> .qa-q-a-errors').html('<%= j render(partial: "shared/error_messages", locals: {object: @comment}) %>');
+<% end %>
