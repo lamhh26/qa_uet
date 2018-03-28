@@ -22,3 +22,28 @@
 //= require tag-it.min
 //= require tag
 //= require_tree .
+
+$.ajaxSetup({
+  statusCode: {
+    302: function (response) {
+      var redirect_url = response.getResponseHeader('X-Ajax-Redirect-Url');
+      if (redirect_url != undefined) {
+          window.location.pathname = redirect_url;
+      }
+    }
+  }
+});
+
+function scrollCenter(element) {
+  var elOffset = $(element).offset().top;
+  var elHeight = $(element).height();
+  var windowHeight = $(window).height();
+  var offset;
+
+  if (elHeight < windowHeight) {
+    offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+  } else {
+    offset = elOffset;
+  }
+  $('html, body').animate({scrollTop: offset}, 500);
+}

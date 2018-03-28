@@ -1,6 +1,5 @@
-var innerComment = $('[data-qa-q-c-id="<%= @comment.id %>"]').html();
-$('[data-qa-q-c-id="<%= @comment.id %>"]').html('<%= j render partial: "edit_form", locals: {question: @question, comment: @comment} %>');
-$('[data-qa-q-c-id="<%= @comment.id %>"] .qa-c-textarea').focus();
-$('[data-qa-q-c-id="<%= @comment.id %>"] .btn-cancel').click(function() {
-  $('[data-qa-q-c-id="<%= @comment.id %>"]').html(innerComment);
+$('[data-qa-c-id="<%= @comment.id %>"]').html('<%= j render partial: "edit_form", locals: {question: @question, comment: @comment} %>');
+$('[data-qa-c-id="<%= @comment.id %>"] .qa-c-textarea').focus();
+$('[data-qa-c-id="<%= @comment.id %>"] .btn-cancel').click(function() {
+  $('[data-qa-c-id="<%= @comment.id %>"]').replaceWith('<%= j render partial: "comment", locals: {question: @question, comment: @comment} %>');
 });

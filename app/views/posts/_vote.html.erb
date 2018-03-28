@@ -10,3 +10,8 @@
   <div class="qa-vote-clear">
   </div>
 </div>
+<% if post.question? %>
+  <span class="qa-view-count">
+    <span class="qa-view-count-data"><%= pluralize post.impressionist_count, "view" %></span>
+  </span>
+<% end %>

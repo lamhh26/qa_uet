@@ -1,5 +1,5 @@
-<div id="qa-q-comment-edit" class="qa-c-form toggleable">
-  <%= form_with model: comment, url: question_comment_path(question, comment), remote: true do |f| %>
+<div id="qa-a-comment-edit" class="qa-c-form toggleable">
+  <%= form_with model: comment, url: answer_comment_path(answer, comment), remote: true do |f| %>
     <div class="qa-q-c-errors"></div>
     <%= f.text_area :text, class: "form-control qa-c-textarea" %>
     <%= f.submit "Save changes", class: "btn btn-primary" %>

@@ -1,10 +1,10 @@
-class QuestionCommentsController < ApplicationController
+class AnswerCommentsController < ApplicationController
   before_action :check_user_session
-  before_action :load_question
+  before_action :load_answer
   before_action :load_comment, only: %i(edit update destroy)
 
   def create
-    @comment = @question.comments.build comment_params.merge!(user_id: current_user.id)
+    @comment = @answer.comments.build comment_params.merge!(user_id: current_user.id)
     @result = @comment.save
     respond_format_js
   end
@@ -25,14 +25,14 @@ class QuestionCommentsController < ApplicationController
 
   private
 
-  def load_question
-    @question = Post.question.find_by id: params[:question_id]
-    redirect_to questions_url unless @question
+  def load_answer
+    @answer = Post.answer.find_by id: params[:answer_id]
+    redirect_to questions_url unless @answer
   end
 
   def load_comment
-    @comment = @question.comments.find_by id: params[:id], user: current_user
-    redirect_to question_url(@question) unless @comment
+    @comment = @answer.comments.find_by id: params[:id], user: current_user
+    redirect_to question_url(@answer) unless @comment
   end
 
   def comment_params

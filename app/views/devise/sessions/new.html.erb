@@ -31,6 +31,13 @@
           <%= f.label :password %>
           <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control" %>
         </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="checkbox pull-right">
+            <%= f.label :remember_me do %>
+              <%= f.check_box :remember_me %> Remember me
+            <% end %>
+          </div>
+        <% end %>
         <%= f.submit "Log in", class: "btn btn-primary" %>
       <% end %>
     </div>

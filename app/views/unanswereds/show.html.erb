@@ -1,33 +1,33 @@
-<div class="container">
-  <div class="nav-tab-bound">
-    <ul class="nav nav-tabs qa-nav-tabs-right">
-      <li class="menu-second-top-nav"><%= link_to "All questions", questions_path %></li>
-      <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
-      <li class="menu-second-top-nav active"><a data-toggle="tab" href="#votes">Votes</a></li>
-    </ul>
-  </div>
-
-  <div class="tab-content">
-    <div id="votes" class="tab-pane fade in active">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "posts/question", collection: @unanswered_questions.votes %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: "sidepanel" %>
-    </div>
-    <div id="newest" class="tab-pane fade">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "posts/question", collection: @unanswered_questions.newest %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: "posts/sidepanel" %>
-    </div>
-  </div>
+<div class="col-md-3 col-sm-4 col-xs-4 qa-tabs-title">
+  <h2>Unanswered Questions</h2>
+</div>
+<div class="nav-tab-bound">
+  <ul class="nav nav-tabs qa-nav-tabs-right">
+    <li class="menu-second-top-nav"><%= link_to "All questions", questions_path %></li>
+    <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
+    <li class="menu-second-top-nav active"><a data-toggle="tab" href="#votes">Votes</a></li>
+  </ul>
 </div>
 
+<div class="tab-content">
+  <div id="votes" class="tab-pane fade in active">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @unanswered_questions.votes %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "sidepanel" %>
+  </div>
+  <div id="newest" class="tab-pane fade">
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @unanswered_questions.newest %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: "posts/sidepanel" %>
+  </div>
+</div>

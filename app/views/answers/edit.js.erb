@@ -1,4 +1,4 @@
-$('.qa-q-buttons').remove();
+$('.qa-q-buttons, .qa-btn').remove();
 $('#qa-q-answer').replaceWith('<%= j render partial: "edit_form", locals: {answer: @answer, question: @question} %>')
 CKEDITOR.replace('qa-a-textarea');
 $('#qa-q-answer').collapse('show');

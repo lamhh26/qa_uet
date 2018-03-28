@@ -1,0 +1,13 @@
+<div id="qa-a-comment-<%= answer.id %>" class="qa-c-form collapse toggleable">
+  <% if current_user %>
+    <h2>Your comment on this answer:</h2>
+    <%= form_with scope: :comment, url: answer_comments_path(answer), remote: true do |f| %>
+      <div class="qa-a-c-errors"></div>
+      <%= f.text_area :text, class: "form-control qa-a-textarea" %>
+      <%= f.submit "Add comment", class: "btn btn-primary" %>
+      <%= button_tag "Cancel", data: {toggle: :collapse, target: "#qa-a-comment-#{answer.id}"}, type: :button, class: "btn btn-default btn-cancel" %>
+    <% end %>
+  <% else %>
+     <h2>Please <%= link_to "log in", new_user_session_path %> or <%= link_to "register", new_user_registration_path %> to add a comment.</h2>
+  <% end %>
+</div>

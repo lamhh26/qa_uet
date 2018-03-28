@@ -94,10 +94,39 @@ h3 {
   }
 }
 
-.qa-a-header-count > h2 {
+.qa-tabs-title > h2 {
   margin-top: 10px;
+}
+
+.qa-q-tabs-title > h2 {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+  .qa-q-tabs-title > h2 {
+    margin-top: -7px;
+  }
 }
 
 .btn-cancel {
   margin-top: 5px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
+
+.footer,
+.push {
+  height: 50px;
+}
+
+.qa-footer {
+  padding: 26px !important;
 }

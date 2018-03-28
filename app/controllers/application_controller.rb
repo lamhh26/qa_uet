@@ -12,4 +12,15 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_up, keys: %i(name email)
     devise_parameter_sanitizer.permit :sign_in, keys: [:email]
   end
+
+  def check_user_session
+    return if current_user
+    request.xhr? ? ajax_redirect_to(new_user_session_path) : authenticate_user!
+  end
+
+  private
+
+  def ajax_redirect_to url
+    head 302, x_ajax_redirect_url: url
+  end
 end

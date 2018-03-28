@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :comments, controller: :question_comments
     resources :answers
   end
+  scope "answers/:answer_id", as: :answer do
+    resources :comments, controller: :answer_comments
+  end
   resource :unanswered, only: :show
   resource :tags, only: :show do
     get :search, on: :collection
