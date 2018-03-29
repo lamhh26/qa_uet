@@ -1,0 +1,68 @@
+<ul class="nav nav-tabs">
+  <li class="menu-second-top-nav <%= @tab == "profile" ? :active : nil %>">
+    <%= link_to "Profile", user_path(@user, tab: :profile) %>
+  </li>
+  <li class="menu-second-top-nav <%= @tab == "activity" ? :active : nil %>">
+    <%= link_to "Activity", user_path(@user, tab: :activity) %>
+  </li>
+  <% if owner_user? @user %>
+    <li class="menu-second-top-nav active">
+      <%= link_to "Edit Profile", edit_user_path(@user) %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <div class="row edit-profile-content">
+    <div class="col-md-10 ">
+      <%= form_for @user do |f| %>
+        <legend>Edit your profile</legend>
+        <%= render "shared/error_messages", object: f.object %>
+        <div class="form-group col-md-8">
+          <%= f.label :name, class: "control-label" %>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-user">
+              </i>
+            </div>
+            <%= f.text_field :name, class: "form-control input-md", required: true %>
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <%= f.label :avatar, class: "control-label" %>
+          <%= f.file_field :avatar, class: "input-file" %>
+        </div>
+        <div class="form-group col-md-8">
+          <%= f.label :birth_day, class: "control-label" %>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-birthday-cake"></i>
+            </div>
+            <%= f.text_field :birth_day, class: "form-control input-md" %>
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <%= f.label :email, class: "control-label" %>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-envelope-o"></i>
+            </div>
+            <%= f.email_field :email, class: "form-control input-md", required: true %>
+          </div>
+        </div>
+        <div class="form-group col-md-8">
+          <%= f.label :about_me, class: "control-label" %>
+          <%= f.text_area :about_me, class: "ckeditor" %>
+        </div>
+        <div class="form-group col-md-8">
+          <label class="control-label" ></label>
+          <%= f.submit "Save Profile", class: "btn btn-primary" %>
+          <%= link_to "cancel", user_path(@user), class: "btn" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-2 hidden-xs edit-profile-content">
+      <%= image_tag @user.avatar_url, class: "qa-avatar-image" %>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,7 @@ class TagsController < ApplicationController
 
   def search_by_name
     return [] if params[:name].blank?
-    return Tag.where.not(name: except_names).search_by_name(params[:name].strip).pluck(:name)
+    Tag.where.not(name: except_names).search_by_name(params[:name].strip).pluck :name
   end
 
   def except_names

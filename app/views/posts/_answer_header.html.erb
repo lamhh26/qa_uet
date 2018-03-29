@@ -1,6 +1,8 @@
 <span class="qa-a-item-avatar-meta">
   <span class="qa-a-item-avatar">
-    <a href="../user/Zeeshan" class="qa-avatar-link"></a>
+    <%= link_to user_path(answer.owner_user), class: "qa-avatar-link" do %>
+      <%= image_tag answer.owner_user.avatar_url(:thumb), class: "qa-avatar-image" %>
+    <% end %>
   </span>
   <span class="qa-a-item-meta">
     <%= link_to "answered", question_path(question, anchor: "answer-#{answer.id}") %>

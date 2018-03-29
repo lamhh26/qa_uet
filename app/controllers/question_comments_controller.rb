@@ -4,21 +4,25 @@ class QuestionCommentsController < ApplicationController
   before_action :load_comment, only: %i(edit update destroy)
 
   def create
+    return unless request.xhr?
     @comment = @question.comments.build comment_params.merge!(user_id: current_user.id)
     @result = @comment.save
     respond_format_js
   end
 
   def edit
+    return unless request.xhr?
     respond_format_js
   end
 
   def update
+    return unless request.xhr?
     @result = @comment.update_attributes comment_params
     respond_format_js
   end
 
   def destroy
+    return unless request.xhr?
     @result = @comment.destroy
     respond_format_js
   end
@@ -27,21 +31,15 @@ class QuestionCommentsController < ApplicationController
 
   def load_question
     @question = Post.question.find_by id: params[:question_id]
-    redirect_to questions_url unless @question
+    ajax_redirect_to questions_url unless @question
   end
 
   def load_comment
     @comment = @question.comments.find_by id: params[:id], user: current_user
-    redirect_to question_url(@question) unless @comment
+    ajax_redirect_to question_url(@question) unless @comment
   end
 
   def comment_params
     params.require(:comment).permit :text
-  end
-
-  def respond_format_js
-    respond_to do |format|
-      format.js
-    end
   end
 end

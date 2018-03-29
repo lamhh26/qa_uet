@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   is_impressionable counter_cache: true, column_name: :views_count
 
+  before_save :make_answer_tags, if: proc{|post| post.answer?}
+
   belongs_to :owner_user, class_name: User.name
   belongs_to :question, class_name: Post.name, optional: true, foreign_key: :parent_id
   has_many :answers, class_name: Post.name, foreign_key: :parent_id, dependent: :destroy
@@ -31,13 +33,15 @@ class Post < ApplicationRecord
   end
 
   scope :load_votes, (-> do
-    left_outer_joins(:votes).group(:id).select("posts.*, SUM(votes.vote_type) AS vote_count")
+    left_outer_joins(:votes).group(:id)
+  end)
+  scope :select_posts_votes, ->{select("posts.*, SUM(votes.vote_type) AS vote_count")}
+  scope :select_votes, (-> do
+    select("SUM(votes.vote_type) AS vote_count")
   end)
   scope :newest, ->{order created_at: :desc}
   scope :oldest, ->{order created_at: :asc}
-  scope :votes, (-> do
-    order "vote_count DESC"
-  end)
+  scope :votest, ->{order "vote_count DESC"}
   scope :most_answers, ->{order answers_count: :desc}
   scope :viewest, ->{order views_count: :desc}
   scope :hot, ->{where "posts.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 3 DAY) AND NOW()"}
@@ -48,11 +52,16 @@ class Post < ApplicationRecord
   scope :related_questions, (->(question) do
     joins(:tags).where.not(id: question).where tags: {name: question.tags.pluck(:name)}
   end)
+  scope :sort_by_tag_name, ->{order "tag_name"}
 
   private
 
   def validate_tags
     errors.add(:tags, "is at least one") if tags.size < Settings.tag.amount.minimum
     errors.add(:tags, "is too many") if tags.size > Settings.tag.amount.maximum
+  end
+
+  def make_answer_tags
+    self.tags = question.tags
   end
 end

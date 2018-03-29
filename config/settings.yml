@@ -8,6 +8,7 @@ tag:
   amount:
     minimum: 1
     maximum: 5
+  popular_lenth: 25
 comment:
   text:
     minimum_length: 10

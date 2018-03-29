@@ -1,0 +1,17 @@
+<div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
+  <h2><%= pluralize answers.length, "Answer" %></h2>
+</div>
+<div class="sub-tabs sub-tabs-answers">
+  <ul class="nav nav-tabs qa-nav-tabs-right">
+    <li class="menu-second-top-nav newest">
+      <%= link_to "newest", answers_user_path(user, sort: :newest), remote: true %>
+    </li>
+    <li class="menu-second-top-nav votest active">
+      <%= link_to "votest", answers_user_path(user, sort: :votest), remote: true %>
+    </li>
+  </ul>
+
+  <div class="tab-content activity-sub-content-answers">
+    <%= render partial: "answer", collection: answers.votest, as: :answer %>
+  </div>
+</div>

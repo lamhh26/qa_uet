@@ -1,0 +1,20 @@
+<div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
+  <h2><%= pluralize questions.length, "Question" %></h2>
+</div>
+<div class="sub-tabs sub-tabs-questions">
+  <ul class="nav nav-tabs qa-nav-tabs-right">
+    <li class="menu-second-top-nav newest">
+      <%= link_to "newest", questions_user_path(user, sort: :newest), remote: true %>
+    </li>
+    <li class="menu-second-top-nav votest">
+      <%= link_to "votest", questions_user_path(user, sort: :votest), remote: true %>
+    </li>
+    <li class="menu-second-top-nav viewest active">
+      <%= link_to "viewest", questions_user_path(user, sort: :viewest), remote: true %>
+    </li>
+  </ul>
+
+  <div class="tab-content activity-sub-content-questions">
+    <%= render partial: "question", collection: questions.viewest, as: :question, locals: {user: user} %>
+  </div>
+</div>

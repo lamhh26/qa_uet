@@ -1,17 +1,16 @@
-<div class="qa-voting qa-voting-net">
-  <div class="qa-vote-buttons qa-vote-buttons-net"></div>
-  <div class="qa-vote-count qa-vote-count-net">
-    <span class="qa-netvote-count">
-      <span class="qa-netvote-count-data">
-        <%= post.vote_count.to_i %>
-      </span>
-    </span>
+<%= content_tag :div, class: "voting qa-voting-net", data: {"#{post.post_type}-id": post.id} do %>
+  <div class="widget ratings">
+    <%= link_to upvote_question_path(post), method: :post, remote: true, class: "up_mod #{@voting.up_mod? ? "voting-color" : nil}" do %>
+      <i aria-hidden="true" class="fa fa-caret-up"></i>
+    <% end %>
+    <div class="points"><%= post.vote_count.to_i %></div>
+    <%= link_to downvote_question_path(post), method: :post, remote: true, class: "down_mod #{@voting.down_mod? ? "voting-color" : nil}" do %>
+      <i aria-hidden="true" class="fa fa-caret-down"></i>
+    <% end %>
   </div>
-  <div class="qa-vote-clear">
-  </div>
-</div>
+<% end %>
 <% if post.question? %>
   <span class="qa-view-count">
-    <span class="qa-view-count-data"><%= pluralize post.impressionist_count, "view" %></span>
+    <span class="qa-view-count-data"><%= pluralize post.views_count, "view" %></span>
   </span>
 <% end %>

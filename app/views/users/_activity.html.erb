@@ -1,0 +1,55 @@
+<div class="qa-part-form-activity">
+  <h2><a name="activity">Activity by <%= user.name %></a></h2>
+  <table class="qa-form-wide-table">
+    <tbody>
+      <tr id="questions">
+        <td class="qa-form-wide-label">
+          Questions:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><span class="qa-uf-user-q-posts"><%= user.posts.question.size %></span></span>
+        </td>
+      </tr>
+      <tr id="answers">
+        <td class="qa-form-wide-label">
+          Answers:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><span class="qa-uf-user-a-posts"><%= user.posts.answer.size %></span></span>
+        </td>
+      </tr>
+      <tr id="comments">
+        <td class="qa-form-wide-label">
+          Comments:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><span class="qa-uf-user-c-posts"><%= user.comments.size %></span></span>
+        </td>
+      </tr>
+      <tr id="votedon">
+        <td class="qa-form-wide-label">
+          Voted on:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static">
+            <span class="qa-uf-user-q-votes"><%= user.voted_posts.question.size %></span> questions,
+            <span class="qa-uf-user-a-votes"><%= user.voted_posts.answer.size %></span> answers</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ul class="nav nav-tabs parent-tabs">
+  <li class="menu-second-top-nav answers-activity-tabs active">
+    <%= link_to "answers", answers_user_path(user), remote: true %>
+  </li>
+  <li class="menu-second-top-nav questions-activity-tabs">
+    <%= link_to "questions", questions_user_path(user), remote: true %>
+  </li>
+  <li class="menu-second-top-nav tags-activity-tabs">
+    <%= link_to "tags", tags_user_path(user), remote: true %>
+  </li>
+</ul>
+<div class="tab-content activity-content">
+  <%= render partial: "answers_activity_tab", locals: {user: user, answers: objects} %>
+</div>

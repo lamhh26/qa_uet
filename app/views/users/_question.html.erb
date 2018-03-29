@@ -14,9 +14,9 @@
       <span class="qa-a-count-data"><%= question.answers_count %></span>
       <span class="qa-a-count-pad"> answers</span>
     </span>
-    <span class="qa-view-count">
-      <span class="qa-view-count-data"><%= question.views_count %></span>
-      <span class="qa-view-count-pad"> views</span>
+    <span class="qa-a-count qa-activity-view-count">
+      <span class="qa-a-count-data qa-activity-view-count-data"><%= question.views_count %></span>
+      <span class="qa-a-count-pad qa-activity-view-count-pad"> views</span>
     </span>
   </div>
   <div class="qa-q-item-main">
@@ -26,30 +26,15 @@
       <% end %>
     </div>
     <span class="qa-q-item-avatar-meta">
-      <span class="qa-q-item-avatar">
-        <%= link_to user_path(question.owner_user), class: "qa-avatar-link" do %>
-          <%= image_tag question.owner_user.avatar_url(:thumb), class: "qa-avatar-image" %>
-        <% end %>
-      </span>
-      <span class="qa-q-item-meta">
-        <span class="qa-q-item-what">asked</span>
-        <span class="qa-q-item-when">
-          <span class="qa-q-item-when-data"><%= time_ago_in_words question.created_at %></span>
-          <span class="qa-q-item-when-pad"> ago</span>
-        </span>
-        <span class="qa-q-item-who">
-          <span class="qa-q-item-who-pad">by </span>
-          <span class="qa-q-item-who-data">
-            <%= link_to question.owner_user.name, user_path(question.owner_user) %>
-          </span>
-        </span>
-      </span>
     </span>
     <div class="qa-q-item-tags">
       <ul class="qa-q-item-tag-list">
         <%= render partial: "posts/tag", collection: question.tags %>
       </ul>
     </div>
+  </div>
+  <div class="pull-right" title=<%= l question.created_at, format: :date_title %>>
+    <%= question.created_at.strftime("%b %d\'%y at %H:%M") %>
   </div>
   <div class="qa-q-item-clear">
   </div>

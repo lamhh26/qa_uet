@@ -27,21 +27,15 @@ class AnswerCommentsController < ApplicationController
 
   def load_answer
     @answer = Post.answer.find_by id: params[:answer_id]
-    redirect_to questions_url unless @answer
+    ajax_redirect_to questions_url unless @answer
   end
 
   def load_comment
     @comment = @answer.comments.find_by id: params[:id], user: current_user
-    redirect_to question_url(@answer) unless @comment
+    ajax_redirect_to question_url(@answer) unless @comment
   end
 
   def comment_params
     params.require(:comment).permit :text
-  end
-
-  def respond_format_js
-    respond_to do |format|
-      format.js
-    end
   end
 end
