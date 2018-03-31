@@ -6,20 +6,20 @@
     <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path %></li>
     <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
     <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
-    <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">Votes</a></li>
+    <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votest">Votest</a></li>
   </ul>
 </div>
 
 <div class="tab-content">
-  <div id="votes" class="tab-pane fade in active">
+  <div id="votest" class="tab-pane fade in active">
     <div class="qa-main">
       <div class="qa-part-q-list">
         <div class="qa-q-list">
-          <%= render partial: "question", collection: @questions.votes %>
+          <%= render partial: "question", collection: @questions.votest %>
         </div>
       </div>
     </div>
-    <%= render partial: "sidepanel" %>
+    <%= render partial: "sidepanel", locals: {tags: @tags} %>
   </div>
   <div id="newest" class="tab-pane fade">
     <div class="qa-main">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: "sidepanel" %>
+    <%= render partial: "sidepanel", locals: {tags: @tags} %>
   </div>
   <div id="most_answers" class="tab-pane fade">
     <div class="qa-main">
@@ -39,6 +39,6 @@
         </div>
       </div>
     </div>
-    <%= render partial: "sidepanel" %>
+    <%= render partial: "sidepanel", locals: {tags: @tags} %>
   </div>
 </div>

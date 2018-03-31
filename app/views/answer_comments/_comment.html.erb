@@ -23,7 +23,7 @@
     </span>
   </span>
   <div class="qa-c-item-content"><%= comment.text %></div>
-  <% if owner_user? current_user %>
+  <% if owner_user? comment.user %>
     <div class="qa-c-item-footer">
       <div class="qa-c-item-buttons">
         <div class="pull-right">

@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   has_many :posts, through: :post_tags
 
   scope :load_tags, (-> do
-    left_outer_joins(:posts).group(:id).select "tags.*, COUNT(*) AS tag_count"
+    left_outer_joins(:posts).where(posts: {post_type: :question}).group(:id).select "tags.*, COUNT(*) AS tag_count"
   end)
 
   scope :popular, ->{order "tag_count DESC"}

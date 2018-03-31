@@ -1,0 +1,21 @@
+<ul class="nav nav-tabs">
+  <li class="menu-second-top-nav <%= @tab == "profile" ? :active : nil %>">
+    <%= link_to "Profile", user_path(@user, tab: :profile) %>
+  </li>
+  <li class="menu-second-top-nav <%= @tab == "activity" ? :active : nil %>">
+    <%= link_to "Activity", user_path(@user, tab: :activity) %>
+  </li>
+  <% if owner_user? @user %>
+    <li class="menu-second-top-nav">
+      <%= link_to "Edit Profile", edit_user_path(@user) %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <% if @tab == "activity" %>
+    <%= render partial: "activity", locals: {user: @user, objects: @answers} %>
+  <% else %>
+    <%= render partial: "profile", locals: {user: @user} %>
+  <% end %>
+</div>

@@ -2,13 +2,20 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
   root "static_pages#home"
-  resources :users, only: %i(index show)
+  resources :users, except: %i(create destroy) do
+    member do
+      get :answers, :questions, :tags
+    end
+  end
   resources :questions, controller: :posts do
-    resources :comments, controller: :question_comments
-    resources :answers
+    resources :comments, controller: :question_comments, except: %i(index show new)
+    resources :answers, except: %i(index show new)
+    member do
+      post :upvote, :downvote
+    end
   end
   scope "answers/:answer_id", as: :answer do
-    resources :comments, controller: :answer_comments
+    resources :comments, controller: :answer_comments, except: %i(index show new)
   end
   resource :unanswered, only: :show
   resource :tags, only: :show do

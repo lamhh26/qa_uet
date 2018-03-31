@@ -18,6 +18,25 @@ class ApplicationController < ActionController::Base
     request.xhr? ? ajax_redirect_to(new_user_session_path) : authenticate_user!
   end
 
+  def check_object_exists object, path
+    return if object
+    request.xhr? ? ajax_redirect_to(path) : redirect_to(path)
+  end
+
+  def respond_format_js
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def tab_active default_tab, *tabs
+    tabs.include?(params[:tab]) ? params[:tab] : default_tab
+  end
+
+  def tab_sort_active default_tab, *tabs
+    tabs.include?(params[:sort]) ? params[:sort] : default_tab
+  end
+
   private
 
   def ajax_redirect_to url

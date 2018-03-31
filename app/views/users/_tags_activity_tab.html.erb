@@ -1,0 +1,17 @@
+<div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
+  <h2><%= pluralize tags.length, "Tag" %></h2>
+</div>
+<div class="sub-tabs sub-tabs-tags">
+  <ul class="nav nav-tabs qa-nav-tabs-right">
+    <li class="menu-second-top-nav votest">
+      <%= link_to "votest", tags_user_path(user, sort: :votest), remote: true %>
+    </li>
+    <li class="menu-second-top-nav name active">
+      <%= link_to "name", tags_user_path(user, sort: :name), remote: true %>
+    </li>
+  </ul>
+
+  <div class="tab-content activity-sub-content-tags">
+    <%= render partial: "tag", collection: tags.sort_by_tag_name, as: :tag %>
+  </div>
+</div>

@@ -3,16 +3,16 @@
     <ul class="nav nav-tabs qa-nav-tabs-right">
     <li><%= link_to "All questions", tagged_questions_path(params[:name]) %></li>
     <li><a data-toggle="tab" href="#newest">Newest</a></li>
-    <li class="active"><a data-toggle="tab" href="#votes">Votes</a></li>
+    <li class="active"><a data-toggle="tab" href="#votest">Votest</a></li>
   </ul>
   </div>
 
   <div class="tab-content">
-    <div id="votes" class="tab-pane fade in active">
+    <div id="votest" class="tab-pane fade in active">
       <div class="qa-main">
         <div class="qa-part-q-list">
           <div class="qa-q-list">
-            <%= render partial: "posts/question", collection: @unanswered_questions.votes %>
+            <%= render partial: "posts/question", collection: @unanswered_questions.votest %>
           </div>
         </div>
       </div>

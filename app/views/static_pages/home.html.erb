@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: "posts/sidepanel" %>
+    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
   </div>
   <div id="week" class="tab-pane fade">
     <div class="qa-main">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: "posts/sidepanel" %>
+    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
   </div>
   <div id="month" class="tab-pane fade in active">
     <div class="qa-main">
@@ -38,6 +38,6 @@
         </div>
       </div>
     </div>
-    <%= render partial: "posts/sidepanel" %>
+    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
   </div>
 </div>

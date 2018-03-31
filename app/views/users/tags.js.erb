@@ -1,0 +1,10 @@
+if ($('.activity-content .sub-tabs-tags').length !== 1) {
+  $('.activity-content').html('<%= j render partial: "tags_activity_tab", locals: {tags: @tags, user: @user} %>')
+}
+<% if @sort == "votest" %>
+  $('.activity-sub-content-tags').html('<%= j render partial: "tag", collection: @tags.votest, as: :tag %>');
+<% else %>
+  $('.activity-sub-content-tags').html('<%= j render partial: "tag", collection: @tags.sort_by_tag_name, as: :tag %>')
+<% end %>
+$('.sub-tabs-tags .<%= @sort %>').tab('show');
+$('.parent-tabs .tags-activity-tabs').tab('show');

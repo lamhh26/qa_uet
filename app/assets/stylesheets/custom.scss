@@ -128,5 +128,96 @@ html, body {
 }
 
 .qa-footer {
-  padding: 26px !important;
+  padding: 25px !important;
+}
+
+.user_avatar {
+  img {
+    width: 35px;
+  }
+}
+
+.sub-tabs {
+  margin-top: 30px;
+}
+
+.activity-vote-btn > .btn {
+  padding: 3px 16px;
+  color: $white-color;
+}
+
+.qa-activity-view-count {
+  background-color: #ecf0f1 !important;
+  .qa-activity-view-count-data, .qa-activity-view-count-pad {
+    color: #445f7a !important;
+  }
+}
+
+.qa-q-view-avatar {
+  .qa-avatar-image {
+    width: 50px;
+  }
+}
+
+.qa-q-item-avatar {
+  .qa-avatar-image {
+    width: 20px;
+  }
+}
+
+.qa-a-item-avatar {
+  .qa-avatar-image {
+    width: 40px;
+  }
+}
+
+.qa-form-tall-image, .edit-profile {
+  .qa-avatar-image {
+    width: 100px;
+  }
+}
+
+.edit-profile-content {
+  padding-top: 25px;
+}
+
+.widget-ratings {
+  height: 100%;
+}
+
+.qa-voting-net {
+  text-align: center;
+  a {
+    display: block;
+  }
+  .points {
+    font-size: 20px;
+  }
+}
+
+.voting i {
+  font-size: 40px !important;
+  color: $dusty-gray;
+}
+
+@media (max-width: 799px) {
+  .voting {
+    width: 60px;
+    height: 87px;
+    line-height: 0.5;
+    display: block;
+  }
+}
+
+@media (min-width: 800px) {
+  .voting {
+    width: 68px;
+    height: 87px;
+    line-height: 0.5;
+    float: left;
+  }
+}
+
+.voting-color i {
+  color: blue;
 }

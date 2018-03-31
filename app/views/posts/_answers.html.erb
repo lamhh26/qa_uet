@@ -10,14 +10,16 @@
   <div id="votes" class="tab-pane fade in active">
     <div class="qa-part-a-list">
       <div class="qa-a-list">
-        <%= render partial: "answer", collection: question.answers.load_votes.votes, as: :answer, locals: {question: question} %>
+        <%= render partial: "answer", collection: question.answers.load_votes.select_posts_votes.votest,
+        as: :answer, locals: {question: question} %>
       </div>
     </div>
   </div>
   <div id="oldest" class="tab-pane fade">
     <div class="qa-part-a-list">
       <div class="qa-a-list">
-        <%= render partial: "answer", collection: question.answers.load_votes.oldest, as: :answer, locals: {question: question} %>
+        <%= render partial: "answer", collection: question.answers.load_votes.select_posts_votes.oldest,
+        as: :answer, locals: {question: question} %>
       </div>
     </div>
   </div>

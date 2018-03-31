@@ -1,0 +1,58 @@
+<div class="qa-part-form-profile">
+  <table class="qa-form-wide-table">
+    <tbody id="avatar">
+      <tr>
+        <td class="qa-form-tall-data" colspan="3">
+          <div class="qa-form-tall-image">
+            <%= link_to user_path(user), class: "qa-avatar-link" do %>
+              <%= image_tag current_user.avatar_url, class: "qa-avatar-image" %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td class="qa-form-wide-label">
+          Member for:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static">
+            <%= time_ago_in_words user.created_at %> (since <%= l user.created_at, format: :date_basic %>)
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="qa-form-wide-label">
+          Name:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><%= user.name %></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="qa-form-wide-label">
+          Location:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><%= user.location %></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="qa-form-wide-label" style="vertical-align:top;">
+          About me:
+        </td>
+        <td class="qa-form-wide-data">
+          <span class="qa-form-wide-static"><%= simple_format user.about_me %></span>
+        </td>
+      </tr>
+      <% if owner_user? user %>
+        <tr>
+          <td colspan="3" class="qa-form-wide-buttons">
+            <%= link_to "Edit your profile", edit_user_path(user), class: "btn" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
