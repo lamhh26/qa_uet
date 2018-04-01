@@ -1,5 +1,0 @@
-<% if @result %>
-  $('[data-question-id="<%= @question.id %>"] .up_mod').addClass('voting-color');
-  $('[data-question-id="<%= @question.id %>"] .points').html('<%= @question.vote_count + 1 %>')
-<% else %>
-<% end %>

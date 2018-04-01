@@ -8,7 +8,7 @@ class Tag < ApplicationRecord
   end)
 
   scope :popular, ->{order "tag_count DESC"}
-
+  scope :unanswered, ->{where posts: {answers_count: 0}}
   scope :sort_by_name, ->{order :name}
   scope :search_by_name, ->(tag_name){where Tag.arel_table[:name].matches("%#{tag_name}%")}
 

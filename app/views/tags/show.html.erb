@@ -2,26 +2,20 @@
   <h2>Tags</h2>
 </div>
 <ul class="nav nav-tabs qa-nav-tabs-right">
-  <li class="menu-second-top-nav"><a data-toggle="tab" href="#name">Name</a></li>
-  <li class="menu-second-top-nav active"><a data-toggle="tab" href="#popular">Popular</a></li>
+  <li class="menu-second-top-nav <%= @tab == "name" ? :active : nil %>">
+    <%= link_to "Name", tags_path(tab: :name) %>
+  </li>
+  <li class="menu-second-top-nav <%= @tab == "popular" ? :active : nil %>">
+    <%= link_to "Popular", tags_path(tab: :popular) %>
+  </li>
 </ul>
 
 <div class="tab-content">
-  <div id="popular" class="tab-pane fade in active">
-    <div class="qa-main">
-      <div class="qa-part-ranking">
-        <div class="container">
-          <%= render partial: "tag", collection: @tags.popular %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="name" class="tab-pane fade">
-    <div class="qa-main tag-main">
-      <div class="qa-part-ranking">
-        <div class="container">
-          <%= render partial: "tag", collection: @tags.sort_by_name %>
-        </div>
+  <div class="qa-main">
+    <div class="qa-part-ranking">
+      <div class="container">
+        <%= render partial: "tag", collection: @tags %>
+        <%= paginate @tags, params: {tab: @tab} %>
       </div>
     </div>
   </div>

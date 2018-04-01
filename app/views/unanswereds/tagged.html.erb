@@ -1,32 +1,25 @@
 <div class="container">
   <div class="nav-tab-bound">
     <ul class="nav nav-tabs qa-nav-tabs-right">
-    <li><%= link_to "All questions", tagged_questions_path(params[:name]) %></li>
-    <li><a data-toggle="tab" href="#newest">Newest</a></li>
-    <li class="active"><a data-toggle="tab" href="#votest">Votest</a></li>
+    <li><%= link_to "All questions", tagged_questions_path(params[:name]), title: "Switch to all questions tabs" %></li>
+    <li class="menu-second-top-nav <%= @tab == "newest" ? :active : nil %>">
+      <%= link_to "Newest", tagged_unanswered_path(tab: :newest), title: "newest unanswered questions" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
+      <%= link_to "Votes", tagged_unanswered_path(tab: :votest), title: "highest voted unanswered questions" %>
+    </li>
   </ul>
   </div>
 
   <div class="tab-content">
-    <div id="votest" class="tab-pane fade in active">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "posts/question", collection: @unanswered_questions.votest %>
-          </div>
+    <div class="qa-main">
+      <div class="qa-part-q-list">
+        <div class="qa-q-list">
+          <%= render partial: "posts/question", collection: @unanswered_questions %>
+          <%= paginate @unanswered_questions, params: {tab: @tab} %>
         </div>
       </div>
-      <%= render partial: "sidepanel" %>
     </div>
-    <div id="newest" class="tab-pane fade">
-      <div class="qa-main">
-        <div class="qa-part-q-list">
-          <div class="qa-q-list">
-            <%= render partial: "posts/question", collection: @unanswered_questions.newest %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: "posts/sidepanel" %>
-    </div>
+    <%= render partial: "sidepanel", locals: {tags: @unanswered_tags} %>
   </div>
 </div>

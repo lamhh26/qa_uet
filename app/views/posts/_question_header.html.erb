@@ -1,7 +1,7 @@
 <span class="qa-q-view-avatar-meta">
   <span class="qa-q-view-avatar">
     <%= link_to user_path(question.owner_user), class: "qa-avatar-link" do %>
-      <%= image_tag current_user.avatar_url(:thumb), class: "qa-avatar-image" %>
+      <%= image_tag question.owner_user.avatar_url(:thumb), class: "qa-avatar-image" %>
     <% end %>
   </span>
   <span class="qa-q-view-meta">

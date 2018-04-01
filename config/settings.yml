@@ -13,3 +13,7 @@ comment:
   text:
     minimum_length: 10
     maximum_length: 600
+paginate:
+  per_page: 25
+  tags:
+    per_page: 36

@@ -3,41 +3,26 @@
 </div>
 <div class="nav-tab-bound">
   <ul class="qa-nav-tabs-right nav nav-tabs">
-    <li class="menu-second-top-nav active"><a data-toggle="tab" href="#month">Month</a></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#week">Week</a></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#hot">Hot</a></li>
+    <li class="menu-second-top-nav <%= @tab == "month" ? :active : nil %>">
+      <%= link_to "Month", root_path(tab: :month), title: "Questions with the most views, answers, and votes this month" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "week" ? :active : nil %>">
+      <%= link_to "Week", root_path(tab: :week), title: "Questions with the most views, answers, and votes this week" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "hot" ? :active : nil %>">
+      <%= link_to "Hot", root_path(tab: :hot), title: "Questions with the most views, answers, and votes over the last few days" %>
+    </li>
   </ul>
 </div>
 
 <div class="tab-content">
-  <div id="hot" class="tab-pane fade">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "posts/question", collection: @questions.hot %>
-        </div>
+  <div class="qa-main">
+    <div class="qa-part-q-list">
+      <div class="qa-q-list">
+        <%= render partial: "posts/question", collection: @questions %>
+        <%= paginate @questions, params: {tab: @tab} %>
       </div>
     </div>
-    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
   </div>
-  <div id="week" class="tab-pane fade">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "posts/question", collection: @questions.this_week %>
-        </div>
-      </div>
-    </div>
-    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
-  </div>
-  <div id="month" class="tab-pane fade in active">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "posts/question", collection: @questions.this_month %>
-        </div>
-      </div>
-    </div>
-    <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
-  </div>
+  <%= render partial: "posts/sidepanel", locals: {tags: @tags} %>
 </div>

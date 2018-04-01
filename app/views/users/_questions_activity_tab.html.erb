@@ -6,15 +6,15 @@
     <li class="menu-second-top-nav newest">
       <%= link_to "newest", questions_user_path(user, sort: :newest), remote: true %>
     </li>
-    <li class="menu-second-top-nav votest">
-      <%= link_to "votest", questions_user_path(user, sort: :votest), remote: true %>
+    <li class="menu-second-top-nav votest active">
+      <%= link_to "votes", questions_user_path(user, sort: :votest), remote: true %>
     </li>
-    <li class="menu-second-top-nav viewest active">
+    <li class="menu-second-top-nav viewest">
       <%= link_to "viewest", questions_user_path(user, sort: :viewest), remote: true %>
     </li>
   </ul>
 
   <div class="tab-content activity-sub-content-questions">
-    <%= render partial: "question", collection: questions.viewest, as: :question, locals: {user: user} %>
+    <%= render partial: "question", collection: questions.votest, as: :question, locals: {user: user} %>
   </div>
 </div>

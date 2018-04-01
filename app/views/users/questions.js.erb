@@ -3,10 +3,10 @@ if ($('.activity-content .sub-tabs-questions').length !== 1) {
 }
 <% if @sort == "newest" %>
   $('.activity-sub-content-questions').html('<%= j render partial: "question", collection: @questions.newest, as: :question %>');
-<% elsif @sort == "votest" %>
-  $('.activity-sub-content-questions').html('<%= j render partial: "question", collection: @questions.votest, as: :question %>')
-<% else %>
+<% elsif @sort == "viewest" %>
   $('.activity-sub-content-questions').html('<%= j render partial: "question", collection: @questions.viewest, as: :question %>')
+<% else %>
+  $('.activity-sub-content-questions').html('<%= j render partial: "question", collection: @questions.votest, as: :question %>')
 <% end %>
 $('.sub-tabs-questions .<%= @sort %>').tab('show');
 $('.parent-tabs .questions-activity-tabs').tab('show');

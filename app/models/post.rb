@@ -32,6 +32,10 @@ class Post < ApplicationRecord
     tags.pluck(:name).join ", "
   end
 
+  def vote_by user
+    votes.merge(user.votes).first || votes.build(user: user)
+  end
+
   scope :load_votes, (-> do
     left_outer_joins(:votes).group(:id)
   end)
