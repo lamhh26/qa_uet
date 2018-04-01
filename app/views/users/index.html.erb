@@ -1,0 +1,25 @@
+<div class="col-md-2 col-sm-2 col-xs-2 qa-tabs-title">
+  <h2>Users</h2>
+</div>
+<ul class="nav nav-tabs qa-nav-tabs-right">
+  <li class="menu-second-top-nav <%= @tab == "voter" ? :active : nil %>">
+    <%= link_to "voter", users_path(tab: :voter), title: "Users who voted more than 1 times" %>
+  </li>
+  <li class="menu-second-top-nav <%= @tab == "new_users" ? :active : nil %>">
+    <%= link_to "new users", users_path(tab: :new_users), title: "Users who joined in the last 30 days" %>
+  </li>
+  <li class="menu-second-top-nav <%= @tab == "all" ? :active : nil %>">
+    <%= link_to "all", users_path(tab: :all), title: "All users" %>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="qa-main">
+    <div class="qa-part-ranking">
+      <div class="container">
+        <%= render @users, tab: @tab %>
+        <%= paginate @users, params: {tab: @tab} %>
+      </div>
+    </div>
+  </div>
+</div>

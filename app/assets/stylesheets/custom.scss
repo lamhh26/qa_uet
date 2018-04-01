@@ -131,7 +131,7 @@ html, body {
   padding: 25px !important;
 }
 
-.user_avatar {
+.user_avatar, .qa-icon {
   img {
     width: 35px;
   }
@@ -196,28 +196,63 @@ html, body {
 }
 
 .voting i {
-  font-size: 40px !important;
   color: $dusty-gray;
+  font-size: 40px !important;
 }
 
 @media (max-width: 799px) {
   .voting {
-    width: 60px;
+    display: block;
     height: 87px;
     line-height: 0.5;
-    display: block;
+    width: 60px;
   }
 }
 
 @media (min-width: 800px) {
   .voting {
-    width: 68px;
+    float: left;
     height: 87px;
     line-height: 0.5;
-    float: left;
+    width: 68px;
   }
 }
 
 .voting-color i {
   color: blue;
+}
+
+.user-info {
+  height: 80px;
+  padding: 5px 6px 7px 7px;
+}
+
+.user-hover:hover {
+  background-color: $black-squeeze-color;
+}
+
+.user-gravatar48 {
+  box-shadow: 2px 2px 4px;
+  float: left;
+  width: 48px;
+
+  .qa-avatar-image {
+    width: 48px;
+  }
+}
+
+.user-detail {
+  float: left;
+  margin-left: 9px;
+  width: calc(100% - 64px);
+}
+
+.user-tags {
+  clear: both;
+  font-size: 12px;
+  margin-left: 57px;
+}
+
+.-flair {
+  margin-bottom: 4px;
 }

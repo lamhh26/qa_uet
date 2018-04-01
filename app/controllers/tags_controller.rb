@@ -1,6 +1,9 @@
 class TagsController < ApplicationController
   def show
-    @tags = Tag.load_tags
+    tags_data = Tag.load_tags
+    @tab = tab_active "popular", "name", "popular"
+    @tags = DataTabPresenter.new(tags_data, @tab).load_tags_index.page(params[:page])
+                                                 .per Settings.paginate.tags.per_page
   end
 
   def search

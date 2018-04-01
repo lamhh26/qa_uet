@@ -1,0 +1,10 @@
+<% if @result %>
+  <% if @vote.destroyed? %>
+    $('[data-answer-id="<%= @answer.id %>"] .up_mod').removeClass('voting-color');
+  <% else %>
+    $('[data-answer-id="<%= @answer.id %>"] .down_mod').addClass('voting-color');
+  <% end %>
+  $('[data-answer-id="<%= @answer.id %>"] .points').html('<%= @answer.vote_count.to_i - 1 %>')
+<% else %>
+  pnotify('Error!', '<%= @vote.errors.messages[:vote].first %>', 'error');
+<% end %>

@@ -34,7 +34,9 @@
       <span class="qa-q-item-meta">
         <span class="qa-q-item-what">asked</span>
         <span class="qa-q-item-when">
-          <span class="qa-q-item-when-data"><%= time_ago_in_words question.created_at %></span>
+          <span class="qa-q-item-when-data" title="<%= l question.created_at, format: :date_title %>">
+            <%= time_ago_in_words question.created_at %>
+          </span>
           <span class="qa-q-item-when-pad"> ago</span>
         </span>
         <span class="qa-q-item-who">

@@ -1,0 +1,16 @@
+<div class="user-info user-hover col-md-3 col-sm-3 col-xs-6">
+  <div class="user-gravatar48">
+    <%= link_to user_path(user), class: "qa-avatar-link" do %>
+      <%= image_tag user.avatar_url(:thumb), class: "qa-avatar-image" %>
+    <% end %>
+  </div>
+  <div class="user-detail">
+    <%= link_to user.name, user %>
+    <% unless tab == "voter" %>
+      <div class="-flair">member for <%= time_ago_in_words user.created_at %></div>
+    <% end %>
+  </div>
+  <% if tab == "voter" %>
+    <div class="user-tags"><%= pluralize user.votes.size, "vote" %></div>
+  <% end %>
+</div>

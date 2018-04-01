@@ -15,12 +15,12 @@ class ApplicationController < ActionController::Base
 
   def check_user_session
     return if current_user
-    request.xhr? ? ajax_redirect_to(new_user_session_path) : authenticate_user!
+    request.xhr? ? ajax_redirect_to(nil, I18n.t('devise.failure.unauthenticated')) : authenticate_user!
   end
 
-  def check_object_exists object, path
+  def check_object_exists object, url
     return if object
-    request.xhr? ? ajax_redirect_to(path) : redirect_to(path)
+    request.xhr? ? ajax_redirect_to(url) : redirect_to(url)
   end
 
   def respond_format_js
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def ajax_redirect_to url
-    head 302, x_ajax_redirect_url: url
+  def ajax_redirect_to url = nil, message = nil
+    head 302, x_ajax_redirect_url: url, x_ajax_message: message
   end
 end

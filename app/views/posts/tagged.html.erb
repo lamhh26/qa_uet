@@ -1,41 +1,26 @@
 <div class="nav-tab-bound">
   <ul class="nav nav-tabs qa-nav-tabs-right">
-    <li class="menu-second-top-nav"><%= link_to "Unanswered", tagged_unanswered_path(params[:name]) %></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#most_answers">Most answers</a></li>
-    <li class="menu-second-top-nav"><a data-toggle="tab" href="#newest">Newest</a></li>
-    <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votest">Votest</a></li>
+    <li class="menu-second-top-nav"><%= link_to "Unanswered", tagged_unanswered_path(params[:name]), title: "Switch to unanswered tabs" %></li>
+    <li class="menu-second-top-nav <%= @tab == "most_answers" ? :active : nil %>">
+      <%= link_to "Most answers", tagged_questions_path(tab: :most_answers), title: "Questions with the most answers" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "newest" ? :active : nil %>">
+      <%= link_to "Newest", tagged_questions_path(tab: :newest), title: "The most recently asked questions" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
+      <%= link_to "Votes", tagged_questions_path(tab: :votest), title: "Questions with the most votes" %>
+    </li>
   </ul>
 </div>
 
 <div class="tab-content">
-  <div id="votest" class="tab-pane fade in active">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "question", collection: @tagged_questions.votest %>
-        </div>
+  <div class="qa-main">
+    <div class="qa-part-q-list">
+      <div class="qa-q-list">
+        <%= render partial: "question", collection: @tagged_questions %>
+        <%= paginate @tagged_questions, params: {tab: @tab} %>
       </div>
     </div>
-    <%= render partial: "sidepanel" %>
   </div>
-  <div id="newest" class="tab-pane fade">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "question", collection: @tagged_questions.newest %>
-        </div>
-      </div>
-    </div>
-    <%= render partial: "sidepanel" %>
-  </div>
-  <div id="most_answers" class="tab-pane fade">
-    <div class="qa-main">
-      <div class="qa-part-q-list">
-        <div class="qa-q-list">
-          <%= render partial: "question", collection: @tagged_questions.most_answers %>
-        </div>
-      </div>
-    </div>
-    <%= render partial: "sidepanel" %>
-  </div>
+  <%= render partial: "sidepanel", locals: {tags: @tags} %>
 </div>

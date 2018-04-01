@@ -33,5 +33,5 @@ en:
   time:
     formats:
       date_activity_question: "%b %d\'%y at %H:%M"
-      date_title: "%Y-%m-%d %H-%M-%S"
+      date_title: "%Y-%m-%d %H:%M:%S"
       date_basic: "%b %d, %Y"

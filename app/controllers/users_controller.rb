@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
-  before_action :check_user_session, except: %i(show)
-  before_action :load_user
+  before_action :check_user_session, except: %i(show index)
+  before_action :load_user, except: %i(index)
   before_action :check_user, only: %i(edit update)
+
+  def index
+    @tab = tab_active "all", "voter", "new_users", "all"
+    @users = DataTabPresenter.new(User.all, @tab).load_users.page(params[:page])
+                             .per Settings.paginate.tags.per_page
+  end
 
   def show
     @tab = tab_active "profile", "activity", "profile"
@@ -22,14 +28,14 @@ class UsersController < ApplicationController
   def answers
     return unless request.xhr?
     @answers = @user.posts.answer.load_votes.select_posts_votes
-    @sort = tab_sort_active "viewest", "votest", "votest"
+    @sort = tab_sort_active "votest", "votest", "newest"
     respond_format_js
   end
 
   def questions
     return unless request.xhr?
     @questions = @user.posts.question.load_votes.select_posts_votes
-    @sort = tab_sort_active "viewest", "votest", "newest", "viewest"
+    @sort = tab_sort_active "votest", "votest", "newest", "viewest"
     respond_format_js
   end
 

@@ -21,15 +21,19 @@
 //= require ckeditor/init
 //= require tag-it.min
 //= require tag
+//= require pnotify
 //= require_tree .
 
 $.ajaxSetup({
   statusCode: {
     302: function (response) {
       var redirect_url = response.getResponseHeader('X-Ajax-Redirect-Url');
-      if (redirect_url != undefined) {
-          window.location.pathname = redirect_url;
+      var message = response.getResponseHeader('X-Ajax-Message');
+      if (redirect_url) {
+        window.location.href = redirect_url;
       }
+      if(message)
+        pnotify('Error!', message, 'error');
     }
   }
 });
@@ -46,4 +50,15 @@ function scrollCenter(element) {
     offset = elOffset;
   }
   $('html, body').animate({scrollTop: offset}, 500);
+}
+
+function pnotify(title, text, type, hide, addclass) {
+  new PNotify({
+    title: title,
+    text: text,
+    type: type || 'success',
+    styling: 'bootstrap3',
+    addclass: addclass || '',
+    hide: hide || true
+  });
 }

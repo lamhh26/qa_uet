@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   end
   resources :questions, controller: :posts do
     resources :comments, controller: :question_comments, except: %i(index show new)
-    resources :answers, except: %i(index show new)
+    resources :answers, except: %i(index show new) do
+      member do
+        post :upvote, :downvote
+      end
+    end
     member do
       post :upvote, :downvote
     end
