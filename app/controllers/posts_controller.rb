@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @related_questions = Post.question.related_questions @question
+    @related_questions = Post.question.related_questions(@question).limit Settings.question.related_questions_length
   end
 
   def new

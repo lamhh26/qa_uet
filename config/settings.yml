@@ -8,7 +8,7 @@ tag:
   amount:
     minimum: 1
     maximum: 5
-  popular_lenth: 25
+  popular_length: 25
 comment:
   text:
     minimum_length: 10
@@ -17,3 +17,5 @@ paginate:
   per_page: 25
   tags:
     per_page: 36
+question:
+  related_questions_length: 15
