@@ -11,4 +11,8 @@ $(document).ready(function() {
     },
     tagLimit: 5
   });
+
+  $('#tagfilter').keyup(function () {
+    $(this).parent('form').submit();
+  })
 });

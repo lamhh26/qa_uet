@@ -1,9 +1,11 @@
 class TagsController < ApplicationController
   def show
     tags_data = Tag.load_tags
+    tags_data = tags_data.search_by_name params[:q] if params[:q].present? && request.xhr?
     @tab = tab_active "popular", "name", "popular"
     @tags = DataTabPresenter.new(tags_data, @tab).load_tags_index.page(params[:page])
-                                                 .per Settings.paginate.tags.per_page
+                            .per Settings.paginate.tags.per_page
+    respond_format_js if request.xhr?
   end
 
   def search

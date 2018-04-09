@@ -1,5 +1,5 @@
 <div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
-  <h2><%= pluralize answers.length, "Answer" %></h2>
+  <h2><%= pluralize answers.total_count, "Answer" %></h2>
 </div>
 <div class="sub-tabs sub-tabs-answers">
   <ul class="nav nav-tabs qa-nav-tabs-right">
@@ -12,6 +12,6 @@
   </ul>
 
   <div class="tab-content activity-sub-content-answers">
-    <%= render partial: "answer", collection: answers.votest, as: :answer %>
+    <%= render partial: "activity_content", locals: {object_name: "answer", objects: answers, sort: :votes} %>
   </div>
 </div>

@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   end
   resource :unanswered, only: :show
   resource :tags, only: :show do
-    get :search, on: :collection
+    collection do
+      get :search
+    end
   end
   get "/questions/tagged/:name", to: "posts#tagged", as: :tagged_questions
   get "/unanswered/tagged/:name", to: "unanswereds#tagged", as: :tagged_unanswered

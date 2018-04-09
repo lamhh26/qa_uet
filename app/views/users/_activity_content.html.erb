@@ -1,0 +1,2 @@
+<%= render partial: object_name, collection: objects, as: :object %>
+<%= paginate objects, params: {controller: :users, action: object_name.pluralize, sort: sort}, remote: true %>

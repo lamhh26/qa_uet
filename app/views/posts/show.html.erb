@@ -53,7 +53,7 @@
     <%= render partial: "answers/form", locals: {question: @question} %>
 
     <% if @question.answers.any? %>
-      <%= render partial: "answers", locals: {question: @question} %>
+      <%= render partial: "answers", locals: {question: @question, answers: @answers, tab: @tab} %>
     <% else %>
       <div class="qa-clearfix"></div>
     <% end %>

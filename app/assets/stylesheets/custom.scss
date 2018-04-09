@@ -12,7 +12,7 @@
 }
 
 .tag {
-  padding: 25px;
+  padding: 25px 25px 25px 0px;
 }
 
 .singup-main {
@@ -255,4 +255,12 @@ html, body {
 
 .-flair {
   margin-bottom: 4px;
+}
+
+.userfilter-content {
+  margin: 10px 0 10px 0;
+
+  .userfilter-label {
+    padding-left: 0;
+  }
 }

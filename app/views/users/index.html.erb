@@ -14,12 +14,18 @@
 </ul>
 
 <div class="tab-content">
-  <div class="qa-main">
-    <div class="qa-part-ranking">
-      <div class="container">
-        <%= render @users, tab: @tab %>
-        <%= paginate @users, params: {tab: @tab} %>
+  <div class="container">
+    <div>
+      <div class="userfilter-content row">
+        <div class="col-md-2 userfilter-label">Type to find users:</div>
+        <%= form_tag users_path(tab: @tab), remote: true, method: :get do |f| %>
+          <%= text_field_tag :q, params[:q], id: "userfilter", autofocus: "", autocomplete: "off",
+            maxlength: 35 %>
+        <% end %>
       </div>
+    </div>
+    <div class="users-list">
+      <%= render partial: "users", locals: {users: @users, tab: @tab} %>
     </div>
   </div>
 </div>

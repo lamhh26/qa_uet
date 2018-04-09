@@ -1,26 +1,23 @@
-<div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
+<a name="tab-top"></a>
+<div class="col-md-3 col-sm-8 col-xs-5 qa-tabs-title">
   <h2><%= pluralize question.answers.size, "answer" %></h2>
 </div>
+
 <ul class="nav nav-tabs qa-nav-tabs-right">
-  <li class="active menu-second-top-nav"><a data-toggle="tab" href="#votes">votes</a></li>
-  <li class="menu-second-top-nav"><a data-toggle="tab" href="#oldest">oldest</a></li>
+  <li class="menu-second-top-nav <%= tab == "votest" ? :active : nil %>">
+    <%= link_to "votes", question_path(question, tab: :votes, anchor: "tab-top"), title: "The most recently asked questions" %>
+  </li>
+  <li class="menu-second-top-nav <%= tab == "oldest" ? :active : nil %>">
+    <%= link_to "oldest", question_path(question, tab: :oldest, anchor: "tab-top"), title: "Questions with the most votes" %>
+  </li>
 </ul>
 
 <div class="tab-content">
-  <div id="votes" class="tab-pane fade in active">
-    <div class="qa-part-a-list">
-      <div class="qa-a-list">
-        <%= render partial: "answer", collection: question.answers.load_votes.select_posts_votes.votest,
-        as: :answer, locals: {question: question} %>
-      </div>
-    </div>
-  </div>
-  <div id="oldest" class="tab-pane fade">
-    <div class="qa-part-a-list">
-      <div class="qa-a-list">
-        <%= render partial: "answer", collection: question.answers.load_votes.select_posts_votes.oldest,
-        as: :answer, locals: {question: question} %>
-      </div>
+  <div class="qa-part-a-list">
+    <div class="qa-a-list">
+      <%= paginate answers, params: {tab: tab, anchor: "tab-top"} %>
+      <%= render partial: "answer", collection: answers, as: :answer, locals: {question: question} %>
+      <%= paginate answers, params: {tab: tab, anchor: "tab-top"} %>
     </div>
   </div>
 </div>

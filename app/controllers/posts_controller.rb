@@ -15,6 +15,11 @@ class PostsController < ApplicationController
 
   def show
     @related_questions = Post.question.related_questions(@question).limit Settings.question.related_questions_length
+    answers_data = @question.answers.load_votes.select_posts_votes.includes [comments: :user], :owner_user,
+      :votes, :question
+    @tab = tab_active "votest", "oldest", "votest"
+    @answers = DataTabPresenter.new(answers_data, @tab).load_question_answers.page(params[:page])
+                               .per Settings.paginate.question_answers.per_page
   end
 
   def new
@@ -52,8 +57,8 @@ class PostsController < ApplicationController
   end
 
   def tagged
-    tagged_questions_data = Post.includes(:owner_user, :answers).question.load_votes.select_posts_votes
-                            .load_tag_by_name params[:name]
+    tagged_questions_data = Post.includes(:owner_user, :answers, :tags).question.load_votes.select_posts_votes
+                                .load_tag_by_name params[:name]
     @tags = Tag.load_tags.popular.limit Settings.tag.popular_length
     @tab = tab_active "votest", "most_answers", "newest", "votest"
     @tagged_questions = DataTabPresenter.new(tagged_questions_data, @tab).load_questions_index.page(params[:page])

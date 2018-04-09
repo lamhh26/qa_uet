@@ -3,7 +3,7 @@
     <div class="qa-voting qa-voting-net">
       <div class="qa-vote-count qa-vote-count-net">
         <span class="qa-netvote-count">
-          <span class="qa-netvote-count-data"><%= question.vote_count.to_i %></span>
+          <span class="qa-netvote-count-data"><%= object.vote_count.to_i %></span>
           <span class="qa-netvote-count-pad">votes</span>
         </span>
       </div>
@@ -11,30 +11,30 @@
       </div>
     </div>
     <span class="qa-a-count qa-a-count-selected">
-      <span class="qa-a-count-data"><%= question.answers_count %></span>
+      <span class="qa-a-count-data"><%= object.answers_count %></span>
       <span class="qa-a-count-pad"> answers</span>
     </span>
     <span class="qa-a-count qa-activity-view-count">
-      <span class="qa-a-count-data qa-activity-view-count-data"><%= question.views_count %></span>
+      <span class="qa-a-count-data qa-activity-view-count-data"><%= object.views_count %></span>
       <span class="qa-a-count-pad qa-activity-view-count-pad"> views</span>
     </span>
   </div>
   <div class="qa-q-item-main">
     <div class="qa-q-item-title">
-      <%= link_to question_path(question) do %>
-        <span><%= question.title %></span>
+      <%= link_to question_path(object) do %>
+        <span><%= object.title %></span>
       <% end %>
     </div>
     <span class="qa-q-item-avatar-meta">
     </span>
     <div class="qa-q-item-tags">
       <ul class="qa-q-item-tag-list">
-        <%= render partial: "posts/tag", collection: question.tags %>
+        <%= render partial: "posts/tag", collection: object.tags %>
       </ul>
     </div>
   </div>
-  <div class="pull-right" title=<%= l question.created_at, format: :date_title %>>
-    <%= question.created_at.strftime("%b %d\'%y at %H:%M") %>
+  <div class="pull-right" title=<%= l object.created_at, format: :date_title %>>
+    <%= object.created_at.strftime("%b %d\'%y at %H:%M") %>
   </div>
   <div class="qa-q-item-clear">
   </div>

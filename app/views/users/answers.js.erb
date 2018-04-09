@@ -1,10 +1,6 @@
 if ($('.activity-content .sub-tabs-answers').length !== 1) {
-  $('.activity-content').html('<%= j render partial: "answers_activity_tab", locals: {answers: @answers, user: @user} %>')
+  $('.activity-content').html('<%= j render partial: "answers_activity_tab", locals: {answers: @user_answers, user: @user} %>')
 }
-<% if @sort == "newest" %>
-  $('.activity-sub-content-answers').html('<%= j render partial: "answer", collection: @answers.newest, as: :answer %>');
-<% else %>
-  $('.activity-sub-content-answers').html('<%= j render partial: "answer", collection: @answers.votest, as: :answer %>')
-<% end %>
+$('.activity-sub-content-answers').html('<%= j render partial: "activity_content", locals: {object_name: "answer", objects: @user_answers, sort: @sort} %>');
 $('.sub-tabs-answers .<%= @sort %>').tab('show');
 $('.parent-tabs .answers-activity-tabs').tab('show');
