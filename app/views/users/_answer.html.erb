@@ -1,16 +1,16 @@
 <div class="qa-q-list-item">
   <div class="row">
     <div class="col-md-1 activity-vote-btn">
-      <%= link_to answer.vote_count.to_i, question_path(answer.question, anchor: "answer-#{answer.id}"), class: "btn btn-success" %>
+      <%= link_to object.vote_count.to_i, question_path(object.question, anchor: "answer-#{object.id}"), class: "btn btn-success" %>
     </div>
     <div class="col-md-9">
-      <%= link_to answer.question.title, question_path(answer.question, anchor: "answer-#{answer.id}") %>
+      <%= link_to object.question.title, question_path(object.question, anchor: "answer-#{object.id}") %>
     </div>
-    <div class="pull-right" title=<%= l answer.created_at, format: :date_title %>>
+    <div class="pull-right" title=<%= l object.created_at, format: :date_title %>>
       <% if params[:sort] == "newest" %>
-        <%= time_ago_in_words answer.created_at %> ago
+        <%= time_ago_in_words object.created_at %> ago
       <% else %>
-        <%= l answer.created_at, format: :date_activity_question %>
+        <%= l object.created_at, format: :date_activity_question %>
       <% end %>
     </div>
   </div>

@@ -1,7 +1,8 @@
 class DataTabPresenter
-  def initialize object, tab
+  def initialize object, tab, sort = nil
     @object = object
     @tab = tab
+    @sort = sort
   end
 
   def load_questions_home
@@ -30,5 +31,26 @@ class DataTabPresenter
     return @object.new_users if @tab == "new_users"
     return @object.voter if @tab == "voter"
     @object
+  end
+
+  def load_user_answers
+    return @object.newest if @sort == "newest"
+    @object.votest
+  end
+
+  def load_user_questions
+    return @object.newest if @sort == "newest"
+    return @object.viewest if @sort == "viewest"
+    @object.votest
+  end
+
+  def load_user_tags
+    return @object.votest if @sort == "votes"
+    @object.sort_by_tag_name
+  end
+
+  def load_question_answers
+    return @object.oldest if @tab == "oldest"
+    @object.votest
   end
 end

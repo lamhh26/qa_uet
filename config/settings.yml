@@ -17,5 +17,7 @@ paginate:
   per_page: 25
   tags:
     per_page: 36
+  question_answers:
+    per_page: 15
 question:
   related_questions_length: 15

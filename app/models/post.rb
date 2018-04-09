@@ -52,11 +52,11 @@ class Post < ApplicationRecord
   scope :this_week, ->{where "posts.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()"}
   scope :this_month, ->{where "posts.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()"}
   scope :unanswered, ->{where answers_count: 0}
-  scope :load_tag_by_name, ->(tag_name){joins(:tags).where tags: {name: tag_name}}
+  scope :load_tag_by_name, ->(tag_name){joins(post_tags: :tag).where tags: {name: tag_name}}
   scope :related_questions, (->(question) do
     joins(:tags).where.not(id: question).where tags: {name: question.tags.pluck(:name)}
   end)
-  scope :sort_by_tag_name, ->{order "tag_name"}
+  scope :sort_by_tag_name, ->{order "tags.name"}
 
   private
 

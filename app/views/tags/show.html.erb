@@ -11,12 +11,17 @@
 </ul>
 
 <div class="tab-content">
-  <div class="qa-main">
-    <div class="qa-part-ranking">
-      <div class="container">
-        <%= render partial: "tag", collection: @tags %>
-        <%= paginate @tags, params: {tab: @tab} %>
-      </div>
+  <div class="container">
+    <div>
+      <p>
+        <%= form_tag tags_path(tab: @tab), remote: true, method: :get do |f| %>
+          <%= text_field_tag :q, params[:q], id: "tagfilter", placeholder: "Filter by tag name", autofocus: "", autocomplete: "off",
+            maxlength: 35 %>
+        <% end %>
+      </p>
+    </div>
+    <div class="tags-list">
+      <%= render partial: "tags", locals: {tags: @tags, tab: @tab} %>
     </div>
   </div>
 </div>

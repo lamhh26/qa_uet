@@ -1,17 +1,21 @@
 class UsersController < ApplicationController
-  before_action :check_user_session, except: %i(show index)
+  before_action :check_user_session, only: %i(edit update)
   before_action :load_user, except: %i(index)
   before_action :check_user, only: %i(edit update)
 
   def index
+    users_data = User.all
     @tab = tab_active "all", "voter", "new_users", "all"
-    @users = DataTabPresenter.new(User.all, @tab).load_users.page(params[:page])
+    users_data = users_data.search_by_name params[:q] if params[:q].present? && request.xhr?
+    @users = DataTabPresenter.new(users_data, @tab).load_users.page(params[:page])
                              .per Settings.paginate.tags.per_page
+    respond_format_js if request.xhr?
   end
 
   def show
     @tab = tab_active "profile", "activity", "profile"
-    @answers = @user.posts.answer.load_votes.select_posts_votes
+    @answers = @user.posts.answer.load_votes.select_posts_votes.votest.includes(:question)
+                    .page(params[:page]).per Settings.paginate.per_page
   end
 
   def edit; end
@@ -27,23 +31,29 @@ class UsersController < ApplicationController
 
   def answers
     return unless request.xhr?
-    @answers = @user.posts.answer.load_votes.select_posts_votes
+    answers = @user.posts.answer.load_votes.select_posts_votes.includes :question
     @sort = tab_sort_active "votest", "votest", "newest"
+    @user_answers = DataTabPresenter.new(answers, nil, @sort).load_user_answers.page(params[:page])
+                                    .per Settings.paginate.per_page
     respond_format_js
   end
 
   def questions
     return unless request.xhr?
-    @questions = @user.posts.question.load_votes.select_posts_votes
+    questions = @user.posts.question.load_votes.select_posts_votes.includes :tags
     @sort = tab_sort_active "votest", "votest", "newest", "viewest"
+    @user_questions = DataTabPresenter.new(questions, nil, @sort).load_user_questions.page(params[:page])
+                                      .per Settings.paginate.per_page
     respond_format_js
   end
 
   def tags
     return unless request.xhr?
-    @tags = current_user.posts.left_outer_joins(:votes).select_votes.joins(:tags)
-                        .select("tags.name as tag_name, count(*) as posts_count").group("tag_name")
+    tags = @user.posts.left_outer_joins(:votes).select_votes.joins(:tags)
+                .select("tags.name, count(*) as posts_count").group("tags.name")
     @sort = tab_sort_active "name", "votest", "name"
+    @user_tags = DataTabPresenter.new(tags, nil, @sort).load_user_tags.page(params[:page])
+                                 .per Settings.paginate.tags.per_page
     respond_format_js
   end
 

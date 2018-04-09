@@ -9,7 +9,7 @@ class UnansweredsController < ApplicationController
   end
 
   def tagged
-    unanswered_questions_data = Post.includes(:owner_user, :answers).question.load_votes.select_posts_votes
+    unanswered_questions_data = Post.includes(:owner_user, :answers, :tags).question.load_votes.select_posts_votes
                                     .unanswered.load_tag_by_name params[:name]
     @unanswered_tags = Tag.load_tags.popular.unanswered
     @tab = tab_active "votest", "newest", "votest"

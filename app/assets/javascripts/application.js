@@ -21,6 +21,7 @@
 //= require ckeditor/init
 //= require tag-it.min
 //= require tag
+//= require user
 //= require pnotify
 //= require_tree .
 

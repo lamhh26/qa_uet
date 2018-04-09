@@ -12,5 +12,6 @@ class User < ApplicationRecord
   has_many :answers, through: :posts, source: :answers
 
   scope :new_users, ->{where "users.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()"}
-  scope :voter, ->{joins(:votes).group(:id).select("users.*, COUNT(*) AS vote_count")}
+  scope :voter, ->{joins(:votes).group(:id).select("users.*, COUNT(*) AS vote_count").order "vote_count DESC"}
+  scope :search_by_name, ->(user_name){where User.arel_table[:name].matches("%#{user_name}%")}
 end

@@ -1,5 +1,5 @@
 <div class="col-md-2 col-sm-8 col-xs-5 qa-tabs-title">
-  <h2><%= pluralize questions.length, "Question" %></h2>
+  <h2><%= pluralize questions.total_count, "Question" %></h2>
 </div>
 <div class="sub-tabs sub-tabs-questions">
   <ul class="nav nav-tabs qa-nav-tabs-right">
@@ -15,6 +15,5 @@
   </ul>
 
   <div class="tab-content activity-sub-content-questions">
-    <%= render partial: "question", collection: questions.votest, as: :question, locals: {user: user} %>
   </div>
 </div>
