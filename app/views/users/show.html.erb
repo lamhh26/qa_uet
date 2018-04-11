@@ -5,6 +5,11 @@
   <li class="menu-second-top-nav <%= @tab == "activity" ? :active : nil %>">
     <%= link_to "Activity", user_path(@user, tab: :activity) %>
   </li>
+  <% if @user.consultant && @user.categories.any? %>
+    <li class="menu-second-top-nav <%= @tab == "categories" ? :active : nil %>">
+      <%= link_to "Categories", user_path(@user, tab: :categories) %>
+    </li>
+  <% end %>
   <% if owner_user? @user %>
     <li class="menu-second-top-nav">
       <%= link_to "Edit Profile", edit_user_path(@user) %>
@@ -15,6 +20,8 @@
 <div class="tab-content">
   <% if @tab == "activity" %>
     <%= render partial: "activity", locals: {user: @user, objects: @answers} %>
+  <% elsif @tab == "categories" %>
+    <%= render partial: "categories" %>
   <% else %>
     <%= render partial: "profile", locals: {user: @user} %>
   <% end %>

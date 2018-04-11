@@ -39,7 +39,7 @@ class Post < ApplicationRecord
   scope :load_votes, (-> do
     left_outer_joins(:votes).group(:id)
   end)
-  scope :select_posts_votes, ->{select("posts.*, SUM(votes.vote_type) AS vote_count")}
+  scope :select_posts_votes, ->{select("posts.*, IFNULL(SUM(votes.vote_type), 0) AS vote_count")}
   scope :select_votes, (-> do
     select("SUM(votes.vote_type) AS vote_count")
   end)
@@ -57,6 +57,7 @@ class Post < ApplicationRecord
     joins(:tags).where.not(id: question).where tags: {name: question.tags.pluck(:name)}
   end)
   scope :sort_by_tag_name, ->{order "tags.name"}
+  scope :answered_by_user, ->(user){question.joins(:answers).where(answers_posts: {owner_user_id: user.id}).distinct}
 
   private
 
