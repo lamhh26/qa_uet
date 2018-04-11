@@ -1,0 +1,15 @@
+<div class="qa-part-form-categories">
+  <h2><a>Categories is interested</a></h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th title="Name of category">Name</th>
+        <th title="Total of questions in category">Total of questions</th>
+        <th title="Total of answered questions in category by you">Total of answered questions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "category_table_body", collection: @user.categories, as: :category, locals: {user: @user} %>
+    </tbody>
+  </table>
+</div>
