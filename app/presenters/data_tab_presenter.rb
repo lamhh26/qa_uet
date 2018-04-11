@@ -53,4 +53,9 @@ class DataTabPresenter
     return @object.oldest if @tab == "oldest"
     @object.votest
   end
+
+  def load_category_posts user
+    return @object.answered_by_user(user).newest if @tab == "answered"
+    @object.question.where.not(id: @object.answered_by_user(user)).newest
+  end
 end

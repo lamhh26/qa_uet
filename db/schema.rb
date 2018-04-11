@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331063009) do
+ActiveRecord::Schema.define(version: 20180411070550) do
+
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "data_file_name", null: false
@@ -79,6 +85,8 @@ ActiveRecord::Schema.define(version: 20180331063009) do
     t.datetime "updated_at", null: false
     t.integer "answers_count", default: 0, null: false
     t.integer "views_count", default: 0
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["owner_user_id"], name: "index_posts_on_owner_user_id"
     t.index ["parent_id"], name: "index_posts_on_parent_id"
   end
@@ -88,6 +96,15 @@ ActiveRecord::Schema.define(version: 20180331063009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_user_categories_on_category_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -108,6 +125,7 @@ ActiveRecord::Schema.define(version: 20180331063009) do
     t.string "avatar"
     t.string "location"
     t.date "birth_day"
+    t.boolean "consultant", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -126,6 +144,9 @@ ActiveRecord::Schema.define(version: 20180331063009) do
   add_foreign_key "comments", "users"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
+  add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users", column: "owner_user_id"
+  add_foreign_key "user_categories", "categories"
+  add_foreign_key "user_categories", "users"
   add_foreign_key "votes", "posts"
 end

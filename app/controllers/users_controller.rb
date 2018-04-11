@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :check_user_session, only: %i(edit update)
   before_action :load_user, except: %i(index)
-  before_action :check_user, only: %i(edit update)
+  before_action :check_current_user, only: %i(edit update)
 
   def index
     users_data = User.all
@@ -13,12 +13,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @tab = tab_active "profile", "activity", "profile"
-    @answers = @user.posts.answer.load_votes.select_posts_votes.votest.includes(:question)
-                    .page(params[:page]).per Settings.paginate.per_page
+    @tab = tab_active "profile", "activity", "profile", "categories"
+
+    if @tab == "activity"
+      @answers = @user.posts.answer.load_votes.select_posts_votes.votest.includes(:question)
+                      .page(params[:page]).per Settings.paginate.per_page
+    end
   end
 
-  def edit; end
+  def edit
+    @categories = Category.all
+  end
 
   def update
     if @user.update_attributes user_params
@@ -65,10 +70,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit :name, :birth_day, :email, :about_me, :avatar
+    params[:user][:category_ids].reject!(&:blank?) if params[:user][:category_ids].present?
+    params.require(:user).permit :name, :birth_day, :email, :about_me, :avatar, category_ids: []
   end
 
-  def check_user
+  def check_current_user
     redirect_to user_path(@user) unless current_user == @user
   end
 end
