@@ -5,6 +5,11 @@
   <li class="menu-second-top-nav <%= @tab == "activity" ? :active : nil %>">
     <%= link_to "Activity", user_path(@user, tab: :activity) %>
   </li>
+  <% if @user.consultant && @user.categories.any? %>
+    <li class="menu-second-top-nav <%= @tab == "categories" ? :active : nil %>">
+      <%= link_to "Categories", user_path(@user, tab: :categories) %>
+    </li>
+  <% end %>
   <% if owner_user? @user %>
     <li class="menu-second-top-nav active">
       <%= link_to "Edit Profile", edit_user_path(@user) %>
@@ -31,6 +36,10 @@
         <div class="form-group col-md-8">
           <%= f.label :avatar, class: "control-label" %>
           <%= f.file_field :avatar, class: "input-file" %>
+        </div>
+        <div class="form-group col-md-8">
+          <%= f.label :categories, class: "control-label" %>
+          <%= f.select :category_ids, @categories.collect{|c| [c.name, c.id]}, {selected: @user.category_ids}, {class: "categories-select form-control", multiple: true} %>
         </div>
         <div class="form-group col-md-8">
           <%= f.label :birth_day, class: "control-label" %>

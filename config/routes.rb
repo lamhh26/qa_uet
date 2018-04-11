@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       get :answers, :questions, :tags
     end
+    resources :categories, only: :show
   end
   resources :questions, controller: :posts do
     resources :comments, controller: :question_comments, except: %i(index show new)

@@ -264,3 +264,7 @@ html, body {
     padding-left: 0;
   }
 }
+
+[class^="qa-part-form"] {
+  padding-left: 0 !important;
+}

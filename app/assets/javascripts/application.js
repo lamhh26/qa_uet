@@ -23,6 +23,7 @@
 //= require tag
 //= require user
 //= require pnotify
+//= require select2
 //= require_tree .
 
 $.ajaxSetup({
