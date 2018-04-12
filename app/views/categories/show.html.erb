@@ -1,38 +1,31 @@
-<ul class="nav nav-tabs">
-  <li class="menu-second-top-nav">
-    <%= link_to "Profile", user_path(@user, tab: :profile) %>
-  </li>
-  <li class="menu-second-top-nav">
-    <%= link_to "Activity", user_path(@user, tab: :activity) %>
-  </li>
-  <% if @user.consultant %>
-    <li class="menu-second-top-nav active">
-      <%= link_to "Categories", user_path(@user, tab: :categories) %>
+<div class="col-md-2 col-sm-3 col-xs-4 qa-tabs-title">
+  <h2><%= pluralize @category_posts.total_count, "Question" %></h2>
+</div>
+<div class="nav-tab-bound">
+  <ul class="qa-nav-tabs-right nav nav-tabs">
+    <li class="menu-second-top-nav <%= @tab == "viewest" ? :active : nil %>">
+      <%= link_to "viewest", category_path(name: @name, tab: :viewest) %>
     </li>
-  <% end %>
-  <% if owner_user? @user %>
-    <li class="menu-second-top-nav">
-      <%= link_to "Edit Profile", edit_user_path(@user) %>
+    <li class="menu-second-top-nav <%= @tab == "most_answers" ? :active : nil %>">
+      <%= link_to "most answers", category_path(name: @name, tab: :most_answers) %>
     </li>
-  <% end %>
-</ul>
+    <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
+      <%= link_to "votes", category_path(name: @name, tab: :votest) %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "active" ? :active : nil %>">
+      <%= link_to "active", category_path(name: @name, tab: :active) %>
+    </li>
+  </ul>
+</div>
 
 <div class="tab-content">
-  <div class="qa-part-form-categories">
-    <h2><a>Activity by <%= @user.name %> in <%= @category.name %></a></h2>
-
-    <ul class="qa-nav-tabs-right nav nav-tabs">
-      <li class="menu-second-top-nav <%= @tab == "answered" ? :active : nil %>">
-        <%= link_to "answered", user_category_path(@user, @category, tab: :answered) %>
-      </li>
-      <li class="menu-second-top-nav <%= @tab == "unanswered" ? :active : nil %>">
-        <%= link_to "unanswered", user_category_path(@user, @category, tab: :unanswered) %>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <%= render partial: "users/question", collection: @category_posts, as: :object %>
-      <%= paginate @category_posts, params: {tab: @tab} %>
+  <div class="qa-main">
+    <div class="qa-part-q-list">
+      <div class="qa-q-list">
+        <%= render partial: "question", collection: @category_posts %>
+        <%= paginate @category_posts, params: {tab: @tab} %>
+      </div>
     </div>
   </div>
+  <%= render partial: "sidepanel" %>
 </div>

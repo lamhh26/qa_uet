@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :users, except: %i(create destroy) do
     member do
       get :answers, :questions, :tags
+      get "/categories/:category_id", to: "users#categories", as: :category
     end
-    resources :categories, only: :show
   end
   resources :questions, controller: :posts do
     resources :comments, controller: :question_comments, except: %i(index show new)
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
+  resources :categories, param: :name, only: :show
   get "/questions/tagged/:name", to: "posts#tagged", as: :tagged_questions
   get "/unanswered/tagged/:name", to: "unanswereds#tagged", as: :tagged_unanswered
   get "*path", to: "application#page_404"

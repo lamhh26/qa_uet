@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   before_action :check_user_session, only: %i(upvote downvote)
   before_action :load_question_with_vote, only: %i(show upvote downvote)
   before_action :load_question_with_owner_user, only: %i(edit update destroy)
+  before_action :load_categories, only: %i(new edit)
 
   def index
     questions_data = Post.includes(:owner_user, :tags, :answers).question.load_votes.select_posts_votes
@@ -102,6 +103,10 @@ class PostsController < ApplicationController
   end
 
   def question_params
-    params.require(:post).permit :title, :body, :all_tags
+    params.require(:post).permit :title, :body, :all_tags, :category_id
+  end
+
+  def load_categories
+    @categories = Category.pluck :name, :id
   end
 end
