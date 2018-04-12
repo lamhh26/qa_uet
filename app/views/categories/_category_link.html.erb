@@ -1,0 +1,4 @@
+<li class="qa-nav-cat-item">
+  <%= link_to category.name.humanize, category_path(name: category.name), class: "qa-nav-cat-link" %>
+  <span class="qa-nav-cat-note">(<%= category.posts.question.size %>)</span>
+</li>

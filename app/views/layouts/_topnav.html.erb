@@ -28,6 +28,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <%= render partial: "layouts/notifications" %>
           <li>
             <a href="#" class="dropdown-toggle user_avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= image_tag current_user.avatar_url(:thumb) %>

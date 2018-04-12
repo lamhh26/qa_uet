@@ -1,19 +1,16 @@
-<div class="col-md-2 col-sm-3 col-xs-4 qa-tabs-title">
-  <h2><%= pluralize @category_posts.total_count, "Question" %></h2>
+<div class="col-md-4 col-sm-4 col-xs-8 qa-tabs-title">
+  <h2><%= pluralize @category_posts.total_count, "Question" %> in <%= category_name @category %></h2>
 </div>
 <div class="nav-tab-bound">
   <ul class="qa-nav-tabs-right nav nav-tabs">
-    <li class="menu-second-top-nav <%= @tab == "viewest" ? :active : nil %>">
-      <%= link_to "viewest", category_path(name: @name, tab: :viewest) %>
-    </li>
     <li class="menu-second-top-nav <%= @tab == "most_answers" ? :active : nil %>">
       <%= link_to "most answers", category_path(name: @name, tab: :most_answers) %>
     </li>
     <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
       <%= link_to "votes", category_path(name: @name, tab: :votest) %>
     </li>
-    <li class="menu-second-top-nav <%= @tab == "active" ? :active : nil %>">
-      <%= link_to "active", category_path(name: @name, tab: :active) %>
+    <li class="menu-second-top-nav <%= @tab == "viewest" ? :active : nil %>">
+      <%= link_to "viewest", category_path(name: @name, tab: :viewest) %>
     </li>
   </ul>
 </div>
@@ -22,10 +19,10 @@
   <div class="qa-main">
     <div class="qa-part-q-list">
       <div class="qa-q-list">
-        <%= render partial: "question", collection: @category_posts %>
+        <%= render partial: "posts/question", collection: @category_posts %>
         <%= paginate @category_posts, params: {tab: @tab} %>
       </div>
     </div>
   </div>
-  <%= render partial: "sidepanel" %>
+  <%= render partial: "sidepanel", locals: {tags: @tags} %>
 </div>

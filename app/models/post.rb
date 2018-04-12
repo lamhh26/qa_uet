@@ -58,10 +58,12 @@ class Post < ApplicationRecord
   scope :answered_by_user, ->(user){question.joins(:answers).where(answers_posts: {owner_user_id: user.id}).distinct}
   scope :active, (-> do
     greatest_value = "GREATEST(IFNULL(posts.created_at, 0), IFNULL(answers_posts.created_at, 0))"
-    left_outer_joins(:answers).select("posts.*, answers_posts.id as answer_id, #{greatest_value} as greatest_value, " +
-      "case when #{greatest_value} = posts.created_at then 'question' else 'answer' end as greatest_name")
-      .order("greatest_value desc")
+    selected_field = "posts.*, answers_posts.id as answer_id, #{greatest_value} as greatest_value,
+      users.id as user_id, users.name as user_name, users.avatar as user_avatar"
+    left_outer_joins(answers: :owner_user).select("#{selected_field}, case when #{greatest_value} = posts.created_at
+      then 'question' else 'answer' end as greatest_name").order("greatest_value desc")
   end)
+  scope :uncategory, ->{question.where category: nil}
 
   private
 

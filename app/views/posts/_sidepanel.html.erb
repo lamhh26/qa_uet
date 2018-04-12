@@ -6,6 +6,20 @@
       If you have a question about Q2A, please <%= link_to "ask", new_question_path %>.
     </div>
   </div>
+  <div class="qa-nav-cat">
+    <ul class="qa-nav-cat-list qa-nav-cat-list-1">
+      <li class="qa-nav-cat-item">
+        <%= link_to "All categories", root_path, class: "qa-nav-cat-link" %>
+      </li>
+      <%= render partial: "categories/category_link", collection: Category.all, as: :category %>
+      <li class="qa-nav-cat-item">
+        <%= link_to "Uncategory", category_path(name: :uncategory), class: "qa-nav-cat-link" %>
+        <span class="qa-nav-cat-note">(<%= Post.uncategory.size %>)</span>
+      </li>
+    </ul>
+    <div class="qa-nav-cat-clear">
+    </div>
+  </div>
   <div class="qa-widgets-side qa-widgets-side-low">
     <div class="qa-widget-side qa-widget-side-low">
       <h2>Most popular tags</h2>

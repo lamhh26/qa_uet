@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @categories = Category.all
+    @categories = Category.pluck(:name, :id).map{|v| [v[0].humanize, v[1]]}
   end
 
   def update

@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to category.name, category_user_path(user, category) %></td>
+  <td><%= link_to category.name.humanize, category_user_path(user, category) %></td>
   <td><%= category.posts.question.size %></td>
   <td><%= category.posts.answered_by_user(user).size %></td>
 </tr>
