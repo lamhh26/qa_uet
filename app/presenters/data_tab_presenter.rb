@@ -60,12 +60,10 @@ class DataTabPresenter
   end
 
   def load_category_posts
-    return @object.active if @tab == "active"
-
     data = case @tab
-           when "viewest"; @object.viewest
-           when "votest"; @object.votest
-           when "most_answers"; @object.most_answers
+           when "votest" then @object.votest
+           when "most_answers" then @object.most_answers
+           else @object.viewest
            end
     data.load_votes.select_posts_votes
   end

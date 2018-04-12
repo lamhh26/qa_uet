@@ -107,6 +107,6 @@ class PostsController < ApplicationController
   end
 
   def load_categories
-    @categories = Category.pluck :name, :id
+    @categories = Category.pluck(:name, :id).map{|v| [v[0].humanize, v[1]]}
   end
 end

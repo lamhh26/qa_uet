@@ -39,7 +39,7 @@
         </div>
         <div class="form-group col-md-8">
           <%= f.label :categories, class: "control-label" %>
-          <%= f.select :category_ids, @categories.collect{|c| [c.name, c.id]}, {selected: @user.category_ids}, {class: "categories-select form-control", multiple: true} %>
+          <%= f.select :category_ids, @categories, {selected: @user.category_ids}, {class: "categories-select form-control", multiple: true} %>
         </div>
         <div class="form-group col-md-8">
           <%= f.label :birth_day, class: "control-label" %>

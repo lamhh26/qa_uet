@@ -6,11 +6,25 @@ namespace :db do
       Rake::Task[task].invoke
     end
 
+    puts "Create categories"
+    10.times.each do
+      Category.create name: FFaker::Education.unique.major
+    end
+
     puts "Create users"
     200.times.each do
       User.create email: FFaker::Internet.email, name: FFaker::Name.name, about_me: FFaker::Lorem.sentence,
         birth_day: FFaker::Time.date(year_range: 20, year_latest: 20), created_at: FFaker::Time.date(year_latest: 0.5),
         password: "123456"
+    end
+
+    puts "Update consultant"
+    consultants = User.all.sample(10).each do |user|
+      user.update_attributes consultant: true
+    end
+    categories = Category.all
+    consultants.each do |consultant|
+      consultant.categories = categories.sample(rand(1..5))
     end
 
     puts "Create tags"
@@ -22,8 +36,9 @@ namespace :db do
     puts "Create posts"
     users.sample(150).each do |user|
       rand(1..10).times.each do |_|
-        user.posts.create post_type: :question, title: FFaker::Lorem.sentence, created_at: FFaker::Time.date(year_latest: 0.5),
-          body: FFaker::Lorem.paragraphs.join(". "), tags: tags.sample(rand(1..5))
+        user.posts.create post_type: :question, title: FFaker::Lorem.sentence,
+          created_at: FFaker::Time.date(year_latest: 0.5), body: FFaker::Lorem.paragraphs.join(". "),
+          tags: tags.sample(rand(1..5)), category: categories.sample
       end
     end
 

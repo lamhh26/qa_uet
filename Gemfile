@@ -26,6 +26,7 @@ gem "puma", "~> 3.7"
 gem "rails", "~> 5.1.2"
 gem "sass-rails", "~> 5.0"
 gem "select2-rails"
+gem "sidekiq"
 gem "uglifier", ">= 1.3.0"
 
 group :development, :test do
