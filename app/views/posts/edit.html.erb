@@ -10,6 +10,11 @@
           <%= f.text_field :title, class: "form-control" %>
         </div>
         <div class="form-group">
+          <%= f.label :category %>
+          <%= f.select :category_id, @categories, {include_blank: true, selected: @question.category_id},
+            {class: "categories-select form-control"} %>
+        </div>
+        <div class="form-group">
           <%= f.label :content %>
           <%= f.cktext_area :body %>
         </div>

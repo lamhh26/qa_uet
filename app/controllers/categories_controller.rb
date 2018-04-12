@@ -1,28 +1,27 @@
 class CategoriesController < ApplicationController
-  before_action :load_user
-  before_action :check_consultant
   before_action :load_category
 
   def show
-    @tab = tab_active "answered", "unanswered", "answered"
-    @category_posts = DataTabPresenter.new(@category.posts, @tab).load_category_posts(@user)
-                                      .load_votes.select_posts_votes.includes(:votes, :tags).page(params[:page])
-                                      .per Settings.paginate.tags.per_page
+    @tab = tab_active "active", "active", "votest", "most_answers", "viewest"
+    @category_posts = DataTabPresenter.new(load_category_posts, @tab).load_category_posts
+                                      .includes(:owner_user, :tags, :answers).page(params[:page])
+                                      .per Settings.paginate.per_page
+    @name = @category ? @category.name : :uncategory
+    if @tab == "active"
+      @active_category_posts = load_category_posts.load_votes.select_id_votes.group_by &:id
+    end
   end
 
   private
 
-  def load_user
-    @user = User.find_by id: params[:user_id]
-    check_object_exists @user, root_url
-  end
-
-  def check_consultant
-    redirect_to user_path(@user) unless @user.consultant?
-  end
-
   def load_category
-    @category = Category.find_by id: params[:id]
-    redirect_to user_path(@user) unless @user.categories.exists? id: params[:id]
+    return if params[:name] == "uncategory"
+    @category = Category.find_by name: params[:name]
+    redirect_to category_path(name: :uncategory) unless @category
+  end
+
+  def load_category_posts
+    return Post.question.where(category: nil) if params[:name] == "uncategory"
+    @category.posts.question
   end
 end

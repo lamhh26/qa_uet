@@ -5,6 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :owner_user, class_name: User.name
   belongs_to :question, class_name: Post.name, optional: true, foreign_key: :parent_id
+  belongs_to :category, optional: true
   has_many :answers, class_name: Post.name, foreign_key: :parent_id, dependent: :destroy
   counter_culture :question, column_name: proc{|model| model.answer? ? "answers_count" : nil}
   has_many :post_tags, dependent: :destroy
@@ -36,13 +37,10 @@ class Post < ApplicationRecord
     votes.merge(user.votes).first || votes.build(user: user)
   end
 
-  scope :load_votes, (-> do
-    left_outer_joins(:votes).group(:id)
-  end)
-  scope :select_posts_votes, ->{select("posts.*, IFNULL(SUM(votes.vote_type), 0) AS vote_count")}
-  scope :select_votes, (-> do
-    select("SUM(votes.vote_type) AS vote_count")
-  end)
+  scope :load_votes, ->{left_outer_joins(:votes).group :id}
+  scope :select_posts_votes, ->{select "posts.*, IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
+  scope :select_votes, ->{select "IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
+  scope :select_id_votes, ->{select("posts.id, IFNULL(SUM(votes.vote_type), 0) AS vote_count")}
   scope :newest, ->{order created_at: :desc}
   scope :oldest, ->{order created_at: :asc}
   scope :votest, ->{order "vote_count DESC"}
@@ -58,6 +56,12 @@ class Post < ApplicationRecord
   end)
   scope :sort_by_tag_name, ->{order "tags.name"}
   scope :answered_by_user, ->(user){question.joins(:answers).where(answers_posts: {owner_user_id: user.id}).distinct}
+  scope :active, (-> do
+    greatest_value = "GREATEST(IFNULL(posts.created_at, 0), IFNULL(answers_posts.created_at, 0))"
+    left_outer_joins(:answers).select("posts.*, answers_posts.id as answer_id, #{greatest_value} as greatest_value, " +
+      "case when #{greatest_value} = posts.created_at then 'question' else 'answer' end as greatest_name")
+      .order("greatest_value desc")
+  end)
 
   private
 

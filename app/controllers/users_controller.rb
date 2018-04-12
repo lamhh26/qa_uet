@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :check_user_session, only: %i(edit update)
   before_action :load_user, except: %i(index)
   before_action :check_current_user, only: %i(edit update)
+  before_action :check_consultant, :load_category, only: :categories
 
   def index
     users_data = User.all
@@ -62,6 +63,13 @@ class UsersController < ApplicationController
     respond_format_js
   end
 
+  def categories
+    @tab = tab_active "answered", "unanswered", "answered"
+    @category_posts = DataTabPresenter.new(@category.posts, @tab).load_user_category_posts(@user)
+                                      .load_votes.select_posts_votes.includes(:votes, :tags).page(params[:page])
+                                      .per Settings.paginate.per_page
+  end
+
   private
 
   def load_user
@@ -76,5 +84,14 @@ class UsersController < ApplicationController
 
   def check_current_user
     redirect_to user_path(@user) unless current_user == @user
+  end
+
+  def check_consultant
+    redirect_to user_path(@user) unless @user.consultant?
+  end
+
+  def load_category
+    @category = Category.find_by id: params[:category_id]
+    redirect_to user_path(@user) unless @user.categories.exists? id: params[:category_id]
   end
 end

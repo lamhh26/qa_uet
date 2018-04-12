@@ -3,7 +3,13 @@
     <div class="qa-voting qa-voting-net">
       <div class="qa-vote-count qa-vote-count-net">
         <span class="qa-netvote-count">
-          <span class="qa-netvote-count-data"><%= question.vote_count.to_i %></span>
+          <span class="qa-netvote-count-data">
+            <% if @tab == "active" %>
+              <%= @active_category_posts[question.id].first.vote_count %>
+            <% else %>
+              <%= question.vote_count %>
+            <% end %>
+          </span>
           <span class="qa-netvote-count-pad">votes</span>
         </span>
       </div>
@@ -32,16 +38,30 @@
         <% end %>
       </span>
       <span class="qa-q-item-meta">
-        <span class="qa-q-item-what">asked</span>
+        <span class="qa-q-item-what">
+          <% if @tab == "active" && question.greatest_name == "answer" %>
+            <%= link_to "answered", question_path(question, anchor: "answer-#{question.answer_id}") %>
+          <% else %>
+            asked
+          <% end %>
+        </span>
         <span class="qa-q-item-when">
-          <span class="qa-q-item-when-data" title="<%= l question.created_at, format: :date_title %>">
-            <%= time_ago_in_words question.created_at %>
-          </span>
+          <% if @tab == "active" && question.greatest_name == "answer" %>
+            <span class="qa-q-item-when-data" title="<%= l question.greatest_value.to_time, format: :date_title %>">
+              <%= time_ago_in_words question.created_at %>
+            </span>
+          <% else %>
+            <span class="qa-q-item-when-data" title="<%= l question.created_at, format: :date_title %>">
+              <%= time_ago_in_words question.created_at %>
+            </span>
+          <% end %>
           <span class="qa-q-item-when-pad"> ago</span>
         </span>
         <span class="qa-q-item-where">
           <span class="qa-q-item-where-pad">in </span>
-          <span><%= category_link question %></span>
+          <span>
+            <%= category_link question %>
+          </span>
         </span>
         <span class="qa-q-item-who">
           <span class="qa-q-item-who-pad">by </span>
