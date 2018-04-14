@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_user_session
+
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    flash[:danger] = "Not found!"
+    redirect_to root_url
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    request.xhr? ? ajax_redirect_to(nil, exception.message) : redirect_to(root_url, alert: exception.message)
+  end
 
   def page_404
     render file: "public/404.html", status: :not_found
@@ -14,8 +24,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_user_session
-    return if current_user
-    request.xhr? ? ajax_redirect_to(nil, I18n.t('devise.failure.unauthenticated')) : authenticate_user!
+    return if user_signed_in?
+    request.xhr? ? ajax_redirect_to(nil, I18n.t("devise.failure.unauthenticated")) : authenticate_user!
   end
 
   def check_object_exists object, url

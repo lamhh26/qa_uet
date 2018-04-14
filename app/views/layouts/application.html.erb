@@ -9,7 +9,9 @@
   </head>
   <body class="body-content">
     <div class="wrapper">
-      <%= render "layouts/topnav" %>
+      <% if user_signed_in? %>
+        <%= render "layouts/topnav" %>
+      <% end %>
       <div class="container qa-content-wrapper">
         <%= render "layouts/flash" %>
         <%= yield %>

@@ -12,7 +12,7 @@ class Vote < ApplicationRecord
     errors.add(:vote, "You cannot vote your own #{post.post_type}") if user == post.owner_user
     vote = post.vote_by user
     return unless vote.persisted?
-    errors.add(:vote, "You cannot upvote more") if vote.up_mod? == self.up_mod?
-    errors.add(:vote, "You cannot downvote more") if vote.down_mod? == self.down_mod?
+    errors.add(:vote, "You cannot upvote more") if vote.up_mod? == up_mod?
+    errors.add(:vote, "You cannot downvote more") if vote.down_mod? == down_mod?
   end
 end

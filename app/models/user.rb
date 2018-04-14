@@ -10,17 +10,11 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :voted_posts, through: :votes, source: :post
   has_many :answers, through: :posts, source: :answers
-  has_many :user_categories, dependent: :destroy
-  has_many :categories, through: :user_categories
-
-  validate :validate_categories
+  has_many :user_courses, dependent: :destroy
+  has_many :courses, through: :user_courses
 
   scope :new_users, ->{where "users.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()"}
   scope :voter, ->{joins(:votes).group(:id).select("users.*, COUNT(*) AS vote_count").order "vote_count DESC"}
   scope :search_by_name, ->(user_name){where User.arel_table[:name].matches("%#{user_name}%")}
-  scope :consultant, ->{where consultant: true}
-
-  def validate_categories
-    errors.add(:categories, "is too many") if categories.size > Settings.category.amount.maximum
-  end
+  scope :lecturers, ->{where lecturer: true}
 end
