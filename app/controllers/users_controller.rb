@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @categories = Category.pluck(:name, :id).map{|v| [v[0].humanize, v[1]]}
+    @categories = Category.pluck(:name, :id).map{|v| [v[0].underscore.humanize, v[1]]}
   end
 
   def update
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def categories
-    @tab = tab_active "answered", "unanswered", "answered"
+    @tab = tab_active "unanswered", "unanswered", "answered"
     @category_posts = DataTabPresenter.new(@category.posts, @tab).load_user_category_posts(@user)
                                       .load_votes.select_posts_votes.includes(:votes, :tags).page(params[:page])
                                       .per Settings.paginate.per_page
