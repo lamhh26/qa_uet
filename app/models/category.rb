@@ -1,11 +1,13 @@
 class Category < ApplicationRecord
-  before_save :name_downcase
+  before_save :format_name
 
   has_many :posts
 
+  validates :name, presence: true, uniqueness: true
+
   private
 
-  def name_downcase
-    name.downcase!
+  def format_name
+    self.name = name.parameterize
   end
 end

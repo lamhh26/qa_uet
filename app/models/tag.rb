@@ -3,6 +3,8 @@ class Tag < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :posts, through: :post_tags
 
+  validates :name, presence: true, uniqueness: true
+
   scope :load_tags, (-> do
     left_outer_joins(:posts).where(posts: {post_type: :question}).group(:id).select "tags.*, COUNT(*) AS tag_count"
   end)
