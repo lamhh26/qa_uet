@@ -47,6 +47,18 @@ class ApplicationController < ActionController::Base
     tabs.include?(params[:sort]) ? params[:sort] : default_tab
   end
 
+  def load_course
+    @course = current_user.courses.load_posts.find_by id: params[:course_id]
+  end
+
+  def load_course_posts
+    @course_posts = @course ? @course.posts : Post.of_courses(current_user.courses)
+  end
+
+  def load_course_tags
+    @course_tags = @course ? Tag.load_tags.of_course(@course) : Tag.load_tags.of_courses(current_user.courses)
+  end
+
   private
 
   def ajax_redirect_to url = nil, message = nil

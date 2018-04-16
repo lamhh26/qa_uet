@@ -3,13 +3,13 @@
 </div>
 <ul class="nav nav-tabs qa-nav-tabs-right">
   <li class="menu-second-top-nav <%= @tab == "voter" ? :active : nil %>">
-    <%= link_to "voter", users_path(tab: :voter), title: "Users who voted more than 1 times" %>
+    <%= link_to "voter", users_path(tab: :voter, course_id: @course), title: "Users who voted more than 1 times" %>
   </li>
   <li class="menu-second-top-nav <%= @tab == "new_users" ? :active : nil %>">
-    <%= link_to "new users", users_path(tab: :new_users), title: "Users who joined in the last 30 days" %>
+    <%= link_to "new users", users_path(tab: :new_users, course_id: @course), title: "Users who joined in the last 30 days" %>
   </li>
   <li class="menu-second-top-nav <%= @tab == "all" ? :active : nil %>">
-    <%= link_to "all", users_path(tab: :all), title: "All users" %>
+    <%= link_to "all", users_path(tab: :all, course_id: @course), title: "All users" %>
   </li>
 </ul>
 
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="users-list">
-      <%= render partial: "users", locals: {users: @users, tab: @tab} %>
+      <%= render partial: "users", locals: {users: @users, tab: @tab, course: @course} %>
     </div>
   </div>
 </div>

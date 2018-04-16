@@ -3,15 +3,15 @@
 </div>
 <div class="nav-tab-bound">
   <ul class="nav nav-tabs qa-nav-tabs-right">
-    <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path, title: "Switch to unanswered tabs" %></li>
+    <li class="menu-second-top-nav"><%= link_to "Unanswered", unanswered_path(course_id: @course), title: "Switch to unanswered tabs" %></li>
     <li class="menu-second-top-nav <%= @tab == "most_answers" ? :active : nil %>">
-      <%= link_to "Most answers", questions_path(tab: :most_answers), title: "Questions with the most answers" %>
-    </li>
-    <li class="menu-second-top-nav <%= @tab == "newest" ? :active : nil %>">
-      <%= link_to "Newest", questions_path(tab: :newest), title: "The most recently asked questions" %>
+      <%= link_to "Most answers", questions_path(tab: :most_answers, course_id: @course), title: "Questions with the most answers" %>
     </li>
     <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
-      <%= link_to "Votes", questions_path(tab: :votest), title: "Questions with the most votes" %>
+      <%= link_to "Votes", questions_path(tab: :votest, course_id: @course), title: "Questions with the most votes" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "newest" ? :active : nil %>">
+      <%= link_to "Newest", questions_path(tab: :newest, course_id: @course), title: "The most recently asked questions" %>
     </li>
   </ul>
 </div>
@@ -20,10 +20,10 @@
   <div class="qa-main">
     <div class="qa-part-q-list">
       <div class="qa-q-list">
-        <%= render partial: "question", collection: @questions %>
-        <%= paginate @questions, params: {tab: @tab} %>
+        <%= render partial: "question", collection: @questions, locals: {course: @course} %>
+        <%= paginate @questions, params: {tab: @tab, course_id: @course} %>
       </div>
     </div>
   </div>
-  <%= render partial: "sidepanel", locals: {tags: @tags} %>
+  <%= render partial: "sidepanel", locals: {tags: @tags, course: @course} %>
 </div>

@@ -1,19 +1,38 @@
 <div class="qa-sidepanel" id="qam-sidepanel-mobile">
-  <div class="qa-sidebar wet-asphalt">
+  <div class="qa-sidebar">
     <div>
       Welcome to the Q&ampA site for <%= link_to "QA", root_path %>
       <br><br>
       If you have a question about Q2A, please <%= link_to "ask", new_question_path %>.
     </div>
   </div>
-  <div class="qa-widgets-side qa-widgets-side-high">
-    <div class="qa-widget-side qa-widget-side-high">
-      <div class="qa-related-qs">
-        <h2>Related questions</h2>
-        <ul class="qa-related-q-list">
-          <%= render partial: "related_question", collection: related_questions, as: :question %>
-        </ul>
-      </div>
+  <div class="qa-widget-side">
+    <div class="section-title-line">
+      <%= content_tag :h2, title: "#{course.name} - #{course.course_category.name}" do %>
+        <%= course.name.truncate_words 2 %>
+      <% end %>
+      <hr class="filler-line">
+    </div>
+    <div>
+      <p>Student: <%= course.users.students.size %></p>
+      <p>Question: <%= course.posts_count %></p>
+      <p>Answer: <%= course.course_answers_count %></p>
+    </div>
+  </div>
+  <div class="sidebar-box-links">
+    <%= link_to root_path do %>
+      <i class="fa fa-graduation-cap" aria-hidden="true"></i> All your courses
+    <% end %>
+  </div>
+  <div class="qa-widget-side">
+    <div class="section-title-line"><h2>Related questions in course</h2><hr class="filler-line"></div>
+    <div>
+      <ul class="qa-related-q-list"><%= render partial: "related_question", collection: related_questions, as: :question %></ul>
+    </div>
+    <div class="sidebar-box-links">
+      <%= link_to questions_path(course_id: course) do %>
+        <i class="fa fa-question-circle" aria-hidden="true"></i> All questions
+      <% end %>
     </div>
   </div>
 </div>

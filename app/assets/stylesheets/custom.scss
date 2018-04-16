@@ -117,18 +117,8 @@ html, body {
   margin: 0;
 }
 
-.wrapper {
-  min-height: 100%;
-  margin-bottom: -50px;
-}
-
-.footer,
-.push {
-  height: 50px;
-}
-
-.qa-footer {
-  padding: 25px !important;
+.qa-content-wrapper {
+  min-height: 970px;
 }
 
 .user_avatar, .qa-icon {
@@ -335,4 +325,33 @@ html, body {
 
 #notification-label {
   padding-top: 21px;
+}
+
+.course {
+  .course-body {
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+}
+
+.section-title-line {
+  display: flex;
+}
+
+.filler-line {
+  flex-grow: 1;
+  border-color: #d6d6d7;
+}
+
+.qa-widget-side {
+  padding: 40px 20px 0 0 !important;
+}
+
+.qa-sidepanel {
+  padding-left: 15px !important;
+}
+
+.sidebar-box-links {
+  padding-top: 5px;
+  border-top: 1px solid #d6d6d7;
 }

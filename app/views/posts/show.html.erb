@@ -16,13 +16,13 @@
             <div class="entry-content"><%= simple_format @post.body %></div>
           </div>
           <div class="qa-q-view-tags">
-            <%= render partial: "tag", collection: @post.tags %>
+            <%= render partial: "tag", collection: @post.tags, locals: {course: @post.course} %>
           </div>
           <div class="qa-q-view-buttons">
             <div class="qa-q-buttons">
               <% unless owner_user? @post.owner_user %>
                 <button data-toggle="collapse" data-target="#qa-q-answer" class="btn btn-info qa-btn">
-                  <i class="fa fa-sticky-note" aria-hidden="true"> answer</i>
+                  <i class="fa fa-reply" aria-hidden="true"> answer</i>
                 </button>
               <% end %>
               <button data-toggle="collapse" data-target="#qa-q-comment" class="btn btn-success qa-btn">
@@ -60,5 +60,5 @@
       <div class="qa-clearfix"></div>
     <% end %>
   </div>
-  <%= render partial: "sidepanel_question", locals: {related_questions: @related_questions} %>
+  <%= render partial: "sidepanel_question", locals: {related_questions: @related_questions, course: @course} %>
 </div>

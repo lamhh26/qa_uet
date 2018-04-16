@@ -11,6 +11,6 @@
     <% end %>
   </div>
   <% if tab == "voter" %>
-    <div class="user-tags"><%= pluralize user.votes.size, "vote" %></div>
+    <div class="user-tags"><%= pluralize user.vote_count, "vote" %></div>
   <% end %>
 </div>

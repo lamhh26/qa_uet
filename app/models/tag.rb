@@ -13,6 +13,8 @@ class Tag < ApplicationRecord
   scope :unanswered, ->{where posts: {answers_count: 0}}
   scope :sort_by_name, ->{order :name}
   scope :search_by_name, ->(tag_name){where Tag.arel_table[:name].matches("%#{tag_name}%")}
+  scope :of_course, ->(course){where posts: {course_id: course.id}}
+  scope :of_courses, ->(courses){where posts: {course_id: courses.ids}}
 
   private
 

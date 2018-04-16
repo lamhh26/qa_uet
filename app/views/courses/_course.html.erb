@@ -1,0 +1,22 @@
+<div class="col-md-3 col-sm-6 col-xs course">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div><%= course.name %></div>
+      <div><%= course.course_category.name %>
+      (<%= course.course_category.year_from %> - <%= course.course_category.year_to %>)</div>
+    </div>
+    <div class="panel-body course-body">
+      <div>
+        <div>Student: <%= course.users.students.size %></div>
+        <div>Question: <%= course.posts_count %></div>
+        <div>Answer: <%= course.course_answers_count %></div>
+      </div>
+      <div>
+        <ul class="list-inline pull-right">
+          <%= render partial: "lecturer", collection: course.users.lecturers %>
+        </ul>
+      </div>
+    </div>
+    <div class="panel-footer"><%= link_to "All questions", questions_path(course_id: course.id) %></div>
+  </div>
+</div>
