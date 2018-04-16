@@ -1,7 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :check_user_session
-  before_action :load_question_without_owner, except: %i(upvote downvote)
-  before_action :load_question, only: %i(upvote downvote)
+  before_action :load_question
   before_action :load_answer, except: %i(create)
 
   def create
@@ -12,10 +10,7 @@ class AnswersController < ApplicationController
 
   def edit
     return unless request.xhr?
-    respond_to do |format|
-      format.html{redirect_to question_path(@question)}
-      format.js
-    end
+    respond_format_js
   end
 
   def update
@@ -60,20 +55,15 @@ class AnswersController < ApplicationController
 
   def load_question
     @question = Post.question.find_by id: params[:question_id]
-    check_object_exists @question, questions_url
-  end
-
-  def load_question_without_owner
-    @question = Post.question.where.not(owner_user: current_user).find_by id: params[:question_id]
-    check_object_exists @question, questions_url
+    authorize! :read, @question
   end
 
   def load_answer
     @answer = @question.answers.load_votes.select_posts_votes.find_by id: params[:id]
-    check_object_exists @question, questions_url
+    authorize! action_name.to_sym, @answer
   end
 
   def answer_params
-    params.require(:answer).permit :body
+    params.require(:post).permit :body
   end
 end

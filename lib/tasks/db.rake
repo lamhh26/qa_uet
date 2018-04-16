@@ -6,9 +6,17 @@ namespace :db do
       Rake::Task[task].invoke
     end
 
-    puts "Create categories"
-    10.times.each do
-      Category.create name: FFaker::Education.unique.major
+    puts "Create course categories"
+    CourseCategory.create name: "Hoc ky I", year_from: 2016, year_to: 2017
+    CourseCategory.create name: "Hoc ky II", year_from: 2016, year_to: 2017
+    CourseCategory.create name: "Hoc ky I", year_from: 2017, year_to: 2018
+    CourseCategory.create name: "Hoc ky II", year_from: 2017, year_to: 2018
+
+    puts "Create courses"
+    CourseCategory.all.each do |category|
+      10.times.each do
+        category.courses.create name: FFaker::Education.unique.major
+      end
     end
 
     puts "Create users"
@@ -18,13 +26,13 @@ namespace :db do
         password: "123456"
     end
 
-    puts "Update consultant"
-    consultants = User.all.sample(10).each do |user|
-      user.update_attributes consultant: true
+    puts "Update lecturers"
+    lecturers = User.all.sample(10).each do |user|
+      user.update_attributes lecturer: true
     end
-    categories = Category.all
-    consultants.each do |consultant|
-      consultant.categories = categories.sample(rand(1..5))
+    courses = Course.all
+    lecturers.each do |lecturer|
+      lecturer.courses = courses.sample(rand(1..5))
     end
 
     puts "Create tags"
@@ -38,7 +46,7 @@ namespace :db do
       rand(1..10).times.each do |_|
         user.posts.create post_type: :question, title: FFaker::Lorem.sentence,
           created_at: FFaker::Time.date(year_latest: 0.5), body: FFaker::Lorem.paragraphs.join(". "),
-          tags: tags.sample(rand(1..5)), category: categories.sample
+          tags: tags.sample(rand(1..5)), course: courses.sample
       end
     end
 

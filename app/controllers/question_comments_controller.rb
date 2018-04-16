@@ -1,11 +1,10 @@
 class QuestionCommentsController < ApplicationController
-  before_action :check_user_session
   before_action :load_question
   before_action :load_comment, only: %i(edit update destroy)
 
   def create
     return unless request.xhr?
-    @comment = @question.comments.build comment_params.merge!(user_id: current_user.id)
+    @comment = @post.comments.build comment_params.merge!(user_id: current_user.id)
     @result = @comment.save
     respond_format_js
   end
@@ -30,13 +29,13 @@ class QuestionCommentsController < ApplicationController
   private
 
   def load_question
-    @question = Post.question.find_by id: params[:question_id]
-    ajax_redirect_to questions_url unless @question
+    @post = Post.question.find_by id: params[:question_id]
+    authorize! :read, @post
   end
 
   def load_comment
-    @comment = @question.comments.find_by id: params[:id], user: current_user
-    ajax_redirect_to question_url(@question) unless @comment
+    @comment = @post.comments.find_by id: params[:id], user: current_user
+    authorize! action_name.to_sym, @comment
   end
 
   def comment_params

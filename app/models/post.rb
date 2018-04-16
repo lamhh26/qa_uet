@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :owner_user, class_name: User.name
   belongs_to :question, class_name: Post.name, optional: true, foreign_key: :parent_id
-  belongs_to :category, optional: true
+  belongs_to :course, optional: true
   has_many :answers, class_name: Post.name, foreign_key: :parent_id, dependent: :destroy
   counter_culture :question, column_name: proc{|model| model.answer? ? "answers_count" : nil}
   has_many :post_tags, dependent: :destroy
@@ -19,6 +19,7 @@ class Post < ApplicationRecord
     validates :title, presence: true, length: {minimum: Settings.post.title.minimum_length,
                                                maximum: Settings.post.title.maximum_length}
     validate :validate_tags
+    validates_associated :course
   end
   validates :body, presence: true, length: {minimum: Settings.post.body.minimum_length}
   validates :owner_user, presence: true
@@ -56,13 +57,6 @@ class Post < ApplicationRecord
   end)
   scope :sort_by_tag_name, ->{order "tags.name"}
   scope :answered_by_user, ->(user){question.joins(:answers).where(answers_posts: {owner_user_id: user.id}).distinct}
-  scope :active, (-> do
-    greatest_value = "GREATEST(IFNULL(posts.created_at, 0), IFNULL(answers_posts.created_at, 0))"
-    selected_field = "posts.*, answers_posts.id as answer_id, #{greatest_value} as greatest_value,
-      users.id as user_id, users.name as user_name, users.avatar as user_avatar"
-    left_outer_joins(answers: :owner_user).select("#{selected_field}, case when #{greatest_value} = posts.created_at
-      then 'question' else 'answer' end as greatest_name").order("greatest_value desc")
-  end)
   scope :uncategory, ->{question.where category: nil}
 
   private

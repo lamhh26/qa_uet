@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_user_session, only: %i(edit update)
-  before_action :load_user, except: %i(index)
-  before_action :check_current_user, only: %i(edit update)
-  before_action :check_consultant, :load_category, only: :categories
+  load_and_authorize_resource
 
   def index
     users_data = User.all
@@ -14,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @tab = tab_active "profile", "activity", "profile", "categories"
+    @tab = tab_active "profile", "activity", "profile"
 
     if @tab == "activity"
       @answers = @user.posts.answer.load_votes.select_posts_votes.votest.includes(:question)
@@ -22,9 +19,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @categories = Category.pluck(:name, :id).map{|v| [v[0].underscore.humanize, v[1]]}
-  end
+  def edit; end
 
   def update
     if @user.update_attributes user_params
@@ -72,26 +67,8 @@ class UsersController < ApplicationController
 
   private
 
-  def load_user
-    @user = User.find_by id: params[:id]
-    check_object_exists @user, root_url
-  end
-
   def user_params
     params[:user][:category_ids].reject!(&:blank?) if params[:user][:category_ids].present?
     params.require(:user).permit :name, :birth_day, :email, :about_me, :avatar, category_ids: []
-  end
-
-  def check_current_user
-    redirect_to user_path(@user) unless current_user == @user
-  end
-
-  def check_consultant
-    redirect_to user_path(@user) unless @user.consultant?
-  end
-
-  def load_category
-    @category = Category.find_by id: params[:category_id]
-    redirect_to user_path(@user) unless @user.categories.exists? id: params[:category_id]
   end
 end

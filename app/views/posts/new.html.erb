@@ -3,15 +3,15 @@
     <div class="qa-main">
       <h1>Ask a question</h1>
       <div class="qa-part-form">
-        <%= form_for @question, url: questions_path, class: "form-horizontal" do |f| %>
+        <%= form_for @post, url: questions_path, class: "form-horizontal" do |f| %>
           <%= render "shared/error_messages", object: f.object %>
           <div class="form-group">
             <%= f.label :title %>
             <%= f.text_field :title, class: "form-control" %>
           </div>
           <div class="form-group">
-            <%= f.label :category %>
-            <%= f.select :category_id, @categories, {include_blank: true}, {class: "categories-select form-control"} %>
+            <%= f.label :course %>
+            <%= f.select :course_id, @courses, {}, {class: "categories-select form-control"} %>
           </div>
           <div class="form-group">
             <%= f.label :content %>

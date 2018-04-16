@@ -1,5 +1,5 @@
 <% if @result %>
-  $('.qa-q-view-c-list').append('<%= j render(partial: "comment", locals: {comment: @comment, question: @question}) %>');
+  $('.qa-q-view-c-list').append('<%= j render(partial: "comment", locals: {comment: @comment, question: @post}) %>');
   $('#qa-q-comment').collapse('hide');
   $('#qa-q-comment textarea').val('');
 <% else %>

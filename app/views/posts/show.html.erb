@@ -1,26 +1,26 @@
 <div class="qa-main-wrapper">
   <div class="qa-main">
     <h1>
-      <%= link_to @question_path do %>
-        <span class="entry-title"><%= @question.title %></span>
+      <%= link_to @post_path do %>
+        <span class="entry-title"><%= @post.title %></span>
       <% end %>
     </h1>
     <div class="qa-part-q-view">
       <div class="qa-q-view">
         <div class="qa-q-view-stats">
-          <%= render partial: "vote", locals: {post: @question} %>
+          <%= render partial: "vote", locals: {post: @post} %>
         </div>
         <div class="qa-q-view-main">
-          <%= render partial: "question_header", locals: {question: @question} %>
+          <%= render partial: "question_header", locals: {question: @post} %>
           <div class="qa-q-view-content">
-            <div class="entry-content"><%= simple_format @question.body %></div>
+            <div class="entry-content"><%= simple_format @post.body %></div>
           </div>
           <div class="qa-q-view-tags">
-            <%= render partial: "tag", collection: @question.tags %>
+            <%= render partial: "tag", collection: @post.tags %>
           </div>
           <div class="qa-q-view-buttons">
             <div class="qa-q-buttons">
-              <% unless owner_user? @question.owner_user %>
+              <% unless owner_user? @post.owner_user %>
                 <button data-toggle="collapse" data-target="#qa-q-answer" class="btn btn-info qa-btn">
                   <i class="fa fa-sticky-note" aria-hidden="true"> answer</i>
                 </button>
@@ -30,11 +30,11 @@
               </button>
             </div>
             <div class="pull-right">
-              <% if owner_user? @question.owner_user %>
-                <%= link_to edit_question_path(@question), class: "btn btn-primary active qa-btn" do %>
+              <% if owner_user? @post.owner_user %>
+                <%= link_to edit_question_path(@post), class: "btn btn-primary active qa-btn" do %>
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 <% end %>
-                <%= link_to question_path(@question), class: "btn btn-primary active qa-btn",
+                <%= link_to question_path(@post), class: "btn btn-primary active qa-btn",
                   data: {confirm: "Are you sure", method: :delete} do %>
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 <% end %>
@@ -42,18 +42,20 @@
             </div>
           </div>
           <div class="qa-q-view-c-list">
-            <% if @question.comments.any? %>
-              <%= render partial: "question_comments/comment", collection: @question.comments, as: :comment, locals: {question: @question} %>
+            <% if @post.comments.any? %>
+              <%= render partial: "question_comments/comment", collection: @post.comments, as: :comment, locals: {question: @post} %>
             <% end %>
           </div>
-          <%= render partial: "question_comments/form", locals: {question: @question} %>
+          <%= render partial: "question_comments/form", locals: {question: @post} %>
         </div>
       </div>
     </div>
-    <%= render partial: "answers/form", locals: {question: @question} %>
+    <% unless owner_user? @post.owner_user %>
+      <%= render partial: "answers/form", locals: {question: @post, new_answer: @new_answer} %>
+    <% end %>
 
-    <% if @question.answers.any? %>
-      <%= render partial: "answers", locals: {question: @question, answers: @answers, tab: @tab} %>
+    <% if @post.answers.exists? %>
+      <%= render partial: "answers", locals: {question: @post, answers: @answers, tab: @tab} %>
     <% else %>
       <div class="qa-clearfix"></div>
     <% end %>

@@ -8,7 +8,18 @@ Rails.application.routes.draw do
       get "/categories/:category_id", to: "users#categories", as: :category
     end
   end
-  resources :questions, controller: :posts do
+  resources :courses, only: :show do
+    resources :questions, controller: :posts, only: %i(index)
+    get "/questions/tagged/:name", to: "posts#tagged", as: :tagged_questions
+    get "/unanswered/tagged/:name", to: "unanswereds#tagged", as: :tagged_unanswered
+    resource :unanswered, only: :show
+    resource :tags, only: :show do
+      collection do
+        get :search
+      end
+    end
+  end
+  resources :questions, controller: :posts, except: %i(index) do
     resources :comments, controller: :question_comments, except: %i(index show new)
     resources :answers, except: %i(index show new) do
       member do
@@ -22,14 +33,5 @@ Rails.application.routes.draw do
   scope "answers/:answer_id", as: :answer do
     resources :comments, controller: :answer_comments, except: %i(index show new)
   end
-  resource :unanswered, only: :show
-  resource :tags, only: :show do
-    collection do
-      get :search
-    end
-  end
-  resources :categories, param: :name, only: :show
-  get "/questions/tagged/:name", to: "posts#tagged", as: :tagged_questions
-  get "/unanswered/tagged/:name", to: "unanswereds#tagged", as: :tagged_unanswered
   get "*path", to: "application#page_404"
 end

@@ -1,10 +1,10 @@
 <% if @result %>
   <% if @vote.destroyed? %>
-    $('[data-question-id="<%= @question.id %>"] .down_mod').removeClass('voting-color');
+    $('[data-question-id="<%= @post.id %>"] .down_mod').removeClass('voting-color');
   <% else %>
-    $('[data-question-id="<%= @question.id %>"] .up_mod').addClass('voting-color');
+    $('[data-question-id="<%= @post.id %>"] .up_mod').addClass('voting-color');
   <% end %>
-  $('[data-question-id="<%= @question.id %>"] .points').html('<%= @question.vote_count.to_i + 1 %>')
+  $('[data-question-id="<%= @post.id %>"] .points').html('<%= @post.vote_count.to_i + 1 %>')
 <% else %>
   pnotify('Error!', '<%= @vote.errors.messages[:vote].first %>', 'error');
 <% end %>
