@@ -1,12 +1,12 @@
 <div class="container">
   <div class="nav-tab-bound">
     <ul class="nav nav-tabs qa-nav-tabs-right">
-    <li><%= link_to "All questions", tagged_questions_path(params[:name]), title: "Switch to all questions tabs" %></li>
+    <li><%= link_to "All questions", tagged_questions_path(params[:name], course_id: @course), title: "Switch to all questions tabs" %></li>
     <li class="menu-second-top-nav <%= @tab == "newest" ? :active : nil %>">
-      <%= link_to "Newest", tagged_unanswered_path(tab: :newest), title: "newest unanswered questions" %>
+      <%= link_to "Newest", tagged_unanswered_path(tab: :newest, course_id: @course), title: "newest unanswered questions" %>
     </li>
     <li class="menu-second-top-nav <%= @tab == "votest" ? :active : nil %>">
-      <%= link_to "Votes", tagged_unanswered_path(tab: :votest), title: "highest voted unanswered questions" %>
+      <%= link_to "Votes", tagged_unanswered_path(tab: :votest, course_id: @course), title: "highest voted unanswered questions" %>
     </li>
   </ul>
   </div>
@@ -15,11 +15,11 @@
     <div class="qa-main">
       <div class="qa-part-q-list">
         <div class="qa-q-list">
-          <%= render partial: "posts/question", collection: @unanswered_questions %>
-          <%= paginate @unanswered_questions, params: {tab: @tab} %>
+          <%= render partial: "posts/question", collection: @unanswered_questions, locals: {course: @course} %>
+          <%= paginate @unanswered_questions, params: {tab: @tab, course_id: @course} %>
         </div>
       </div>
     </div>
-    <%= render partial: "sidepanel", locals: {tags: @unanswered_tags} %>
+    <%= render partial: "sidepanel", locals: {tags: @unanswered_tags, course: @course} %>
   </div>
 </div>

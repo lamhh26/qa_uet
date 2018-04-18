@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
+  before_action :load_course, :load_course_users, only: :index
   load_and_authorize_resource
 
   def index
-    users_data = User.all
+    users_data = @course_users
     @tab = tab_active "all", "voter", "new_users", "all"
-    users_data = users_data.search_by_name params[:q] if params[:q].present? && request.xhr?
-    @users = DataTabPresenter.new(users_data, @tab).load_users.page(params[:page])
+    users_data = @course_users.search_by_name params[:q] if params[:q].present? && request.xhr?
+    @users = DataTabPresenter.new(users_data, @tab).load_users(current_user, @course).page(params[:page])
                              .per Settings.paginate.tags.per_page
     respond_format_js if request.xhr?
   end
@@ -70,5 +71,9 @@ class UsersController < ApplicationController
   def user_params
     params[:user][:category_ids].reject!(&:blank?) if params[:user][:category_ids].present?
     params.require(:user).permit :name, :birth_day, :email, :about_me, :avatar, category_ids: []
+  end
+
+  def load_course_users
+    @course_users = @course ? @course.users : User.of_courses(current_user.courses)
   end
 end

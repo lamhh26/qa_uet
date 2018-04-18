@@ -1,0 +1,28 @@
+<div class="col-md-2 col-sm-3 col-xs-4 qa-tabs-title">
+  <h2>Top Questions</h2>
+</div>
+<div class="nav-tab-bound">
+  <ul class="qa-nav-tabs-right nav nav-tabs">
+    <li class="menu-second-top-nav <%= @tab == "month" ? :active : nil %>">
+      <%= link_to "Month", hot_path(tab: :month, course_id: @course), title: "Questions with the most views, answers, and votes this month" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "week" ? :active : nil %>">
+      <%= link_to "Week", hot_path(tab: :week, course_id: @course), title: "Questions with the most views, answers, and votes this week" %>
+    </li>
+    <li class="menu-second-top-nav <%= @tab == "hot" ? :active : nil %>">
+      <%= link_to "Hot", hot_path(tab: :hot, course_id: @course), title: "Questions with the most views, answers, and votes over the last few days" %>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div class="qa-main">
+    <div class="qa-part-q-list">
+      <div class="qa-q-list">
+        <%= render partial: "posts/question", collection: @questions, locals: {course: @course} %>
+        <%= paginate @questions, params: {tab: @tab, course_id: @course} %>
+      </div>
+    </div>
+  </div>
+  <%= render partial: "posts/sidepanel", locals: {tags: @tags, course: @course} %>
+</div>

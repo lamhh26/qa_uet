@@ -1,4 +1,4 @@
 <div>
-  <%= link_to tag.name, tagged_unanswered_path(tag.name), class: "qa-tag-link" %>
+  <%= link_to tag.name, tagged_unanswered_path(tag.name, course_id: course), class: "qa-tag-link" %>
   <span>x <%= tag.tag_count.to_i %></span>
 </div>

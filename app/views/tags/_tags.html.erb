@@ -1,2 +1,2 @@
-<%= render partial: "tag", collection: tags %>
-<%= paginate tags, params: {tab: tab} %>
+<%= render partial: "tag", collection: tags, locals: {course: course} %>
+<%= paginate tags, params: {tab: tab, course_id: course} %>

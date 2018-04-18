@@ -27,10 +27,11 @@ class DataTabPresenter
     @object.popular
   end
 
-  def load_users
+  def load_users user, course
     return @object.new_users if @tab == "new_users"
-    return @object.voter if @tab == "voter"
-    @object
+    return @object unless @tab == "voter"
+    return User.voter(course.id) if course
+    User.voter user.courses.ids
   end
 
   def load_user_answers
@@ -57,14 +58,5 @@ class DataTabPresenter
   def load_user_category_posts user
     return @object.answered_by_user(user).newest if @tab == "answered"
     @object.question.where.not(id: @object.answered_by_user(user)).newest
-  end
-
-  def load_category_posts
-    data = case @tab
-           when "votest" then @object.votest
-           when "most_answers" then @object.most_answers
-           else @object.viewest
-           end
-    data.load_votes.select_posts_votes
   end
 end

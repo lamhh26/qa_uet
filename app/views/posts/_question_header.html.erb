@@ -1,7 +1,7 @@
 <span class="qa-q-view-avatar-meta">
   <span class="qa-q-view-avatar">
     <%= link_to user_path(question.owner_user), class: "qa-avatar-link" do %>
-      <%= image_tag question.owner_user.avatar_url(:thumb), class: "qa-avatar-image" %>
+      <%= image_tag question.owner_user.avatar_url(:thumb), class: "img-circle qa-avatar-image" %>
     <% end %>
   </span>
   <span class="qa-q-view-meta">
@@ -17,6 +17,12 @@
         </span>
       </span>
       <span class="qa-q-view-when-pad"> ago</span>
+    </span>
+    <span class="qa-q-view-where">
+      <span class="qa-q-view-where-pad">in </span>
+      <span class="qa-q-view-where-data">
+        <%= link_to question.course.name, questions_path(course_id: question.course) %>
+      </span>
     </span>
     <span class="qa-q-view-who">
       <span class="qa-q-view-who-pad">by </span>

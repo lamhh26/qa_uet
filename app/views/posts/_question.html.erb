@@ -28,7 +28,7 @@
     <span class="qa-q-item-avatar-meta">
       <span class="qa-q-item-avatar">
         <%= link_to user_path(question.owner_user), class: "qa-avatar-link" do %>
-          <%= image_tag question.owner_user.avatar_url(:thumb), class: "qa-avatar-image" %>
+          <%= image_tag question.owner_user.avatar_url(:thumb), class: "img-circle qa-avatar-image", alt: question.owner_user.name %>
         <% end %>
       </span>
       <span class="qa-q-item-meta">
@@ -38,6 +38,12 @@
             <%= time_ago_in_words question.created_at %>
           </span>
           <span class="qa-q-item-when-pad"> ago</span>
+        </span>
+        <span class="qa-q-item-where">
+          <span class="qa-q-item-where-pad">in </span>
+          <span class="qa-q-item-where-data">
+            <%= link_to question.course.name, questions_path(course_id: question.course) %>
+          </span>
         </span>
         <span class="qa-q-item-who">
           <span class="qa-q-item-who-pad">by </span>
@@ -49,7 +55,7 @@
     </span>
     <div class="qa-q-item-tags">
       <ul class="qa-q-item-tag-list">
-        <%= render partial: "posts/tag", collection: question.tags %>
+        <%= render partial: "posts/tag", collection: question.tags, locals: {course: course} %>
       </ul>
     </div>
   </div>

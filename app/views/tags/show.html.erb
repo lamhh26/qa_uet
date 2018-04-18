@@ -3,10 +3,10 @@
 </div>
 <ul class="nav nav-tabs qa-nav-tabs-right">
   <li class="menu-second-top-nav <%= @tab == "name" ? :active : nil %>">
-    <%= link_to "Name", tags_path(tab: :name) %>
+    <%= link_to "Name", tags_path(tab: :name, course_id: @course) %>
   </li>
   <li class="menu-second-top-nav <%= @tab == "popular" ? :active : nil %>">
-    <%= link_to "Popular", tags_path(tab: :popular) %>
+    <%= link_to "Popular", tags_path(tab: :popular, course_id: @course) %>
   </li>
 </ul>
 
@@ -14,14 +14,14 @@
   <div class="container">
     <div>
       <p>
-        <%= form_tag tags_path(tab: @tab), remote: true, method: :get do |f| %>
+        <%= form_tag tags_path(tab: @tab, course_id: @course), remote: true, method: :get do |f| %>
           <%= text_field_tag :q, params[:q], id: "tagfilter", placeholder: "Filter by tag name", autofocus: "", autocomplete: "off",
             maxlength: 35 %>
         <% end %>
       </p>
     </div>
     <div class="tags-list">
-      <%= render partial: "tags", locals: {tags: @tags, tab: @tab} %>
+      <%= render partial: "tags", locals: {tags: @tags, tab: @tab, course: @course} %>
     </div>
   </div>
 </div>
