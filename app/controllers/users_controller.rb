@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_course, :load_course_users, only: :index
   load_and_authorize_resource
+  before_action :load_user_course, :load_user_course_posts, only: %i(answers questions tags)
 
   def index
     users_data = @course_users
@@ -15,8 +16,9 @@ class UsersController < ApplicationController
     @tab = tab_active "profile", "activity", "profile"
 
     if @tab == "activity"
-      @answers = @user.posts.answer.load_votes.select_posts_votes.votest.includes(:question)
-                      .page(params[:page]).per Settings.paginate.per_page
+      load_user_course
+      @answers = @user.posts.of_courses(@user_courses).answer.load_votes.select_posts_votes.votest
+                      .includes(:question).page(params[:page]).per Settings.paginate.per_page
     end
   end
 
@@ -33,7 +35,7 @@ class UsersController < ApplicationController
 
   def answers
     return unless request.xhr?
-    answers = @user.posts.answer.load_votes.select_posts_votes.includes :question
+    answers = @user_course_posts.answer.load_votes.select_posts_votes.includes :question
     @sort = tab_sort_active "votest", "votest", "newest"
     @user_answers = DataTabPresenter.new(answers, nil, @sort).load_user_answers.page(params[:page])
                                     .per Settings.paginate.per_page
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
 
   def questions
     return unless request.xhr?
-    questions = @user.posts.question.load_votes.select_posts_votes.includes :tags
+    questions = @user_course_posts.question.load_votes.select_posts_votes.includes :tags
     @sort = tab_sort_active "votest", "votest", "newest", "viewest"
     @user_questions = DataTabPresenter.new(questions, nil, @sort).load_user_questions.page(params[:page])
                                       .per Settings.paginate.per_page
@@ -51,19 +53,12 @@ class UsersController < ApplicationController
 
   def tags
     return unless request.xhr?
-    tags = @user.posts.left_outer_joins(:votes).select_votes.joins(:tags)
-                .select("tags.name, count(*) as posts_count").group("tags.name")
+    tags = @user_course_posts.left_outer_joins(:votes).select_votes.joins(:tags)
+                             .select("tags.name, count(*) as votes_posts_count").group("tags.name")
     @sort = tab_sort_active "name", "votest", "name"
     @user_tags = DataTabPresenter.new(tags, nil, @sort).load_user_tags.page(params[:page])
                                  .per Settings.paginate.tags.per_page
     respond_format_js
-  end
-
-  def categories
-    @tab = tab_active "unanswered", "unanswered", "answered"
-    @category_posts = DataTabPresenter.new(@category.posts, @tab).load_user_category_posts(@user)
-                                      .load_votes.select_posts_votes.includes(:votes, :tags).page(params[:page])
-                                      .per Settings.paginate.per_page
   end
 
   private
@@ -75,5 +70,15 @@ class UsersController < ApplicationController
 
   def load_course_users
     @course_users = @course ? @course.users : User.of_courses(current_user.courses)
+  end
+
+  def load_user_course
+    @courses = @user.courses.where id: current_user.courses
+    @user_course = @courses.find_by id: params[:course_id]
+    @user_courses = @user_course ? @user_course : @courses
+  end
+
+  def load_user_course_posts
+    @user_course_posts = @user.posts.of_courses @user_courses
   end
 end

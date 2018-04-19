@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
   impressionist actions: [:show], unique: [:session_hash]
   before_action :load_question_with_vote, only: %i(show upvote downvote)
-  before_action :load_courses, only: %i(new create edit update)
   before_action :load_course, :load_course_posts, :load_course_tags, only: %i(index tagged)
-  # load_and_authorize_resource through: :current_user, except: %i(index show upvote downvote tagged)
+  load_and_authorize_resource :course, only: %i(new create)
+  load_and_authorize_resource through: :current_user, except: %i(index show upvote downvote tagged)
 
   def index
-    questions_data = @course_posts.includes(:owner_user, :tags, :answers).question.load_votes.select_posts_votes
+    questions_data = @course_posts.includes(:owner_user, :tags, :answers, :course).question.load_votes
+                                  .select_posts_votes
     @tags = @course_tags.popular.limit Settings.tag.popular_length
     @tab = tab_active "newest", "most_answers", "newest", "votest"
     @questions = DataTabPresenter.new(questions_data, @tab).load_questions_index.page(params[:page])
@@ -26,11 +27,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = current_user.posts.build post_type: :question
+    @post = current_user.posts.build post_type: :question, course: @course
   end
 
   def create
-    @post = current_user.posts.build post_params
+    @post = current_user.posts.build post_params.merge! course: @course
     if @post.save
       flash[:notice] = "Question was successfully created!"
       redirect_to question_path(@post)

@@ -20,11 +20,12 @@
 //= require flash
 //= require ckeditor/init
 //= require tag-it.min
+//= require answer
 //= require tag
 //= require user
+//= require comment
 //= require pnotify
 //= require select2
-//= require_tree .
 
 $.ajaxSetup({
   statusCode: {

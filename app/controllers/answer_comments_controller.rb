@@ -1,6 +1,6 @@
 class AnswerCommentsController < ApplicationController
   before_action :load_answer
-  before_action :load_comment, only: %i(edit update destroy)
+  before_action :load_comment, except: :create
 
   def create
     @comment = @post.comments.build comment_params.merge!(user_id: current_user.id)

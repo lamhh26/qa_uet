@@ -4,14 +4,18 @@ class Ability
   def initialize user
     return if user.blank?
     alias_action :answers, :questions, :tags, :tagged, to: :read
-    cannot :read, Post, Post, &:answer?
-    can :read, [User, Tag, Post]
+    can :read, Course, id: user.courses.ids
+    can :read, User, courses: {id: user.courses.ids}
+    can :update, User, id: user.id
+    can :read, Post, course: {id: user.courses.ids}
+    cannot :show, Post, post_type: :answer
     can %i(upvote downvote), Post
     can %i(create update destroy), Post, Post do |post|
       post.question? ? (post.owner_user_id == user.id) : (post.question.owner_user_id != user.id)
     end
-    can :update, User, id: user.id
-    can :create, [Vote, Comment]
+    can :create, [Vote, Comment], post: {course_id: user.courses.ids}
     can %i(update destroy), [Vote, Comment], user_id: user.id
+    return unless user.lecturer?
+    can %i(mark_best_answer unmark_best_answer), Post
   end
 end

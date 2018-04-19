@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :answers, through: :posts, source: :answers
   has_many :user_courses, dependent: :destroy
   has_many :courses, through: :user_courses
+  has_many :best_answers, ->{answer.best_answers}, class_name: Post.name, foreign_key: :marker_id
 
   validates :name, :email, presence: true
 

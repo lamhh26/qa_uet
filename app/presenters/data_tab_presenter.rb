@@ -46,7 +46,7 @@ class DataTabPresenter
   end
 
   def load_user_tags
-    return @object.votest if @sort == "votes"
+    return @object.votes_posts if @sort == "votest"
     @object.sort_by_tag_name
   end
 

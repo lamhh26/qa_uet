@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users, skip: :registrations
+  mount Ckeditor::Engine => "/ckeditor"
 
+  devise_for :users, skip: :registrations
   devise_scope :user do
     authenticated :user do
       root "courses#index"
@@ -21,11 +21,15 @@ Rails.application.routes.draw do
           get :search
         end
       end
-      resources :questions, controller: :posts do
+      resources :courses, only: :show do
+        resources :questions, controller: :posts, only: %i(new create)
+      end
+      resources :questions, controller: :posts, except: %i(new create) do
         resources :comments, controller: :question_comments, except: %i(index show new)
         resources :answers, except: %i(index show new) do
           member do
             post :upvote, :downvote
+            patch :mark_best_answer, :unmark_best_answer
           end
         end
         member do

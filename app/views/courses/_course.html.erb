@@ -2,8 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <div><%= course.name %></div>
-      <div><%= course.course_category.name %>
-      (<%= course.course_category.year_from %> - <%= course.course_category.year_to %>)</div>
+      <div><%= course.course_category.title %></div>
     </div>
     <div class="panel-body course-body">
       <div>
@@ -17,6 +16,9 @@
         </ul>
       </div>
     </div>
-    <div class="panel-footer"><%= link_to "All questions", questions_path(course_id: course.id) %></div>
+    <div class="panel-footer">
+      <%= link_to "All questions", questions_path(course_id: course.id) %>
+      <%= link_to "All users", users_path(course_id: course.id), class: "pull-right" %>
+    </div>
   </div>
 </div>
