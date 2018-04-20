@@ -1,6 +1,6 @@
 class QuestionCommentsController < ApplicationController
   before_action :load_question
-  before_action :load_comment, only: %i(edit update destroy)
+  before_action :load_comment, except: :create
 
   def create
     return unless request.xhr?

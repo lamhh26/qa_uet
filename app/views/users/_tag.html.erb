@@ -1,6 +1,8 @@
 <div class="tag-content">
-  <div class="tag col-md-3">
+  <div class="user-tag col-md-3 col-sm-3 col-xs-4">
     <%= link_to object.name, "#", class: "qa-tag-link" %>
-    <span>x <%= object.posts_count %></span>
+    x <%= content_tag :span, title: "#{pluralize(object.votes_posts_count, 'post')} in the #{object.name} tag" do %>
+        <%= object.votes_posts_count %>
+      <% end %>
   </div>
 </div>

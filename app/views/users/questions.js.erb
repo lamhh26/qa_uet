@@ -1,6 +1,6 @@
 if ($('.activity-content .sub-tabs-questions').length !== 1) {
-  $('.activity-content').html('<%= j render partial: "questions_activity_tab", locals: {questions: @user_questions, user: @user, sort: @sort} %>')
+  $('.activity-content').html('<%= j render partial: "questions_activity_tab", locals: {questions: @user_questions, user: @user, sort: @sort, course: @user_course} %>')
 }
-$('.activity-sub-content-questions').html('<%= j render partial: "activity_content", locals: {object_name: "question", objects: @user_questions, sort: @sort} %>');
+$('.activity-sub-content-questions').html('<%= j render partial: "activity_content", locals: {object_name: "question", objects: @user_questions, sort: @sort, course: @user_course}, course: @user_course %>');
 $('.sub-tabs-questions .<%= @sort %>').tab('show');
 $('.parent-tabs .questions-activity-tabs').tab('show');

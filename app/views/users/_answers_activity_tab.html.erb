@@ -4,14 +4,14 @@
 <div class="sub-tabs sub-tabs-answers">
   <ul class="nav nav-tabs qa-nav-tabs-right">
     <li class="menu-second-top-nav newest">
-      <%= link_to "newest", answers_user_path(user, sort: :newest), remote: true %>
+      <%= link_to "newest", answers_user_path(user, sort: :newest, course_id: course), remote: true %>
     </li>
     <li class="menu-second-top-nav votest active">
-      <%= link_to "votes", answers_user_path(user, sort: :votest), remote: true %>
+      <%= link_to "votes", answers_user_path(user, sort: :votest, course_id: course), remote: true %>
     </li>
   </ul>
 
   <div class="tab-content activity-sub-content-answers">
-    <%= render partial: "activity_content", locals: {object_name: "answer", objects: answers, sort: :votes} %>
+    <%= render partial: "activity_content", locals: {object_name: "answer", objects: answers, sort: :votes, course: course} %>
   </div>
 </div>

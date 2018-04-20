@@ -1,11 +1,5 @@
-<div class="qa-sidepanel" id="qam-sidepanel-mobile">
-  <div class="qa-sidebar">
-    <div>
-      Welcome to the Q&ampA site for <%= link_to "QA", root_path %>
-      <br><br>
-      If you have a question about Q2A, please <%= link_to "ask", new_question_path %>.
-    </div>
-  </div>
+<div class="qa-sidepanel">
+  <%= link_to "Ask question", new_course_question_path(course), class: "ask btn btn-primary" %>
   <div class="qa-widget-side">
     <div class="section-title-line">
       <%= content_tag :h2, title: "#{course.name} - #{course.course_category.name}" do %>

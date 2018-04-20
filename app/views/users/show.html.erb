@@ -14,9 +14,7 @@
 
 <div class="tab-content">
   <% if @tab == "activity" %>
-    <%= render partial: "activity", locals: {user: @user, objects: @answers} %>
-  <% elsif @tab == "categories" %>
-    <%= render partial: "categories" %>
+    <%= render partial: "activity", locals: {user: @user, objects: @answers, user_course: @user_course, user_courses: @user_courses, courses: @courses} %>
   <% else %>
     <%= render partial: "profile", locals: {user: @user} %>
   <% end %>

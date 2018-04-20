@@ -1,0 +1,8 @@
+<% if @result %>
+  $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').removeClass('open');
+  $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').parent()
+    .attr('href', '<%= mark_best_answer_question_answer_path(@answer.question, @answer) %>');
+  $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').attr('title', '');
+<% else %>
+  pnotify('Error!', '<%= @answer.errors.messages[:best_answer].first %>', 'error');
+<% end %>

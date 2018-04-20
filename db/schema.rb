@@ -90,14 +90,19 @@ ActiveRecord::Schema.define(version: 20180411070550) do
     t.integer "post_type", default: 0
     t.string "title"
     t.text "body"
+    t.boolean "closed", default: false
+    t.boolean "best_answer", default: false
+    t.datetime "mark_best_answer_at"
     t.bigint "parent_id"
     t.bigint "owner_user_id"
+    t.bigint "marker_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "answers_count", default: 0, null: false
     t.integer "views_count", default: 0
     t.bigint "course_id"
     t.index ["course_id"], name: "index_posts_on_course_id"
+    t.index ["marker_id"], name: "index_posts_on_marker_id"
     t.index ["owner_user_id"], name: "index_posts_on_owner_user_id"
     t.index ["parent_id"], name: "index_posts_on_parent_id"
   end
@@ -156,6 +161,7 @@ ActiveRecord::Schema.define(version: 20180411070550) do
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
   add_foreign_key "posts", "courses"
+  add_foreign_key "posts", "users", column: "marker_id"
   add_foreign_key "posts", "users", column: "owner_user_id"
   add_foreign_key "user_courses", "courses"
   add_foreign_key "user_courses", "users"

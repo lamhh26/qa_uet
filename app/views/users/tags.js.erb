@@ -1,6 +1,6 @@
 if ($('.activity-content .sub-tabs-tags').length !== 1) {
-  $('.activity-content').html('<%= j render partial: "tags_activity_tab", locals: {tags: @user_tags, user: @user} %>')
+  $('.activity-content').html('<%= j render partial: "tags_activity_tab", locals: {tags: @user_tags, user: @user, course: @user_course} %>')
 }
-$('.activity-sub-content-tags').html('<%= j render partial: "activity_content", locals: {object_name: "tag", objects: @user_tags, sort: @sort} %>');
+$('.activity-sub-content-tags').html('<%= j render partial: "activity_content", locals: {object_name: "tag", objects: @user_tags, sort: @sort, course: @user_course} %>');
 $('.sub-tabs-tags .<%= @sort %>').tab('show');
 $('.parent-tabs .tags-activity-tabs').tab('show');

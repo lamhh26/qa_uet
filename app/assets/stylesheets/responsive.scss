@@ -1,0 +1,55 @@
+@media only screen and (max-width: 678px) {
+  .menu-second-top-nav{
+    width: 100%;
+  }
+
+  .menu-second-top-nav > a{
+    width: 140%;
+  }
+
+  .nav-tabs > li {
+    float: left !important;
+    margin-bottom: -1px;
+  }
+
+  .icon {
+    display: block !important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .qa-q-tabs-title > h2 {
+    margin-top: -7px;
+  }
+}
+
+@media (max-width: 799px) {
+  .voting {
+    display: block;
+    height: 87px;
+    line-height: 0.5;
+    width: 60px;
+  }
+}
+
+@media (min-width: 800px) {
+  .voting {
+    float: left;
+    height: 87px;
+    line-height: 0.5;
+    width: 68px;
+  }
+}
+
+@media (min-width: 980px) {
+  .qa-a-selection {
+    left: 32px !important;
+    top: 130px !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .qa-a-selection {
+    top: 45px !important;
+  }
+}

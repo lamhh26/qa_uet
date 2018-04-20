@@ -51,6 +51,18 @@ class AnswersController < ApplicationController
     respond_format_js
   end
 
+  def mark_best_answer
+    return unless request.xhr?
+    @result = @answer.update_attributes best_answer: true, marker: current_user, mark_best_answer_at: Time.current
+    respond_format_js
+  end
+
+  def unmark_best_answer
+    return unless request.xhr?
+    @result = @answer.update_attributes best_answer: false, marker: current_user, mark_best_answer_at: nil
+    respond_format_js
+  end
+
   private
 
   def load_question

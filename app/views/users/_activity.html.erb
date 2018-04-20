@@ -1,5 +1,17 @@
 <div class="qa-part-form-activity">
-  <h2><a name="activity">Activity by <%= user.name %></a></h2>
+  <div class="col-md-8 col-sm-6 col-xs">
+    <h2>
+      <a name="activity">Activity by <%= user.name %>
+        <% if user_course %>
+          in <%= user_course.name %>
+        <% end %>
+      </a>
+    </h2>
+  </div>
+  <div class="pull-right user-courses-box">
+    <%= select_tag :course_id, grouped_options_for_select(courses_grouped_options(courses), user_course.try(:id) || :all),
+      class: "courses-select", data: {url: user_path(user, tab: :activity)} %>
+  </div>
   <table class="qa-form-wide-table">
     <tbody>
       <tr id="questions">
@@ -7,7 +19,7 @@
           Questions:
         </td>
         <td class="qa-form-wide-data">
-          <span class="qa-form-wide-static"><span class="qa-uf-user-q-posts"><%= user.posts.question.size %></span></span>
+          <span class="qa-form-wide-static"><span class="qa-uf-user-q-posts"><%= user.posts.of_courses(user_courses).question.size %></span></span>
         </td>
       </tr>
       <tr id="answers">
@@ -15,7 +27,7 @@
           Answers:
         </td>
         <td class="qa-form-wide-data">
-          <span class="qa-form-wide-static"><span class="qa-uf-user-a-posts"><%= user.posts.answer.size %></span></span>
+          <span class="qa-form-wide-static"><span class="qa-uf-user-a-posts"><%= user.posts.of_courses(user_courses).answer.size %></span></span>
         </td>
       </tr>
       <tr id="comments">
@@ -23,7 +35,7 @@
           Comments:
         </td>
         <td class="qa-form-wide-data">
-          <span class="qa-form-wide-static"><span class="qa-uf-user-c-posts"><%= user.comments.size %></span></span>
+          <span class="qa-form-wide-static"><span class="qa-uf-user-c-posts"><%= user.comments.of_courses(Post.of_courses(current_user.courses)).size %></span></span>
         </td>
       </tr>
       <tr id="votedon">
@@ -32,8 +44,8 @@
         </td>
         <td class="qa-form-wide-data">
           <span class="qa-form-wide-static">
-            <span class="qa-uf-user-q-votes"><%= user.voted_posts.question.size %></span> questions,
-            <span class="qa-uf-user-a-votes"><%= user.voted_posts.answer.size %></span> answers</span>
+            <span class="qa-uf-user-q-votes"><%= user.voted_posts.of_courses(user_courses).question.size %></span> questions,
+            <span class="qa-uf-user-a-votes"><%= user.voted_posts.of_courses(user_courses).answer.size %></span> answers</span>
         </td>
       </tr>
     </tbody>
@@ -41,15 +53,15 @@
 </div>
 <ul class="nav nav-tabs parent-tabs">
   <li class="menu-second-top-nav answers-activity-tabs active">
-    <%= link_to "answers", answers_user_path(user), remote: true %>
+    <%= link_to "answers", answers_user_path(user, course_id: user_course), remote: true %>
   </li>
   <li class="menu-second-top-nav questions-activity-tabs">
-    <%= link_to "questions", questions_user_path(user), remote: true %>
+    <%= link_to "questions", questions_user_path(user, course_id: user_course), remote: true %>
   </li>
   <li class="menu-second-top-nav tags-activity-tabs">
-    <%= link_to "tags", tags_user_path(user), remote: true %>
+    <%= link_to "tags", tags_user_path(user, course_id: user_course), remote: true %>
   </li>
 </ul>
 <div class="tab-content activity-content">
-  <%= render partial: "answers_activity_tab", locals: {user: user, answers: objects} %>
+  <%= render partial: "answers_activity_tab", locals: {user: user, answers: objects, course: user_course} %>
 </div>

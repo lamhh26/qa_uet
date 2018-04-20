@@ -2,6 +2,7 @@
   <%= render partial: "vote", locals: {post: answer} %>
   <div class="qa-a-item-main">
     <%= render partial: "answer_header", locals: {answer: answer, question: question} %>
+    <%= check_icon_best_answer answer %>
     <div class="qa-a-item-content">
       <div class="entry-content"><%= simple_format answer.body %></div>
     </div>

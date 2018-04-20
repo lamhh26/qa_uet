@@ -4,13 +4,13 @@
 <div class="sub-tabs sub-tabs-questions">
   <ul class="nav nav-tabs qa-nav-tabs-right">
     <li class="menu-second-top-nav newest">
-      <%= link_to "newest", questions_user_path(user, sort: :newest), remote: true %>
+      <%= link_to "newest", questions_user_path(user, sort: :newest, course_id: course), remote: true %>
     </li>
     <li class="menu-second-top-nav votest active">
-      <%= link_to "votes", questions_user_path(user, sort: :votest), remote: true %>
+      <%= link_to "votes", questions_user_path(user, sort: :votest, course_id: course), remote: true %>
     </li>
     <li class="menu-second-top-nav viewest">
-      <%= link_to "viewest", questions_user_path(user, sort: :viewest), remote: true %>
+      <%= link_to "viewest", questions_user_path(user, sort: :viewest, course_id: course), remote: true %>
     </li>
   </ul>
 

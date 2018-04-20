@@ -3,7 +3,7 @@ $(document).ready(function() {
     $(this).parent('form').submit();
   });
 
-  $('.categories-select').select2({
-    maximumSelectionLength: 5
+  $('.courses-select').select2({}).on('select2:selecting', function(e){
+    window.location = $(this).data('url') + '&course_id=' + e.params.args.data.id;
   });
 });

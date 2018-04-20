@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   belongs_to :owner_user, class_name: User.name
   belongs_to :question, class_name: Post.name, optional: true, foreign_key: :parent_id
   belongs_to :course, optional: true
+  belongs_to :marker, class_name: User.name, optional: true, foreign_key: :marker_id
   has_many :answers, class_name: Post.name, foreign_key: :parent_id, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
@@ -30,7 +31,13 @@ class Post < ApplicationRecord
                                                maximum: Settings.post.title.maximum_length}
     validate :validate_tags
   end
-  validates :question, presence: true, if: :answer?
+  with_options if: :answer? do
+    validates :closed, inclusion: {in: [false]}
+    validates :question, presence: true
+  end
+  validates :best_answer, uniqueness: {scope: :parent_id, message: "Cannot mark more than one best answer"},
+    if: proc{|post| post.answer? && post.best_answer?}
+  validates :marker, :mark_best_answer_at, presence: true, if: :best_answer?
 
   def all_tags= names
     self.tags = names.split(",").map do |name|
@@ -46,6 +53,11 @@ class Post < ApplicationRecord
     votes.merge(user.votes).first || votes.build(user: user)
   end
 
+  def best_answer_title
+    return unless best_answer?
+    "The lecturer accepted this as the best answer #{mark_best_answer_at.strftime("%b %d\'%y at %H:%M")}"
+  end
+
   scope :load_votes, ->{left_outer_joins(:votes).group :id}
   scope :select_posts_votes, ->{select "posts.*, IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
   scope :select_votes, ->{select "IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
@@ -53,6 +65,7 @@ class Post < ApplicationRecord
   scope :newest, ->{order created_at: :desc}
   scope :oldest, ->{order created_at: :asc}
   scope :votest, ->{order "vote_count DESC"}
+  scope :votes_posts, ->{order "votes_posts_count DESC"}
   scope :most_answers, ->{order answers_count: :desc}
   scope :viewest, ->{order views_count: :desc}
   scope :hot, ->{where "posts.created_at BETWEEN DATE_SUB(NOW(), INTERVAL 3 DAY) AND NOW()"}
@@ -65,6 +78,7 @@ class Post < ApplicationRecord
   end)
   scope :sort_by_tag_name, ->{order "tags.name"}
   scope :of_courses, ->(courses){where course: courses}
+  scope :best_answers, ->{where best_answer: true}
 
   private
 

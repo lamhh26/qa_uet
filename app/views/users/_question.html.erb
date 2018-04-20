@@ -29,7 +29,7 @@
     </span>
     <div class="qa-q-item-tags">
       <ul class="qa-q-item-tag-list">
-        <%= render partial: "posts/tag", collection: object.tags %>
+        <%= render partial: "posts/tag", collection: object.tags, locals: {course: course} %>
       </ul>
     </div>
   </div>
