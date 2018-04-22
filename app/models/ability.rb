@@ -4,6 +4,7 @@ class Ability
   def initialize user
     return if user.blank?
     alias_action :answers, :questions, :tags, :tagged, to: :read
+    can :open, Notification, opened_at: nil
     can :create_question, Course, id: user.courses.ids
     can :read, User, courses: {id: user.courses.ids}
     can :update, User, id: user.id

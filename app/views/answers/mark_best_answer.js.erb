@@ -1,5 +1,5 @@
 <% if @result %>
-  $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').addClass('open');
+  $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').addClass('check-open');
   $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').parent()
     .attr('href', '<%= unmark_best_answer_question_answer_path(@answer.question, @answer) %>');
   $('[data-qa-q-a-id="<%= @answer.id %>"] .check-icon-toggle').attr('title', '<%= @answer.best_answer_title %>');

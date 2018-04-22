@@ -30,6 +30,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require datatable
+//= require cable
 
 $.ajaxSetup({
   statusCode: {

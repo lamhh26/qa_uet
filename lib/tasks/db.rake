@@ -6,6 +6,8 @@ namespace :db do
       Rake::Task[task].invoke
     end
 
+    Admin.create email: "hoanglam@gmail.com", password: 123456
+
     puts "Create course categories"
     CourseCategory.create! name: "Hoc ky I", date_from: "1-8-2016", date_to: "31-1-2017"
     CourseCategory.create! name: "Hoc ky II", date_from: "1-2-2017", date_to: "30-6-2017"
@@ -24,7 +26,7 @@ namespace :db do
     200.times.each do
       User.create! email: FFaker::Internet.email, name: FFaker::Name.name, about_me: FFaker::Lorem.sentence,
         birth_day: FFaker::Time.date(year_range: 20, year_latest: 20).in_time_zone, created_at: FFaker::Time.date(year_latest: 0.5),
-        password: "123456"
+        password: 123456
     end
 
     puts "Create user courses"

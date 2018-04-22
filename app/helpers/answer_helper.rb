@@ -8,13 +8,13 @@ module AnswerHelper
               mark_best_answer_question_answer_path(answer.question, answer)
             end
       link_to url, data: {remote: true, method: :patch} do
-        content_tag :div, class: "qa-a-selection check-icon-toggle #{answer.best_answer? ? 'open' : nil}",
+        content_tag :div, class: "qa-a-selection check-icon-toggle #{answer.best_answer? ? 'check-open' : nil}",
           title: answer.best_answer_title do
           render partial: "shared/check_icon"
         end
       end
     else
-      content_tag :div, class: "qa-a-selection check-icon-toggle open", title: answer.best_answer_title do
+      content_tag :div, class: "qa-a-selection check-icon-toggle check-open", title: answer.best_answer_title do
         render partial: "shared/check_icon"
       end
     end

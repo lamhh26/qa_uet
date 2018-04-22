@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   devise_for :admins
   mount RailsAdmin::Engine => "/admin", as: :rails_admin
   mount Ckeditor::Engine => "/ckeditor"
+  mount ActionCable.server => "/cable"
 
   devise_for :users, skip: :registrations
   devise_scope :user do
@@ -42,6 +44,10 @@ Rails.application.routes.draw do
       scope "answers/:answer_id", as: :answer do
         resources :comments, controller: :answer_comments, except: %i(index show new)
       end
+      resources :notifications, only: %i(index) do
+        patch :open, on: :member
+        patch :open_all, on: :collection
+      end
     end
 
     unauthenticated do
@@ -50,6 +56,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :admin do
+    mount Sidekiq::Web => "/sidekiq"
     root to: redirect("/admin")
   end
   get "*path", to: "application#page_404"

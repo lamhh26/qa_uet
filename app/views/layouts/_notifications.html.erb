@@ -1,31 +1,28 @@
-<li>
-  <a id="notification-label" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
-    <i class="glyphicon glyphicon-bell"></i>
-  </a>
-
-  <ul class="dropdown-menu notifications" role="menu" aria-labelledby="notification-label">
-    <div class="notification-heading"><h4 class="menu-title">Notifications</h4>
+<li class="nav-item">
+  <div title="Notifications" class="dropdown nav-notifications">
+  <div class="dropdown-toogle dropdown-toogle-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="#" aria-haspopup="true" class="nav-icon no-decoration-link">
+      <i aria-hidden="true" class="fa fa-bell-o"></i>
+      <% if @unread_noti_counter > 0 %>
+        <span class="label label-primary noti-number" id="noti-counter">
+          <%= @unread_noti_counter %>
+        </span>
+      <% end %>
+    </a>
+  </div>
+  <div class="dropdown-menu dropdown-menu-notification dropdown-menu-right">
+    <div class="dropdown-title-notification">
+      <span>Notifications</span>
+      <%= link_to "Mark all as read", open_all_notifications_path, remote: true, method: :patch %>
     </div>
-    <div class="notifications-wrapper">
-      <a class="content" href="#">
-        <div class="notification-item">
-          <h4 class="item-title">Evaluation Deadline 1 · day ago</h4>
-          <p class="item-info">Marketing 101, Video Assignment</p>
-        </div>
-      </a>
-       <a class="content" href="#">
-        <div class="notification-item">
-          <h4 class="item-title">Evaluation Deadline 1 · day ago</h4>
-          <p class="item-info">Marketing 101, Video Assignment</p>
-        </div>
-      </a>
-      <a class="content" href="#">
-        <div class="notification-item">
-          <h4 class="item-title">Evaluation Deadline 1 • day ago</h4>
-          <p class="item-info">Marketing 101, Video Assignment</p>
-        </div>
-      </a>
+    <div class="dropdown-container-notification">
+      <div class="notification-container">
+        <%= render_notification @notifications.limit(15), target: :users %>
+      </div>
     </div>
-    <div class="notification-footer"><h4 class="menu-title">All notifications<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div>
-  </ul>
+    <div class="dropdown-footer-notification">
+      <%= link_to "All Notifications", notifications_path %>
+    </div>
+  </div>
+</div>
 </li>

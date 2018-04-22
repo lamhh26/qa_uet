@@ -53,3 +53,21 @@
     top: 45px !important;
   }
 }
+
+@media (min-width: 768px) {
+  .nav-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .nav-items {
+    height: 60px;
+  }
+
+  .nav-link {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+}

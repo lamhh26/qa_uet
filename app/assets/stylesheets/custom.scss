@@ -199,72 +199,92 @@ body {
   padding-left: 0 !important;
 }
 
-.dropdown {
-  display: inline-block;
-  margin-left: 20px;
-  padding: 10px;
+.navbar-collapse {
+  width: 100%;
 }
 
-
-.glyphicon-bell {
-  font-size: 1.5rem;
+.dropdown-menu-notification {
+  min-width: 25rem;
+  padding: 0;
 }
 
-.notifications {
-  min-width: 420px;
+.noti-number {
+  font-size: 0.45em;
+  left: 11px;
+  padding: 3px;
+  position: absolute;
+  top: 1px;
+}
 
-  a.content {
-    text-decoration: none;
+.nav-user img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.nav-icon {
+  color: $dusty-gray;
+  font-size: 1.5em;
+}
+
+.dropdown-title-notification {
+  align-items: center;
+  border-bottom: 1px solid $iron-color;
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+}
+
+.dropdown-container-notification {
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.bg-highlight {
+  background-color: rgba(75,205,159,.15) !important;
+}
+
+.notification-card:hover {
+  background-color: $athens-gray-color;
+}
+
+.notification-card {
+  display: flex;
+  white-space: normal;
+  align-items: center;
+  border-bottom: 1px solid $iron-color;
+  cursor: pointer;
+  word-break: break-word;
+  background-color: $white-color;
+
+  .avt-ctn {
+    min-width: 2.5rem;
+    margin: .5rem;
+    margin-right: .7rem;
+  }
+
+  .message {
+    color: inherit;
+    text-decoration: inherit;
+    font-size: .75rem;
+    display: block;
+    width: 100%;
+    padding: .5rem;
+    padding-left: 0;
+
+    b {
+      color: $danube-color;
+    }
   }
 }
 
-.notifications-wrapper {
-  max-height: 250px;
-  overflow: auto;
-}
-
-.menu-title {
-  display:inline-block;
-  font-size: .875rem;
-}
-
-.glyphicon-circle-arrow-right {
-  margin-left: 10px;
-}
-
-.notification-heading {
-  border-bottom: 1px solid #d6d6d7;
-  padding: 0 10px;
-}
-
-.notification-footer  {
-  border-top: 1px solid #d6d6d7;
-  padding: 0 10px;
-}
-
-
-.dropdown-menu.divider {
-  margin: 5px 0;
-}
-
-.item-title {
-  color: $black-color;
+.dropdown-footer-notification {
+  align-items: center;
+  border-top: 1px solid $iron-color;
+  display: flex;
   font-size: .75rem;
-  margin: 0;
-  padding: 10px 0;
-}
-
-.notification-item {
-  border-bottom: 1px solid #d6d6d7;
-  padding: 0 10px;
-}
-
-.notification-item:hover {
-  background-color: #f1f4f6;
-}
-
-#notification-label {
-  padding-top: 21px;
+  justify-content: flex-end;
+  padding: .5rem;
 }
 
 .course {
@@ -279,7 +299,7 @@ body {
 }
 
 .filler-line {
-  border-color: #d6d6d7;
+  border-color: $iron-color;
   flex-grow: 1;
 }
 
@@ -318,7 +338,7 @@ svg {
   width: 45px;
 }
 
-.open {
+.check-open {
   background: $turquoise-color;
 }
 
@@ -327,13 +347,13 @@ svg {
   stroke-dashoffset: 44;
 }
 
-.open .retract {
+.check-open .retract {
   animation: retract $timing $easing forwards 1;
   stroke-dasharray: 20;
   stroke-dashoffset: 20;
 }
 
-.open .tick {
+.check-open .tick {
   animation: dash $timing $easing forwards 1;
 }
 

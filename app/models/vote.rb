@@ -4,6 +4,9 @@ class Vote < ApplicationRecord
 
   enum vote_type: {down_mod: -1, up_mod: 1}
 
+  acts_as_notifiable :users, targets: ->(vote, key) {[vote.post.owner_user]},
+    tracked: {only: %i(create)}, notifiable_path: :vote_notifiable_path
+
   validates :post, inclusion: {
     in: proc do |object|
       object.post ? Post.of_courses(object.user.courses) : []
@@ -14,6 +17,10 @@ class Vote < ApplicationRecord
 
   scope :newest, ->{order created_at: :desc}
   scope :of_courses, ->(posts){where post_id: posts.ids}
+
+  def vote_notifiable_path
+    post.question? ? question_path(post) : question_path(post.question, anchor: "answer-#{post.id}")
+  end
 
   private
 

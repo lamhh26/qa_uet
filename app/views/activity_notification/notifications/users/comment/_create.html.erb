@@ -1,0 +1,14 @@
+<%= content_tag :div, class: "notification-card word-break #{notification.opened_at ? nil : "bg-highlight"}" do %>
+  <div class="avt-ctn">
+    <%= image_tag notification.notifiable.user.avatar_url(:thumb) %>
+  </div>
+  <% if notification.opened? %>
+    <%= link_to notification.notifiable_path, class: "message link" do %>
+      <%= render partial: "activity_notification/notifications/users/comment/content", locals: {notification: notification} %>
+    <% end %>
+  <% else %>
+    <%= link_to open_notification_path(notification), class: "message link", remote: true, method: :patch do %>
+      <%= render partial: "activity_notification/notifications/users/comment/content", locals: {notification: notification} %>
+    <% end %>
+  <% end %>
+<% end %>

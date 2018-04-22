@@ -1,0 +1,13 @@
+<div>
+  <% if notification.notifiable.post.question? %>
+    <span>Your question <b><%= notification.notifiable.post.title %></b> was
+      <%= notification.notifiable.up_mod? ? "upvote" : "downvote" %>
+    </span>
+  <% else %>
+    <span>Your answer of question <b><%= notification.notifiable.post.title %></b> was
+      <%= notification.notifiable.up_mod? ? "upvote" : "downvote" %>
+    </span>
+  <% end %>
+  <br>
+  <small><%= time_ago_in_words notification.created_at %> ago</small>
+</div>
