@@ -1,0 +1,74 @@
+<div class="page-header">
+  <h2><%= @course.name %> - <%= @course.course_category.title %></h2>
+</div>
+<div class="col-md">
+  <div class="panel panel-default">
+    <div class="panel-body"><%= bar_chart chart_data(@course_presenter), title: "Total", colors: ["#54cce2"] %></div>
+  </div>
+</div>
+<div class="col-md">
+  <div class="panel panel-default">
+    <div class="panel-heading">Activity users (Top 20)</div>
+    <div class="panel-body">
+      <div class="col-md-3 col-sm-6 contributor-list-box">
+        <div class="contributor-list-title">Questions</div>
+        <ul class="contributor-list-item-box list-group">
+          <%= render partial: "user_statistic", collection: @course_presenter.user_most_active
+            .course_posts(:question, @course), as: :user, locals: {course: @course} %>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 contributor-list-box">
+        <div class="contributor-list-title">Ansers</div>
+        <ul class="contributor-list-item-box list-group">
+          <%= render partial: "user_statistic", collection: @course_presenter.user_most_active
+            .course_posts(:answer, @course), as: :user, locals: {course: @course} %>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 contributor-list-box">
+        <div class="contributor-list-title">Comments</div>
+        <ul class="contributor-list-item-box list-group">
+          <%= render partial: "user_statistic", collection: @course_presenter.user_most_active
+            .course_comments(@course), as: :user, locals: {course: @course} %>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 contributor-list-box">
+        <div class="contributor-list-title">Votes</div>
+        <ul class="contributor-list-item-box list-group">
+          <%= render partial: "user_statistic", collection: @course_presenter.user_most_active
+            .course_votes(@course), as: :user, locals: {course: @course} %>
+        </ul>
+      </div>
+      <%= link_to "All activity users", details_course_path(@course), class: "pull-right" %>
+    </div>
+  </div>
+</div>
+<div class="col-md">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-md-6 chart-box">
+        <div class="chart-title">Question</div>
+        <div class="line-chart">
+          <%= line_chart @course_presenter.group_date(:question), colors: ["#54cce2"] %>
+        </div>
+      </div>
+      <div class="col-md-6 chart-box">
+        <div class="chart-title">Answer</div>
+        <div class="line-chart">
+          <%= line_chart @course_presenter.group_date(:answer), colors: ["#54cce2"] %>
+        </div>
+      </div>
+      <div class="col-md-6 chart-box">
+        <div class="chart-title">Comment</div>
+        <div class="line-chart">
+          <%= line_chart @course_presenter.group_date(:comment), colors: ["#54cce2"] %>
+        </div>
+      </div>
+      <div class="col-md-6 chart-box">
+        <div class="chart-title">Vote</div>
+        <div class="line-chart">
+          <%= line_chart @course_presenter.group_date(:vote), colors: ["#54cce2"] %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

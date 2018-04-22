@@ -7,10 +7,10 @@ namespace :db do
     end
 
     puts "Create course categories"
-    CourseCategory.create! name: "Hoc ky I", year_from: 2016, year_to: 2017
-    CourseCategory.create! name: "Hoc ky II", year_from: 2016, year_to: 2017
-    CourseCategory.create! name: "Hoc ky I", year_from: 2017, year_to: 2018
-    CourseCategory.create! name: "Hoc ky II", year_from: 2017, year_to: 2018
+    CourseCategory.create! name: "Hoc ky I", date_from: "1-8-2016", date_to: "31-1-2017"
+    CourseCategory.create! name: "Hoc ky II", date_from: "1-2-2017", date_to: "30-6-2017"
+    CourseCategory.create! name: "Hoc ky I", date_from: "1-8-2017", date_to: "31-1-2018"
+    CourseCategory.create! name: "Hoc ky II", date_from: "1-2-2018", date_to: "30-6-2018"
 
     puts "Create courses"
     CourseCategory.all.each do |category|
@@ -23,7 +23,7 @@ namespace :db do
     courses = Course.all
     200.times.each do
       User.create! email: FFaker::Internet.email, name: FFaker::Name.name, about_me: FFaker::Lorem.sentence,
-        birth_day: FFaker::Time.date(year_range: 20, year_latest: 20), created_at: FFaker::Time.date(year_latest: 0.5),
+        birth_day: FFaker::Time.date(year_range: 20, year_latest: 20).in_time_zone, created_at: FFaker::Time.date(year_latest: 0.5),
         password: "123456"
     end
 
@@ -50,9 +50,12 @@ namespace :db do
     puts "Create posts"
     users.sample(150).each do |user|
       rand(1..10).times.each do |_|
+        course = user.courses.sample
+        course_category = course.course_category
+        date_to = course_category.date_to > Time.current ? Time.current : course_category.date_to
         user.posts.create! post_type: :question, title: FFaker::Lorem.sentence,
-          created_at: FFaker::Time.date(year_latest: 0.5), body: FFaker::Lorem.paragraphs.join(". "),
-          tags: tags.sample(rand(1..5)), course: user.courses.sample
+          body: FFaker::Lorem.paragraphs.join(". "), tags: tags.sample(rand(1..5)), course: course,
+          created_at: FFaker::Time.between(course_category.date_from, date_to).in_time_zone
       end
     end
 
@@ -60,13 +63,19 @@ namespace :db do
     Post.question.sample(150).each do |post|
       post.course.users.sample(rand(1..15)).each do |user|
         next if user == post.owner_user
-        post.answers.create! post_type: :answer, body: FFaker::Lorem.paragraphs.join(". "), owner_user: user
+        course_category = post.course.course_category
+        date_to = course_category.date_to > Time.current ? Time.current : course_category.date_to
+        post.answers.create! post_type: :answer, body: FFaker::Lorem.paragraphs.join(". "), owner_user: user,
+          created_at: FFaker::Time.between(post.created_at, date_to).in_time_zone
       end
     end
 
     puts "Create comments"
     Post.all.each do |post|
-      post.comments.create! user: users.sample, text: FFaker::Lorem.sentence
+      course_category = post.course.course_category
+      date_to = course_category.date_to > Time.current ? Time.current : course_category.date_to
+      post.comments.create! user: users.sample, text: FFaker::Lorem.sentence,
+        created_at: FFaker::Time.between(post.created_at, date_to).in_time_zone
     end
 
     puts "Create votes"
@@ -74,7 +83,10 @@ namespace :db do
       Post.of_courses(course).sample(10).each do |post|
         course.users.sample(rand(5..10)).each do |user|
           next if user == post.owner_user
-          post.votes.create! vote_type: %i(up_mod down_mod).sample, user: user
+          course_category = post.course.course_category
+          date_to = course_category.date_to > Time.current ? Time.current : course_category.date_to
+          post.votes.create! vote_type: %i(up_mod down_mod).sample, user: user,
+            created_at: FFaker::Time.between(post.created_at, date_to).in_time_zone
         end
       end
     end

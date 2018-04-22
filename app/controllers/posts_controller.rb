@@ -71,25 +71,17 @@ class PostsController < ApplicationController
 
   def upvote
     return unless request.xhr?
-    @vote = @post.vote_by current_user
-    if @vote.persisted? && @vote.down_mod?
-      @result = @vote.destroy
-    else
-      @vote.vote_type = :up_mod
-      @result = @vote.save
-    end
+    @vote = current_user.votes.build post: @post, vote_type: :up_mod
+    @user_vote_value = @post.vote_value_by current_user
+    @result = @vote.save
     respond_format_js
   end
 
   def downvote
     return unless request.xhr?
-    @vote = @post.vote_by current_user
-    if @vote.persisted? && @vote.up_mod?
-      @result = @vote.destroy
-    else
-      @vote.vote_type = :down_mod
-      @result = @vote.save
-    end
+    @vote = current_user.votes.build post: @post, vote_type: :down_mod
+    @user_vote_value = @post.vote_value_by current_user
+    @result = @vote.save
     respond_format_js
   end
 

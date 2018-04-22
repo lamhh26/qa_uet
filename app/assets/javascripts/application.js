@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require jquery-ui/core
 //= require jquery-ui/widget
 //= require jquery-ui/position
@@ -26,6 +28,9 @@
 //= require comment
 //= require pnotify
 //= require select2
+//= require Chart.bundle
+//= require chartkick
+//= require datatable
 
 $.ajaxSetup({
   statusCode: {

@@ -1,0 +1,9 @@
+<li class="contributor-list-item">
+  <%= link_to user_path(user, tab: :activity, course_id: course) do %>
+    <div class="contributor-list-pic">
+      <%= image_tag user.avatar_url(:thumb) %>
+    </div>
+  <% end %>
+  <div class="contributor-list-user"><%= user.name %></div>
+  <div class="contributor-list-count"><%= user.counter %></div>
+</li>

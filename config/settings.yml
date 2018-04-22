@@ -21,6 +21,5 @@ paginate:
     per_page: 15
 question:
   related_questions_length: 15
-category:
-  amount:
-    maximum: 5
+course:
+  length: 20

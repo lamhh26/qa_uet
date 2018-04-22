@@ -23,4 +23,17 @@ class User < ApplicationRecord
   scope :lecturers, ->{where lecturer: true}
   scope :students, ->{where lecturer: false}
   scope :of_courses, ->(courses){joins(:courses).where(courses: {id: courses.ids}).distinct}
+  scope :group_by_user, (-> do
+    select("users.id, users.name, users.avatar, COUNT(*) AS counter").group :id
+  end)
+  scope :course_posts, (->(post_type, course) do
+    joins(:posts).merge(Post.send(post_type)).where posts: {course_id: course.id}
+  end)
+  scope :course_questions_answers, (->(course) do
+    select("users.id, users.name, COUNT(NULLIF(1, posts.post_type)) AS questions_count, COUNT(NULLIF(0, posts.post_type)) AS answers_count")
+      .left_outer_joins(:posts).where(posts: {course_id: course.id}).group :id
+  end)
+  scope :course_comments, ->(course){joins(:comments).where comments: {post_id: course.posts.ids}}
+  scope :course_votes, ->(course){joins(:votes).where votes: {post_id: course.posts.ids}}
+  scope :most_active, ->{order("counter DESC").limit Settings.course.length}
 end

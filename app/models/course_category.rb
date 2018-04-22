@@ -1,9 +1,9 @@
 class CourseCategory < ApplicationRecord
   has_many :courses
 
-  scope :newest, ->{order year_from: :desc, year_to: :asc}
+  scope :newest, ->{order date_from: :desc, date_to: :asc}
 
   def title
-    "#{name} (#{year_from} - #{year_to})"
+    "#{name} (#{date_from.strftime("%m/%Y")} - #{date_to.strftime("%m/%Y")})"
   end
 end

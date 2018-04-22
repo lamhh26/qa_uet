@@ -1,0 +1,9 @@
+<tr>
+  <td>
+    <%= link_to user.name, user_path(user, tab: :activity, course_id: course_presenter.course) %>
+  </td>
+  <td><%= user.questions_count %></td>
+  <td><%= user.answers_count %></td>
+  <td><%= course_presenter.comments[user.id] || 0 %></td>
+  <td><%= course_presenter.votes[user.id] || 0 %></td>
+</tr>

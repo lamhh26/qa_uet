@@ -1,10 +1,10 @@
 <%= content_tag :div, class: "voting qa-voting-net", data: {"#{post.post_type}-id": post.id} do %>
   <div class="widget ratings">
-    <%= link_to voting_path(post, :up_mod), method: :post, remote: true, class: "up_mod #{voting_class post, "up_mod"}" do %>
+    <%= link_to voting_path(post, :up_mod), method: :post, remote: true, class: "up_mod #{voting_class post, 1}" do %>
       <i aria-hidden="true" class="fa fa-caret-up"></i>
     <% end %>
     <div class="points"><%= post.vote_count.to_i %></div>
-    <%= link_to voting_path(post, :down_mod), method: :post, remote: true, class: "down_mod #{voting_class post, "down_mod"}" do %>
+    <%= link_to voting_path(post, :down_mod), method: :post, remote: true, class: "down_mod #{voting_class post, -1}" do %>
       <i aria-hidden="true" class="fa fa-caret-down"></i>
     <% end %>
   </div>

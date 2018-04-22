@@ -12,14 +12,17 @@ class Vote < ApplicationRecord
   validates :user, presence: true
   validate :user_vote
 
+  scope :newest, ->{order created_at: :desc}
+  scope :of_courses, ->(posts){where post_id: posts.ids}
+
   private
 
   def user_vote
     return unless user && post
     errors.add(:vote, "You cannot vote your own #{post.post_type}") if user == post.owner_user
-    vote = post.vote_by user
-    return unless vote.persisted?
-    errors.add(:vote, "You cannot upvote more") if vote.up_mod? == up_mod?
-    errors.add(:vote, "You cannot downvote more") if vote.down_mod? == down_mod?
+    user_vote_value = post.vote_value_by user
+    return if user_vote_value == 0
+    errors.add(:vote, "You cannot upvote more") if user_vote_value == 1 && up_mod?
+    errors.add(:vote, "You cannot downvote more") if user_vote_value == -1 && down_mod?
   end
 end

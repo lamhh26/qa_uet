@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       end
       resources :courses, only: :show do
         resources :questions, controller: :posts, only: %i(new create)
+        get :details, on: :member
       end
       resources :questions, controller: :posts, except: %i(new create) do
         resources :comments, controller: :question_comments, except: %i(index show new)

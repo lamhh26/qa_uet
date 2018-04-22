@@ -1,8 +1,9 @@
 module VotingHelper
-  def voting_class post, vote_type
+  def voting_class post, vote_type_value
     return unless current_user
-    vote = post.vote_by current_user
-    return "voting-color" if vote.vote_type == vote_type
+    user_vote_value = post.vote_value_by current_user
+    return if user_vote_value == 0
+    return "voting-color" if user_vote_value == vote_type_value
   end
 
   def voting_path post, vote_type
