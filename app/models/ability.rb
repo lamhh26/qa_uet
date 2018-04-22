@@ -4,7 +4,7 @@ class Ability
   def initialize user
     return if user.blank?
     alias_action :answers, :questions, :tags, :tagged, to: :read
-    can :read, Course, id: user.courses.ids
+    can :create, Course, id: user.courses.ids
     can :read, User, courses: {id: user.courses.ids}
     can :update, User, id: user.id
     can :read, Post, course: {id: user.courses.ids}
@@ -17,5 +17,6 @@ class Ability
     can %i(update destroy), [Vote, Comment], user_id: user.id
     return unless user.lecturer?
     can %i(mark_best_answer unmark_best_answer), Post
+    can %i(show details), Course, id: user.courses.ids
   end
 end

@@ -1,8 +1,15 @@
 <div class="col-md-3 col-sm-6 col-xs course">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <div><%= course.name %></div>
-      <div><%= course.course_category.title %></div>
+      <% if can? :show, course %>
+        <%= link_to course_path(course) do %>
+          <div><%= course.name %></div>
+          <div><%= course.course_category.title %></div>
+        <% end %>
+      <% else %>
+        <div><%= course.name %></div>
+        <div><%= course.course_category.title %></div>
+      <% end %>
     </div>
     <div class="panel-body course-body">
       <div>

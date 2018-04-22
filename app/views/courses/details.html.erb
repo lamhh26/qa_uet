@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h2>Acitivty users in <%= @course.name %> - <%= @course.course_category.title %></h2>
+</div>
+<div class="col-md-12">
+  <table class="datatable table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Comment</th>
+        <th>Vote</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "row_detail", collection: @course_presenter.posts, locals: {course_presenter: @course_presenter}, as: :user %>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,7 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'color';
+@import 'responsive';
 
 .nav-tab-bound {
   width: 74.5%;
@@ -12,44 +13,16 @@
 }
 
 .tag {
-  padding: 25px 25px 25px 0px;
+  padding: 25px 25px 25px 0;
 }
 
 .user-tag {
-  padding: 10px 10px 0px 0px;
+  padding: 10px 10px 0px 0;
 }
 
 .singup-main {
   margin: 0 auto;
   max-width: 320px;
-}
-
-.login-or {
-  margin-bottom: 10px;
-  color: $silver-chalice-color;
-  font-size: 18px;
-  margin-top: 10px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  position: relative;
-}
-
-.span-or {
-  background-color: $white-color;
-  display: block;
-  left: 50%;
-  margin-left: -25px;
-  position: absolute;
-  text-align: center;
-  top: -2px;
-  width: 50px;
-}
-
-.hr-or {
-  background-color: $silver-color;
-  height: 1px;
-  margin-bottom: 0px !important;
-  margin-top: 0px !important;
 }
 
 h3 {
@@ -63,11 +36,14 @@ h3 {
 }
 
 .qa-content-wrapper {
+  min-height: 970px;
   padding-top: 80px;
 }
 
-.qa-q-list-item, .qa-clearfix, .qa-a-list-item {
-  border-bottom: 1px solid $iron-color
+.qa-q-list-item,
+.qa-clearfix,
+.qa-a-list-item {
+  border-bottom: 1px solid $iron-color;
 }
 
 #error_explanation {
@@ -91,16 +67,14 @@ h3 {
   margin-top: 5px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
 
-.qa-content-wrapper {
-  min-height: 970px;
-}
-
-.user_avatar, .qa-icon {
+.user-avatar,
+.qa-icon {
   img {
     width: 35px;
   }
@@ -111,14 +85,16 @@ html, body {
 }
 
 .activity-vote-btn > .btn {
-  padding: 3px 16px;
   color: $white-color;
+  padding: 3px 16px;
 }
 
 .qa-activity-view-count {
-  background-color: #ecf0f1 !important;
-  .qa-activity-view-count-data, .qa-activity-view-count-pad {
-    color: #445f7a !important;
+  background-color: $porcelain-color !important;
+
+  .qa-activity-view-count-data,
+  .qa-activity-view-count-pad {
+    color: $blue-bayoux-color !important;
   }
 }
 
@@ -140,7 +116,8 @@ html, body {
   }
 }
 
-.qa-form-tall-image, .edit-profile {
+.qa-form-tall-image,
+.edit-profile {
   .qa-avatar-image {
     width: 100px;
   }
@@ -156,9 +133,11 @@ html, body {
 
 .qa-voting-net {
   text-align: center;
+
   a {
     display: block;
   }
+
   .points {
     font-size: 20px;
   }
@@ -170,7 +149,7 @@ html, body {
 }
 
 .voting-color i {
-  color: blue;
+  color: $blue-color;
 }
 
 .user-info {
@@ -209,7 +188,7 @@ html, body {
 }
 
 .userfilter-content {
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
 
   .userfilter-label {
     padding-left: 0;
@@ -233,16 +212,20 @@ html, body {
 
 .notifications {
   min-width: 420px;
+
+  a.content {
+    text-decoration: none;
+  }
 }
 
 .notifications-wrapper {
-  overflow: auto;
   max-height: 250px;
+  overflow: auto;
 }
 
 .menu-title {
-  font-size: .875rem;
   display:inline-block;
+  font-size: .875rem;
 }
 
 .glyphicon-circle-arrow-right {
@@ -265,19 +248,15 @@ html, body {
 }
 
 .item-title {
-  font-size: 0.75rem;
-  color:#000;
+  color: $black-color;
+  font-size: .75rem;
   margin: 0;
   padding: 10px 0;
 }
 
-.notifications a.content {
-  text-decoration:none;
-}
-
 .notification-item {
-  padding: 0 10px;
   border-bottom: 1px solid #d6d6d7;
+  padding: 0 10px;
 }
 
 .notification-item:hover {
@@ -290,8 +269,8 @@ html, body {
 
 .course {
   .course-body {
-    padding-right: 0;
     padding-bottom: 0;
+    padding-right: 0;
   }
 }
 
@@ -300,8 +279,8 @@ html, body {
 }
 
 .filler-line {
-  flex-grow: 1;
   border-color: #d6d6d7;
+  flex-grow: 1;
 }
 
 .qa-widget-side {
@@ -313,8 +292,8 @@ html, body {
 }
 
 .sidebar-box-links {
+  border-top: 1px solid $iron-color;
   padding-top: 5px;
-  border-top: 1px solid #d6d6d7;
 }
 
 .user-courses-box {
@@ -322,25 +301,25 @@ html, body {
 }
 
 $timing: 1.5s;
-$easing: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+$easing: cubic-bezier(.190, 1, .220, 1);
 
 svg {
   display: block;
   height: 45px;
-  width: 45px;
   margin: 0 auto;
+  width: 45px;
 }
 
 .check-icon-toggle {
-  cursor: pointer;
   border-radius: 100%;
+  cursor: pointer;
   display: table;
+  transition: background .3s cubic-bezier(.455, .030, .515, .955);
   width: 45px;
-  transition: background 0.3s cubic-bezier(0.455, 0.030, 0.515, 0.955);
-}
 
-.check-icon-toggle.open {
-  background: rgb(74,228,191);
+  .open {
+    background: $turquoise-color;
+  }
 }
 
 .tick {
@@ -349,9 +328,9 @@ svg {
 }
 
 .open .retract {
+  animation: retract $timing $easing forwards 1;
   stroke-dasharray: 20;
   stroke-dashoffset: 20;
-  animation: retract $timing $easing forwards 1;
 }
 
 .open .tick {
@@ -362,6 +341,7 @@ svg {
   from {
     stroke-dashoffset: 44;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -371,7 +351,99 @@ svg {
   from {
     stroke-dashoffset: 0;
   }
+
   to {
     stroke-dashoffset: 20;
   }
+}
+
+.contributor-list-box {
+  padding-right: 30px;
+}
+
+.contributor-list-title {
+  color: $silver-chalice-color;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.contributor-list-item-box {
+  height: 230px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.contributor-list-item {
+  height: 26px;
+  margin-bottom: 8px;
+}
+
+.contributor-list-pic {
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid $iron-color;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: inline-block;
+  float: left;
+  height: 26px;
+  vertical-align: top;
+  width: 26px;
+}
+
+.contributor-list-item-box::-webkit-scrollbar {
+  background-color: transparent;
+  border-radius: 3px;
+  width: 6px;
+}
+
+.contributor-list-item-box::-webkit-scrollbar-thumb {
+  background-color: $white-color;
+  border-radius: 3px;
+  height: 72px;
+}
+
+.contributor-list-item-box::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.contributor-list-item-box:hover::-webkit-scrollbar-thumb {
+  background-color: $silver-color;
+  border-radius: 3px;
+  height: 72px;
+}
+
+.contributor-list-user {
+  float: left;
+  font-size: 12px;
+  line-height: 26px;
+  margin-left: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 110px;
+}
+
+.contributor-list-count {
+  color: $viking-color;
+  float: right;
+  font-size: 12px;
+  line-height: 26px;
+}
+
+.chart-title {
+  color: $silver-chalice-color;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.line-chart {
+  margin-left: 10px;
+  margin-top: 28px;
+}
+
+.chart-box {
+  margin-top: 40px;
+  padding-bottom: 20px;
 }

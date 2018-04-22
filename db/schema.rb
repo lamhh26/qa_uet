@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20180411070550) do
 
   create_table "course_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.integer "year_from"
-    t.integer "year_to"
+    t.datetime "date_from"
+    t.datetime "date_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

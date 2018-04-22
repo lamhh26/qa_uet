@@ -22,8 +22,8 @@ class Post < ApplicationRecord
   validates :owner_user, presence: true
   validates :body, presence: true, length: {minimum: Settings.post.body.minimum_length}
   validates :course, inclusion: {
-    in: proc do |object|
-      object.owner_user ? object.owner_user.courses : []
+    in: proc do |post|
+      post.owner_user ? post.owner_user.courses : []
     end
   }, presence: true
   with_options if: :question? do
@@ -37,7 +37,11 @@ class Post < ApplicationRecord
   end
   validates :best_answer, uniqueness: {scope: :parent_id, message: "Cannot mark more than one best answer"},
     if: proc{|post| post.answer? && post.best_answer?}
-  validates :marker, :mark_best_answer_at, presence: true, if: :best_answer?
+
+  with_options if: :best_answer? do
+    validates :mark_best_answer_at, presence: true
+    validates :marker, inclusion: {in: proc{|post| post.course.users.lecturers}}
+  end
 
   def all_tags= names
     self.tags = names.split(",").map do |name|
@@ -49,8 +53,8 @@ class Post < ApplicationRecord
     tags.pluck(:name).join ", "
   end
 
-  def vote_by user
-    votes.merge(user.votes).first || votes.build(user: user)
+  def vote_value_by user
+    votes.merge(user.votes).pluck("SUM(vote_type)").first
   end
 
   def best_answer_title
