@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  mount RailsAdmin::Engine => "/admin", as: :rails_admin
   mount Ckeditor::Engine => "/ckeditor"
 
   devise_for :users, skip: :registrations
@@ -45,6 +47,10 @@ Rails.application.routes.draw do
     unauthenticated do
       root "devise/sessions#new", as: :unauthenticated_root
     end
+  end
+
+  authenticated :admin do
+    root to: redirect("/admin")
   end
   get "*path", to: "application#page_404"
 end

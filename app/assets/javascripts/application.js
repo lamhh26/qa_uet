@@ -17,7 +17,6 @@
 //= require jquery-ui/core
 //= require jquery-ui/widget
 //= require jquery-ui/position
-//= require jquery-ui/widgets/autocomplete
 //= require bootstrap-sprockets
 //= require flash
 //= require ckeditor/init
