@@ -5,6 +5,8 @@ class Tag < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  default_scope {includes :posts}
+
   scope :load_tags, (-> do
     left_outer_joins(:posts).where(posts: {post_type: :question}).group(:id).select "tags.*, COUNT(*) AS tag_count"
   end)
