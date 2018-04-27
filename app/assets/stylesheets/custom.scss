@@ -316,10 +316,10 @@ svg {
   display: table;
   transition: background .3s cubic-bezier(.455, .030, .515, .955);
   width: 45px;
+}
 
-  .open {
-    background: $turquoise-color;
-  }
+.open {
+  background: $turquoise-color;
 }
 
 .tick {
