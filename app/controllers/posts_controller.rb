@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
   impressionist actions: [:show], unique: [:session_hash]
   before_action :load_question_with_vote, only: %i(show upvote downvote)
-  before_action :load_course, :load_course_posts, :load_course_tags, only: %i(index tagged)
-  load_and_authorize_resource :course, only: %i(new create)
+  before_action :load_course, only: %i(index tagged new create)
+  before_action :load_course_posts, :load_course_tags, only: %i(index tagged)
+  before_action :authorize_course_question, only: %i(new create)
   load_and_authorize_resource through: :current_user, except: %i(index show upvote downvote tagged)
 
   def index
@@ -98,5 +99,9 @@ class PostsController < ApplicationController
 
   def load_courses
     @courses = current_user.courses.pluck(:name, :id).map{|v| [v[0].humanize, v[1]]}
+  end
+
+  def authorize_course_question
+    authorize! :create_question, @course
   end
 end
