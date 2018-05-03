@@ -15,9 +15,15 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  enum post_type: {question: 0, answer: 1}
+
   counter_culture :question, column_name: proc{|model| model.answer? ? "answers_count" : nil}
 
-  enum post_type: {question: 0, answer: 1}
+  acts_as_notifiable :users,
+    targets: ->(post, key) {
+      post.question? ? post.course.users.where.not(id: post.owner_user) : [post.question.owner_user]
+    }, tracked: {only: %i(create)}, notifiable_path: :post_notifiable_path
+
 
   validates :owner_user, presence: true
   validates :body, presence: true, length: {minimum: Settings.post.body.minimum_length}
@@ -62,6 +68,10 @@ class Post < ApplicationRecord
     "The lecturer accepted this as the best answer #{mark_best_answer_at.strftime("%b %d\'%y at %H:%M")}"
   end
 
+  def post_notifiable_path
+    question? ? question_path(self) : question_path(question, anchor: "answer-#{id}")
+  end
+
   scope :load_votes, ->{left_outer_joins(:votes).group :id}
   scope :select_posts_votes, ->{select "posts.*, IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
   scope :select_votes, ->{select "IFNULL(SUM(votes.vote_type), 0) AS vote_count"}
@@ -78,7 +88,7 @@ class Post < ApplicationRecord
   scope :unanswered, ->{where answers_count: 0}
   scope :load_tag_by_name, ->(tag_name){joins(post_tags: :tag).where tags: {name: tag_name}}
   scope :related_questions, (->(question) do
-    joins(:tags).where.not(id: question).where tags: {name: question.tags.pluck(:name)}
+    joins(:tags).where.not(id: question).where tags: {name: question.tags.distinct.pluck(:name)}
   end)
   scope :sort_by_tag_name, ->{order "tags.name"}
   scope :of_courses, ->(courses){where course: courses}

@@ -1,0 +1,7 @@
+<div class="page-header">
+  <h2>Your Notifications</h2>
+</div>
+<div class="notification-container">
+  <%= render_notification @notifications_pagination, target: :users %>
+  <%= paginate @notifications_pagination %>
+</div>

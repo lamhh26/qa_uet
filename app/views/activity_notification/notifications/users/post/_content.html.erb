@@ -1,0 +1,12 @@
+<div>
+  <span>
+    <b><%= notification.notifiable.owner_user.name %></b>
+    <% if notification.notifiable.question? %>
+      posted question <b><%= notification.notifiable.title %></b> in <b><%= notification.notifiable.course.name %></b>
+    <% else %>
+      answered your question <b><%= notification.notifiable.question.title %></b>
+    <% end %>
+  </span>
+  <br>
+  <small><%= time_ago_in_words notification.created_at %> ago</small>
+</div>

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :check_user_session
+  before_action :load_notifications
 
   rescue_from ActiveRecord::RecordNotFound do |_|
     flash[:danger] = "Not found!"
@@ -63,5 +64,11 @@ class ApplicationController < ActionController::Base
 
   def ajax_redirect_to url = nil, message = nil
     head 302, x_ajax_redirect_url: url, x_ajax_message: message
+  end
+
+  def load_notifications
+    return unless user_signed_in?
+    @notifications = Notification.where(target: current_user).includes(:notifiable).newest
+    @unread_noti_counter = @notifications.unopened_only.size
   end
 end
