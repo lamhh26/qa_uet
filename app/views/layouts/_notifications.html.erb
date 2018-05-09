@@ -1,28 +1,28 @@
 <li class="nav-item">
   <div title="Notifications" class="dropdown nav-notifications">
-  <div class="dropdown-toogle dropdown-toogle-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <a href="#" aria-haspopup="true" class="nav-icon no-decoration-link">
-      <i aria-hidden="true" class="fa fa-bell-o"></i>
-      <% if @unread_noti_counter > 0 %>
-        <span class="label label-primary noti-number" id="noti-counter">
-          <%= @unread_noti_counter %>
-        </span>
-      <% end %>
-    </a>
-  </div>
-  <div class="dropdown-menu dropdown-menu-notification dropdown-menu-right">
-    <div class="dropdown-title-notification">
-      <span>Notifications</span>
-      <%= link_to "Mark all as read", open_all_notifications_path, remote: true, method: :patch %>
+    <div class="dropdown-toogle dropdown-toogle-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a href="#" aria-haspopup="true" class="nav-icon no-decoration-link">
+        <i aria-hidden="true" class="fa fa-bell-o"></i>
+        <% if @unread_noti_counter > 0 %>
+          <span class="label label-primary noti-number" id="noti-counter">
+            <%= @unread_noti_counter %>
+          </span>
+        <% end %>
+      </a>
     </div>
-    <div class="dropdown-container-notification">
-      <div class="notification-container">
-        <%= render_notification @notifications.limit(15), target: :users %>
+    <div class="dropdown-menu dropdown-menu-notification dropdown-menu-right">
+      <div class="dropdown-title-notification">
+        <span>Notifications</span>
+        <%= link_to "Mark all as read", open_all_notifications_path, remote: true, method: :patch %>
+      </div>
+      <div class="dropdown-container-notification">
+        <div class="notification-container">
+          <%= render_notification @notifications.limit(15), target: :users %>
+        </div>
+      </div>
+      <div class="dropdown-footer-notification">
+        <%= link_to "All Notifications", notifications_path %>
       </div>
     </div>
-    <div class="dropdown-footer-notification">
-      <%= link_to "All Notifications", notifications_path %>
-    </div>
   </div>
-</div>
 </li>

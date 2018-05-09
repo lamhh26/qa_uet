@@ -1,6 +1,9 @@
 <div class="qa-c-list-item qa-comment" data-qa-c-id="<%= comment.id %>" id="comment-<%= comment.id %>">
   <span class="qa-c-item-avatar-meta">
     <span class="qa-c-item-avatar">
+      <%= link_to user_path(comment.user), class: "qa-avatar-link" do %>
+        <%= image_tag comment.user.avatar_url(:thumb), class: "img-circle qa-avatar-image" %>
+      <% end %>
     </span>
     <span class="qa-c-item-meta">
       <%= link_to "commented", question_path(question, anchor: "comment-#{comment.id}") %>

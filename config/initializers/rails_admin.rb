@@ -36,4 +36,29 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model "User" do
+    list do
+      include_fields :id, :email, :name, :avatar, :lecturer, :about_me, :location, :birth_day, :created_at
+    end
+
+    create do
+      field :name
+      field :email
+      field :password
+      field :courses
+    end
+
+    edit do
+      field :name
+      field :email
+      field :courses
+    end
+  end
+
+  config.model "Notification" do
+    list do
+      exclude_fields :parameters
+    end
+  end
 end

@@ -104,7 +104,8 @@ body {
   }
 }
 
-.qa-q-item-avatar {
+.qa-q-item-avatar,
+.qa-c-item-avatar {
   .qa-avatar-image {
     width: 20px;
   }
@@ -199,6 +200,10 @@ body {
   padding-left: 0 !important;
 }
 
+.navbar-right {
+  margin-right: 0
+}
+
 .navbar-collapse {
   width: 100%;
 }
@@ -216,15 +221,23 @@ body {
   top: 1px;
 }
 
-.nav-user img {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
+.nav-user,
+.avt-ctn {
+  img {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.nav-item {
+  margin-left: 1rem;
 }
 
 .nav-icon {
   color: $dusty-gray;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .dropdown-title-notification {
